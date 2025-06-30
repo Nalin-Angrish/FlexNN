@@ -1,0 +1,16 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "build",
+            "type": "shell",
+            "command": "cmake -S . -B build -DCMAKE_BUILD_TYPE=Release && cmake --build build",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": ["$gcc"],
+            "detail": "Builds the project using CMake"
+        }
+    ]
+}
