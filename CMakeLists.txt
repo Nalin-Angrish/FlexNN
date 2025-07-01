@@ -13,11 +13,12 @@ include_directories(include)
 # Include directories
 
 # Add the library
-# set(LIB_SOURCES
-#     lib/BasicNN.cpp
-#     lib/Layer.cpp
-# )
-# add_library(BasicNN ${LIB_SOURCES})
+set(LIB_SOURCES
+    lib/BasicNN.cpp
+    lib/Layer.cpp
+    lib/Utility.cpp
+)
+add_library(BasicNN ${LIB_SOURCES})
 
 # Find OpenMP
 find_package(OpenMP REQUIRED)
@@ -30,11 +31,11 @@ add_executable(main src/main.cpp)
 
 # Link the library to the executable
 if(OpenMP_CXX_FOUND)
-    target_link_libraries(main PUBLIC OpenMP::OpenMP_CXX Eigen3::Eigen)
+    target_link_libraries(main PUBLIC BasicNN OpenMP::OpenMP_CXX Eigen3::Eigen)
 else()
     message(STATUS "OpenMP not found, compiling without OpenMP support.")
     target_compile_definitions(main PRIVATE NO_OPENMP)
-    target_link_libraries(main Eigen3::Eigen)
+    target_link_libraries(main BasicNN Eigen3::Eigen)
 endif()
 
 # Optimization flags
