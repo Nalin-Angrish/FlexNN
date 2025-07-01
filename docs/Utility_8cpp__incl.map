@@ -1,5 +1,5 @@
 <map id="lib/Utility.cpp" name="lib/Utility.cpp">
-<area shape="rect" id="Node000001" title=" " alt="" coords="235,5,342,31"/>
+<area shape="rect" id="Node000001" title="Utility functions for FlexNN neural network library." alt="" coords="235,5,342,31"/>
 <area shape="rect" id="Node000002" title=" " alt="" coords="5,152,108,177"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="235,23,197,28,156,38,116,55,81,81,72,93,66,108,60,139,54,138,60,107,67,91,77,77,113,50,154,33,196,23,235,18"/>
 <area shape="rect" id="Node000003" title=" " alt="" coords="134,152,193,177"/>
@@ -14,7 +14,7 @@
 <area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="327,28,474,73,472,78,325,33"/>
 <area shape="rect" id="Node000008" title=" " alt="" coords="582,79,667,104"/>
 <area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="343,28,569,76,568,81,342,33"/>
-<area shape="rect" id="Node000009" href="$Utility_8h.html" title=" " alt="" coords="91,79,163,104"/>
+<area shape="rect" id="Node000009" href="$Utility_8h.html" title="Utility functions for FlexNN neural network library." alt="" coords="91,79,163,104"/>
 <area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="264,33,167,75,165,71,262,28"/>
 <area shape="poly" id="edge9_Node000009_Node000002" title=" " alt="" coords="118,106,80,144,76,140,114,102"/>
 <area shape="poly" id="edge10_Node000009_Node000003" title=" " alt="" coords="136,103,154,138,149,141,131,106"/>

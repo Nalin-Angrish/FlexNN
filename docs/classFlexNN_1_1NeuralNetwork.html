@@ -99,20 +99,30 @@ $(document).ready(function(){initNavTree('classFlexNN_1_1NeuralNetwork.html','')
 </div><!--header-->
 <div class="contents">
 
+<p>Class representing a neural network.  
+ <a href="classFlexNN_1_1NeuralNetwork.html#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="FlexNN_8h_source.html">FlexNN.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a978888ef8e021ec90c620fc3b30596a0" id="r_a978888ef8e021ec90c620fc3b30596a0"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classFlexNN_1_1NeuralNetwork.html#a978888ef8e021ec90c620fc3b30596a0">NeuralNetwork</a> (const std::vector&lt; <a class="el" href="classFlexNN_1_1Layer.html">Layer</a> &gt; &amp;layers)</td></tr>
+<tr class="memdesc:a978888ef8e021ec90c620fc3b30596a0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor for the <a class="el" href="classFlexNN_1_1NeuralNetwork.html" title="Class representing a neural network.">NeuralNetwork</a> class.  <br /></td></tr>
 <tr class="separator:a978888ef8e021ec90c620fc3b30596a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0f851edf7e4aa0ca0bf2ee52348b6a50" id="r_a0f851edf7e4aa0ca0bf2ee52348b6a50"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classFlexNN_1_1NeuralNetwork.html#a0f851edf7e4aa0ca0bf2ee52348b6a50">train</a> (const Eigen::MatrixXd &amp;input, const Eigen::MatrixXd &amp;target, double learningRate, int epochs)</td></tr>
+<tr class="memdesc:a0f851edf7e4aa0ca0bf2ee52348b6a50"><td class="mdescLeft">&#160;</td><td class="mdescRight">Train the neural network.  <br /></td></tr>
 <tr class="separator:a0f851edf7e4aa0ca0bf2ee52348b6a50"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9e5b7f4538576624b9ce0fd63df6723f" id="r_a9e5b7f4538576624b9ce0fd63df6723f"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classFlexNN_1_1NeuralNetwork.html#a9e5b7f4538576624b9ce0fd63df6723f">accuracy</a> (const Eigen::MatrixXd &amp;X, const Eigen::MatrixXd &amp;Y)</td></tr>
+<tr class="memdesc:a9e5b7f4538576624b9ce0fd63df6723f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate the accuracy of the neural network.  <br /></td></tr>
 <tr class="separator:a9e5b7f4538576624b9ce0fd63df6723f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afd9ed23b0d67e3bd6a4d1583730d187a" id="r_afd9ed23b0d67e3bd6a4d1583730d187a"><td class="memItemLeft" align="right" valign="top">Eigen::MatrixXd&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classFlexNN_1_1NeuralNetwork.html#afd9ed23b0d67e3bd6a4d1583730d187a">predict</a> (const Eigen::MatrixXd &amp;input)</td></tr>
+<tr class="memdesc:afd9ed23b0d67e3bd6a4d1583730d187a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Predict the output for given input data.  <br /></td></tr>
 <tr class="separator:afd9ed23b0d67e3bd6a4d1583730d187a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Class representing a neural network. </p>
+<p>This class encapsulates the functionality of a neural network, including training, prediction, and accuracy calculation. It uses a vector of <a class="el" href="classFlexNN_1_1Layer.html" title="Represents a single layer in a neural network.">Layer</a> objects to represent the structure of the network. </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a978888ef8e021ec90c620fc3b30596a0" name="a978888ef8e021ec90c620fc3b30596a0"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a978888ef8e021ec90c620fc3b30596a0">&#9670;&#160;</a></span>NeuralNetwork()</h2>
 
@@ -136,6 +146,14 @@ Public Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Constructor for the <a class="el" href="classFlexNN_1_1NeuralNetwork.html" title="Class representing a neural network.">NeuralNetwork</a> class. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">layers</td><td>A vector of <a class="el" href="classFlexNN_1_1Layer.html" title="Represents a single layer in a neural network.">Layer</a> objects representing the layers of the neural network. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -166,6 +184,17 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Calculate the accuracy of the neural network. </p>
+<p>This method computes the accuracy of the neural network's predictions against the target data.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">X</td><td>The input data for prediction. </td></tr>
+    <tr><td class="paramname">Y</td><td>The target output data for comparison. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The accuracy as a double value. </dd></dl>
+
 </div>
 </div>
 <a id="afd9ed23b0d67e3bd6a4d1583730d187a" name="afd9ed23b0d67e3bd6a4d1583730d187a"></a>
@@ -191,6 +220,16 @@ Public Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Predict the output for given input data. </p>
+<p>This method performs a forward pass through the neural network to predict the output for the provided input data.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">input</td><td>The input data for prediction. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The predicted output as an Eigen::MatrixXd. </dd></dl>
 
 </div>
 </div>
@@ -231,6 +270,18 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Train the neural network. </p>
+<p>This method trains the neural network using the provided input and target data. It performs forward and backward passes, updating weights based on the gradients.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">input</td><td>The input data for training. </td></tr>
+    <tr><td class="paramname">target</td><td>The target output data for training. </td></tr>
+    <tr><td class="paramname">learningRate</td><td>The learning rate for weight updates. </td></tr>
+    <tr><td class="paramname">epochs</td><td>The number of training epochs. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>

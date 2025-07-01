@@ -99,24 +99,37 @@ $(document).ready(function(){initNavTree('classFlexNN_1_1Layer.html',''); initRe
 </div><!--header-->
 <div class="contents">
 
+<p>Represents a single layer in a neural network.  
+ <a href="classFlexNN_1_1Layer.html#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="Layer_8h_source.html">Layer.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:ad47b22581c698822902c361816dc487e" id="r_ad47b22581c698822902c361816dc487e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classFlexNN_1_1Layer.html#ad47b22581c698822902c361816dc487e">Layer</a> (int inputSize, int outputSize, const std::string &amp;activationFunction=&quot;relu&quot;)</td></tr>
+<tr class="memdesc:ad47b22581c698822902c361816dc487e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor for the <a class="el" href="classFlexNN_1_1Layer.html" title="Represents a single layer in a neural network.">Layer</a> class.  <br /></td></tr>
 <tr class="separator:ad47b22581c698822902c361816dc487e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a79373920227625f5e225ce49df533e14" id="r_a79373920227625f5e225ce49df533e14"><td class="memItemLeft" align="right" valign="top">Eigen::MatrixXd&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classFlexNN_1_1Layer.html#a79373920227625f5e225ce49df533e14">getWeights</a> () const</td></tr>
+<tr class="memdesc:a79373920227625f5e225ce49df533e14"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getters for weights.  <br /></td></tr>
 <tr class="separator:a79373920227625f5e225ce49df533e14"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af486a1cfedf6288ab8afa2c163589f96" id="r_af486a1cfedf6288ab8afa2c163589f96"><td class="memItemLeft" align="right" valign="top">Eigen::VectorXd&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classFlexNN_1_1Layer.html#af486a1cfedf6288ab8afa2c163589f96">getBiases</a> () const</td></tr>
+<tr class="memdesc:af486a1cfedf6288ab8afa2c163589f96"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getters for biases.  <br /></td></tr>
 <tr class="separator:af486a1cfedf6288ab8afa2c163589f96"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5664082dbfb98de7cb3a1233f3795c11" id="r_a5664082dbfb98de7cb3a1233f3795c11"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classFlexNN_1_1Layer.html#a5664082dbfb98de7cb3a1233f3795c11">updateWeights</a> (const Eigen::MatrixXd &amp;dW, const Eigen::VectorXd &amp;db, double learningRate)</td></tr>
+<tr class="memdesc:a5664082dbfb98de7cb3a1233f3795c11"><td class="mdescLeft">&#160;</td><td class="mdescRight">Update weights and biases.  <br /></td></tr>
 <tr class="separator:a5664082dbfb98de7cb3a1233f3795c11"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0837c21dffec4cb2df94a48b5932630b" id="r_a0837c21dffec4cb2df94a48b5932630b"><td class="memItemLeft" align="right" valign="top">std::pair&lt; Eigen::MatrixXd, Eigen::MatrixXd &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classFlexNN_1_1Layer.html#a0837c21dffec4cb2df94a48b5932630b">forward</a> (const Eigen::MatrixXd &amp;input)</td></tr>
+<tr class="memdesc:a0837c21dffec4cb2df94a48b5932630b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Forward pass through the layer.  <br /></td></tr>
 <tr class="separator:a0837c21dffec4cb2df94a48b5932630b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a531b2be03b2995390e2b9a0288a2cdd3" id="r_a531b2be03b2995390e2b9a0288a2cdd3"><td class="memItemLeft" align="right" valign="top">Eigen::MatrixXd&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classFlexNN_1_1Layer.html#a531b2be03b2995390e2b9a0288a2cdd3">backward</a> (const Eigen::MatrixXd &amp;nextW, const Eigen::MatrixXd &amp;nextdZ, const Eigen::MatrixXd &amp;currZ)</td></tr>
+<tr class="memdesc:a531b2be03b2995390e2b9a0288a2cdd3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Backward pass through the layer.  <br /></td></tr>
 <tr class="separator:a531b2be03b2995390e2b9a0288a2cdd3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Represents a single layer in a neural network. </p>
+<p>The <a class="el" href="classFlexNN_1_1Layer.html" title="Represents a single layer in a neural network.">Layer</a> class encapsulates the properties and methods required for a neural network layer, including weights, biases, forward and backward passes, and weight updates.</p>
+<p>This class is designed to be flexible and can be used with different activation functions. It supports both relu and softmax activation functions by default, but can be extended to include others. </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="ad47b22581c698822902c361816dc487e" name="ad47b22581c698822902c361816dc487e"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ad47b22581c698822902c361816dc487e">&#9670;&#160;</a></span>Layer()</h2>
 
@@ -157,6 +170,18 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
+<p>Constructor for the <a class="el" href="classFlexNN_1_1Layer.html" title="Represents a single layer in a neural network.">Layer</a> class. </p>
+<p>Initializes the layer with random weights and biases.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">inputSize</td><td>The size of the input to this layer. </td></tr>
+    <tr><td class="paramname">outputSize</td><td>The size of the output from this layer (also the number of neurons of this layer). </td></tr>
+    <tr><td class="paramname">activationFunction</td><td>The activation function to be used in this layer (default is "relu").</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Note</dt><dd>If this is the last layer, the activation function should be "softmax". </dd></dl>
+
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
@@ -192,6 +217,18 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Backward pass through the layer. </p>
+<p>This method computes the gradient of the loss with respect to the inputs of this layer given the gradients from the next layer.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">nextW</td><td>The weights of the next layer. </td></tr>
+    <tr><td class="paramname">nextdZ</td><td>The gradients from the next layer. </td></tr>
+    <tr><td class="paramname">currZ</td><td>The linear output (Z) of this layer. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The gradient of the loss with respect to the inputs of this layer (dZ). </dd></dl>
+
 </div>
 </div>
 <a id="a0837c21dffec4cb2df94a48b5932630b" name="a0837c21dffec4cb2df94a48b5932630b"></a>
@@ -209,6 +246,16 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Forward pass through the layer. </p>
+<p>This method computes the output of the layer given an input matrix. It applies the activation function to the linear combination of inputs and weights.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">input</td><td>The input data for the forward pass. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A pair containing the linear output (Z) and the activated output (A). </dd></dl>
 
 </div>
 </div>
@@ -235,6 +282,10 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
+<p>Getters for biases. </p>
+<p>These methods return the biases of the layer.</p>
+<dl class="section return"><dt>Returns</dt><dd>Eigen::VectorXd The biases of the layer. </dd></dl>
+
 </div>
 </div>
 <a id="a79373920227625f5e225ce49df533e14" name="a79373920227625f5e225ce49df533e14"></a>
@@ -259,6 +310,10 @@ Public Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Getters for weights. </p>
+<p>These methods return the weights of the layer.</p>
+<dl class="section return"><dt>Returns</dt><dd>Eigen::MatrixXd The weights of the layer. </dd></dl>
 
 </div>
 </div>
@@ -301,6 +356,17 @@ Public Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Update weights and biases. </p>
+<p>This method updates the weights and biases of the layer using the provided gradients and a specified learning rate.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">dW</td><td>The gradient of the weights. </td></tr>
+    <tr><td class="paramname">db</td><td>The gradient of the biases. </td></tr>
+    <tr><td class="paramname">learningRate</td><td>The learning rate for updating the weights and biases. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>

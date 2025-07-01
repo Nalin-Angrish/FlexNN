@@ -56,6 +56,8 @@
     "cinttypes": "cpp",
     "typeinfo": "cpp",
     "variant": "cpp",
-    "dense": "cpp"
+    "dense": "cpp",
+    "chrono": "cpp",
+    "span": "cpp"
   }
 }

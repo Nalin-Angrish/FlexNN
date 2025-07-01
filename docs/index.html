@@ -92,13 +92,13 @@ $(document).ready(function(){initNavTree('index.html',''); initResizable(); });
 </div>
 
 <div><div class="header">
-  <div class="headertitle"><div class="title"><a class="el" href="namespaceFlexNN.html">FlexNN</a> </div></div>
+  <div class="headertitle"><div class="title"><a class="el" href="namespaceFlexNN.html" title="Namespace for the FlexNN neural network library.">FlexNN</a> </div></div>
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_README"></a> Fully connected neural network built from scratch with flexible n-layer design and multiple activations.</p>
 <h1><a class="anchor" id="autotoc_md1"></a>
 Example Usage</h1>
-<p>Below is a minimal example of how to use the <a class="el" href="namespaceFlexNN.html">FlexNN</a> NeuralNetwork library in your own C++ project:</p>
+<p>Below is a minimal example of how to use the <a class="el" href="namespaceFlexNN.html" title="Namespace for the FlexNN neural network library.">FlexNN</a> NeuralNetwork library in your own C++ project:</p>
 <div class="fragment"><div class="line"><span class="preprocessor">#include &lt;Eigen/Dense&gt;</span></div>
 <div class="line"><span class="preprocessor">#include &quot;<a class="code" href="FlexNN_8h.html">FlexNN.h</a>&quot;</span></div>
 <div class="line"> </div>
@@ -140,18 +140,18 @@ Example Usage</h1>
 <div class="line"> </div>
 <div class="line">    <span class="keywordflow">return</span> 0;</div>
 <div class="line">}</div>
-<div class="ttc" id="aFlexNN_8h_html"><div class="ttname"><a href="FlexNN_8h.html">FlexNN.h</a></div></div>
-<div class="ttc" id="aclassFlexNN_1_1Layer_html"><div class="ttname"><a href="classFlexNN_1_1Layer.html">FlexNN::Layer</a></div><div class="ttdef"><b>Definition</b> Layer.h:10</div></div>
-<div class="ttc" id="aclassFlexNN_1_1NeuralNetwork_html"><div class="ttname"><a href="classFlexNN_1_1NeuralNetwork.html">FlexNN::NeuralNetwork</a></div><div class="ttdef"><b>Definition</b> FlexNN.h:12</div></div>
-<div class="ttc" id="aclassFlexNN_1_1NeuralNetwork_html_a0f851edf7e4aa0ca0bf2ee52348b6a50"><div class="ttname"><a href="classFlexNN_1_1NeuralNetwork.html#a0f851edf7e4aa0ca0bf2ee52348b6a50">FlexNN::NeuralNetwork::train</a></div><div class="ttdeci">void train(const Eigen::MatrixXd &amp;input, const Eigen::MatrixXd &amp;target, double learningRate, int epochs)</div><div class="ttdef"><b>Definition</b> FlexNN.cpp:8</div></div>
-<div class="ttc" id="amain_8cpp_html_ae66f6b31b5ad750f1fe042a706a4e3d4"><div class="ttname"><a href="main_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4">main</a></div><div class="ttdeci">int main()</div><div class="ttdef"><b>Definition</b> main.cpp:8</div></div>
-<div class="ttc" id="anamespaceFlexNN_html_a62ced14f183da07af191c6ced74c54e7"><div class="ttname"><a href="namespaceFlexNN.html#a62ced14f183da07af191c6ced74c54e7">FlexNN::splitXY</a></div><div class="ttdeci">std::vector&lt; std::pair&lt; Eigen::MatrixXd, Eigen::VectorXd &gt; &gt; splitXY(const Eigen::MatrixXd &amp;X, const Eigen::VectorXd &amp;Y, const std::vector&lt; double &gt; &amp;proportions)</div><div class="ttdef"><b>Definition</b> Utility.cpp:69</div></div>
-<div class="ttc" id="anamespaceFlexNN_html_adde282a64978645bc79db0ee56c28d91"><div class="ttname"><a href="namespaceFlexNN.html#adde282a64978645bc79db0ee56c28d91">FlexNN::readCSV_XY</a></div><div class="ttdeci">void readCSV_XY(const std::string &amp;filename, Eigen::MatrixXd &amp;X, Eigen::VectorXd &amp;Y)</div><div class="ttdef"><b>Definition</b> Utility.cpp:24</div></div>
+<div class="ttc" id="aFlexNN_8h_html"><div class="ttname"><a href="FlexNN_8h.html">FlexNN.h</a></div><div class="ttdoc">Header file for the FlexNN neural network library.</div></div>
+<div class="ttc" id="aclassFlexNN_1_1Layer_html"><div class="ttname"><a href="classFlexNN_1_1Layer.html">FlexNN::Layer</a></div><div class="ttdoc">Represents a single layer in a neural network.</div><div class="ttdef"><b>Definition</b> Layer.h:38</div></div>
+<div class="ttc" id="aclassFlexNN_1_1NeuralNetwork_html"><div class="ttname"><a href="classFlexNN_1_1NeuralNetwork.html">FlexNN::NeuralNetwork</a></div><div class="ttdoc">Class representing a neural network.</div><div class="ttdef"><b>Definition</b> FlexNN.h:38</div></div>
+<div class="ttc" id="aclassFlexNN_1_1NeuralNetwork_html_a0f851edf7e4aa0ca0bf2ee52348b6a50"><div class="ttname"><a href="classFlexNN_1_1NeuralNetwork.html#a0f851edf7e4aa0ca0bf2ee52348b6a50">FlexNN::NeuralNetwork::train</a></div><div class="ttdeci">void train(const Eigen::MatrixXd &amp;input, const Eigen::MatrixXd &amp;target, double learningRate, int epochs)</div><div class="ttdoc">Train the neural network.</div><div class="ttdef"><b>Definition</b> FlexNN.cpp:29</div></div>
+<div class="ttc" id="amain_8cpp_html_ae66f6b31b5ad750f1fe042a706a4e3d4"><div class="ttname"><a href="main_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4">main</a></div><div class="ttdeci">int main()</div><div class="ttdoc">Main function to demonstrate a simple neural network for MNIST digit recognition.</div><div class="ttdef"><b>Definition</b> main.cpp:26</div></div>
+<div class="ttc" id="anamespaceFlexNN_html_a62ced14f183da07af191c6ced74c54e7"><div class="ttname"><a href="namespaceFlexNN.html#a62ced14f183da07af191c6ced74c54e7">FlexNN::splitXY</a></div><div class="ttdeci">std::vector&lt; std::pair&lt; Eigen::MatrixXd, Eigen::VectorXd &gt; &gt; splitXY(const Eigen::MatrixXd &amp;X, const Eigen::VectorXd &amp;Y, const std::vector&lt; double &gt; &amp;proportions)</div><div class="ttdoc">Splits the dataset into multiple sets based on specified proportions.</div><div class="ttdef"><b>Definition</b> Utility.cpp:109</div></div>
+<div class="ttc" id="anamespaceFlexNN_html_adde282a64978645bc79db0ee56c28d91"><div class="ttname"><a href="namespaceFlexNN.html#adde282a64978645bc79db0ee56c28d91">FlexNN::readCSV_XY</a></div><div class="ttdeci">void readCSV_XY(const std::string &amp;filename, Eigen::MatrixXd &amp;X, Eigen::VectorXd &amp;Y)</div><div class="ttdoc">Reads a CSV file and splits it into features (X) and labels (Y).</div><div class="ttdef"><b>Definition</b> Utility.cpp:55</div></div>
 </div><!-- fragment --><p><b>Note:</b> <br  />
 </p><ul>
 <li>You can customize the network architecture by changing the number and type of layers.</li>
 <li>Make sure your data is in the correct format and normalized as needed.</li>
-<li>See the <code><a class="el" href="main_8cpp.html">src/main.cpp</a></code> file for a more complete example.</li>
+<li>See the <code><a class="el" href="main_8cpp.html" title="Main file for the MNIST digit recognition example using FlexNN.">src/main.cpp</a></code> file for a more complete example.</li>
 </ul>
 <h1><a class="anchor" id="autotoc_md2"></a>
 Requirements</h1>
@@ -175,7 +175,7 @@ Building and Running the Project</h1>
 </ol>
 <h1><a class="anchor" id="autotoc_md4"></a>
 API Reference</h1>
-<p>For details on the code structure, available classes, and how to use <a class="el" href="namespaceFlexNN.html">FlexNN</a> in your own projects, please visit the full documentation here: <a href="https://docs.nalinangrish.me/FlexNN">https://docs.nalinangrish.me/FlexNN</a>.</p>
+<p>For details on the code structure, available classes, and how to use <a class="el" href="namespaceFlexNN.html" title="Namespace for the FlexNN neural network library.">FlexNN</a> in your own projects, please visit the full documentation here: <a href="https://docs.nalinangrish.me/FlexNN">https://docs.nalinangrish.me/FlexNN</a>.</p>
 <h2><a class="anchor" id="autotoc_md5"></a>
 Known Issues / Limitations</h2>
 <ul>
