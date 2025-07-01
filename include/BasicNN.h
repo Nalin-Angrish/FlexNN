@@ -6,6 +6,7 @@
 #include <Eigen/Dense>
 
 #include "Layer.h"
+#include "Utility.h"
 
 namespace BasicNN
 {
@@ -17,7 +18,7 @@ namespace BasicNN
 
     void train(const Eigen::MatrixXd &input, const Eigen::MatrixXd &target, double learningRate, int epochs)
     {
-      Eigen::MatrixXd Y_onehot = oneHotEncode(target, target.maxCoeff() + 1); // Convert target to one-hot encoding
+      Eigen::MatrixXd Y_onehot = BasicNN::oneHotEncode(target, target.maxCoeff() + 1); // Convert target to one-hot encoding
       for (int epoch = 0; epoch < epochs; ++epoch)
       {
         auto outputs = forward(input);
@@ -97,16 +98,6 @@ namespace BasicNN
         Eigen::VectorXd db = gradients[2 * i + 1];
         layers[i].updateWeights(dW, db, learningRate);
       }
-    }
-
-    Eigen::MatrixXd oneHotEncode(const Eigen::VectorXd& Y, int num_classes) {
-      Eigen::MatrixXd Y_onehot = Eigen::MatrixXd::Zero(num_classes, Y.size());
-      for (int i = 0; i < Y.size(); ++i) {
-          int label = static_cast<int>(Y(i));
-          if (label >= 0 && label < num_classes)
-              Y_onehot(label, i) = 1.0;
-      }
-      return Y_onehot;
     }
   };
 }
