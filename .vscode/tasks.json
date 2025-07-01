@@ -11,6 +11,17 @@
             },
             "problemMatcher": ["$gcc"],
             "detail": "Builds the project using CMake"
+        },
+        {
+            "label": "docs",
+            "type": "shell",
+            "command": "doxygen Doxyfile",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": ["$gcc"],
+            "detail": "Builds the documentation using Doxygen"
         }
     ]
 }
