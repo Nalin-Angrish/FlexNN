@@ -1,11 +1,11 @@
-#ifndef BasicNN_UTILITY_H
-#define BasicNN_UTILITY_H
+#ifndef FlexNN_UTILITY_H
+#define FlexNN_UTILITY_H
 
 #include <Eigen/Dense>
 #include <string>
 #include <vector>
 
-namespace BasicNN
+namespace FlexNN
 {
   Eigen::MatrixXd oneHotEncode(const Eigen::VectorXd &Y, int num_classes);
 
@@ -19,4 +19,4 @@ namespace BasicNN
   splitXY(const Eigen::MatrixXd &X, const Eigen::VectorXd &Y, const std::vector<double> &proportions);
 }
 
-#endif // BasicNN_UTILITY_H
+#endif // FlexNN_UTILITY_H

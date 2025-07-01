@@ -4,7 +4,7 @@
 #include "Layer.h"
 
 // Forward pass method
-std::pair<Eigen::MatrixXd, Eigen::MatrixXd> BasicNN::Layer::forward(const Eigen::MatrixXd &input)
+std::pair<Eigen::MatrixXd, Eigen::MatrixXd> FlexNN::Layer::forward(const Eigen::MatrixXd &input)
 {
   Eigen::MatrixXd output = (W * input).colwise() + b; // Linear transformation
   Eigen::MatrixXd activation;
@@ -33,7 +33,7 @@ std::pair<Eigen::MatrixXd, Eigen::MatrixXd> BasicNN::Layer::forward(const Eigen:
 }
 
 // Backward pass method, returns dZ
-Eigen::MatrixXd BasicNN::Layer::backward(const Eigen::MatrixXd &nextW, const Eigen::MatrixXd &nextdZ, const Eigen::MatrixXd &currZ)
+Eigen::MatrixXd FlexNN::Layer::backward(const Eigen::MatrixXd &nextW, const Eigen::MatrixXd &nextdZ, const Eigen::MatrixXd &currZ)
 {
   Eigen::MatrixXd dZ;
   if (activationFunction == "relu")

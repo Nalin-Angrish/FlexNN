@@ -2,12 +2,12 @@
 #include <vector>
 #include <Eigen/Dense>
 
-#include "BasicNN.h"
+#include "FlexNN.h"
 #include "Utility.h"
 
-void BasicNN::NeuralNetwork::train(const Eigen::MatrixXd &input, const Eigen::MatrixXd &target, double learningRate, int epochs)
+void FlexNN::NeuralNetwork::train(const Eigen::MatrixXd &input, const Eigen::MatrixXd &target, double learningRate, int epochs)
 {
-  Eigen::MatrixXd Y_onehot = BasicNN::oneHotEncode(target, target.maxCoeff() + 1); // Convert target to one-hot encoding
+  Eigen::MatrixXd Y_onehot = FlexNN::oneHotEncode(target, target.maxCoeff() + 1); // Convert target to one-hot encoding
   for (int epoch = 0; epoch < epochs; ++epoch)
   {
     auto outputs = forward(input);
@@ -20,7 +20,7 @@ void BasicNN::NeuralNetwork::train(const Eigen::MatrixXd &input, const Eigen::Ma
   }
 }
 
-double BasicNN::NeuralNetwork::accuracy(const Eigen::MatrixXd &X, const Eigen::MatrixXd &Y)
+double FlexNN::NeuralNetwork::accuracy(const Eigen::MatrixXd &X, const Eigen::MatrixXd &Y)
 {
   Eigen::MatrixXd predictions = this->predict(X);
   int correct = 0;
@@ -37,7 +37,7 @@ double BasicNN::NeuralNetwork::accuracy(const Eigen::MatrixXd &X, const Eigen::M
 }
 
 // Forward pass method
-std::vector<Eigen::MatrixXd> BasicNN::NeuralNetwork::forward(const Eigen::MatrixXd &input)
+std::vector<Eigen::MatrixXd> FlexNN::NeuralNetwork::forward(const Eigen::MatrixXd &input)
 {
   std::vector<Eigen::MatrixXd> outputs;
   outputs.push_back(input); // Start with the input as the first output
@@ -50,7 +50,7 @@ std::vector<Eigen::MatrixXd> BasicNN::NeuralNetwork::forward(const Eigen::Matrix
   return outputs;
 }
 
-std::vector<Eigen::MatrixXd> BasicNN::NeuralNetwork::backward(const std::vector<Eigen::MatrixXd> &outputs, const Eigen::MatrixXd &target)
+std::vector<Eigen::MatrixXd> FlexNN::NeuralNetwork::backward(const std::vector<Eigen::MatrixXd> &outputs, const Eigen::MatrixXd &target)
 {
   std::vector<Eigen::MatrixXd> gradients;
   std::vector<Eigen::MatrixXd> dZs; // To store dZ for each layer
@@ -74,7 +74,7 @@ std::vector<Eigen::MatrixXd> BasicNN::NeuralNetwork::backward(const std::vector<
   return gradients;
 }
 
-void BasicNN::NeuralNetwork::updateWeights(const std::vector<Eigen::MatrixXd> &gradients, double learningRate)
+void FlexNN::NeuralNetwork::updateWeights(const std::vector<Eigen::MatrixXd> &gradients, double learningRate)
 {
   for (int i = 0; i < layers.size(); ++i)
   {

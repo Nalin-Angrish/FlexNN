@@ -1,12 +1,12 @@
-#ifndef BasicNN_H
-#define BasicNN_H
+#ifndef FlexNN_H
+#define FlexNN_H
 
 #include <vector>
 #include <Eigen/Dense>
 
 #include "Layer.h"
 
-namespace BasicNN
+namespace FlexNN
 {
   class NeuralNetwork
   {
@@ -35,4 +35,4 @@ namespace BasicNN
   };
 }
 
-#endif // BasicNN_H
+#endif // FlexNN_H

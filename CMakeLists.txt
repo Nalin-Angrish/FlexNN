@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.10)
-project(NeuralNetwork)
+project(FlexNN)
 
 # Set the C++ standard
 set(CMAKE_CXX_STANDARD 11)
@@ -14,11 +14,11 @@ include_directories(include)
 
 # Add the library
 set(LIB_SOURCES
-    lib/BasicNN.cpp
+    lib/FlexNN.cpp
     lib/Layer.cpp
     lib/Utility.cpp
 )
-add_library(BasicNN ${LIB_SOURCES})
+add_library(FlexNN ${LIB_SOURCES})
 
 # Find OpenMP
 find_package(OpenMP REQUIRED)
@@ -31,11 +31,11 @@ add_executable(main src/main.cpp)
 
 # Link the library to the executable
 if(OpenMP_CXX_FOUND)
-    target_link_libraries(main PUBLIC BasicNN OpenMP::OpenMP_CXX Eigen3::Eigen)
+    target_link_libraries(main PUBLIC FlexNN OpenMP::OpenMP_CXX Eigen3::Eigen)
 else()
     message(STATUS "OpenMP not found, compiling without OpenMP support.")
     target_compile_definitions(main PRIVATE NO_OPENMP)
-    target_link_libraries(main BasicNN Eigen3::Eigen)
+    target_link_libraries(main FlexNN Eigen3::Eigen)
 endif()
 
 # Optimization flags

@@ -2,7 +2,7 @@
 #include <vector>
 #include <Eigen/Dense>
 
-#include "BasicNN.h"
+#include "FlexNN.h"
 #include "Utility.h"
 
 int main()
@@ -10,10 +10,10 @@ int main()
     Eigen::MatrixXd X;
     Eigen::VectorXd Y;
     std::cout << "Reading CSV file..." << std::endl;
-    BasicNN::readCSV_XY("data/mnist-digit-recognition.csv", X, Y);
+    FlexNN::readCSV_XY("data/mnist-digit-recognition.csv", X, Y);
     X = X.array() / 255.0; // Normalize the input data
     
-    std::vector<std::pair<Eigen::MatrixXd, Eigen::VectorXd>> data = BasicNN::splitXY(X, Y, {0.9, 0.1}); // Split data into training and test sets
+    std::vector<std::pair<Eigen::MatrixXd, Eigen::VectorXd>> data = FlexNN::splitXY(X, Y, {0.9, 0.1}); // Split data into training and test sets
     X = data[0].first; // Training set features
     Y = data[0].second; // Training set labels
     Eigen::MatrixXd X_test = data[1].first; // Test set features
@@ -25,9 +25,9 @@ int main()
     X.transposeInPlace(); // Now X is (features, samples)
     X_test.transposeInPlace(); // Now X_test is (features, samples)
 
-    BasicNN::NeuralNetwork nn({
-        BasicNN::Layer(X.rows(), 10, "relu"),
-        BasicNN::Layer(10, 10, "softmax")
+    FlexNN::NeuralNetwork nn({
+        FlexNN::Layer(X.rows(), 64, "relu"),
+        FlexNN::Layer(64, 10, "softmax")
     });
     std::cout << "Neural Network created with 2 layers." << std::endl;
 

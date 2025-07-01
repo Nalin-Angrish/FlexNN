@@ -1,10 +1,10 @@
-#ifndef BasicNN_Layer_H
-#define BasicNN_Layer_H
+#ifndef FlexNN_Layer_H
+#define FlexNN_Layer_H
 
 #include <utility>
 #include <Eigen/Dense>
 
-namespace BasicNN
+namespace FlexNN
 {
   class Layer
   {
@@ -50,4 +50,4 @@ namespace BasicNN
   };
 }
 
-#endif // BasicNN_Layer_H
+#endif // FlexNN_Layer_H

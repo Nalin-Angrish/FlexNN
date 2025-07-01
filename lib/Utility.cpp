@@ -8,7 +8,7 @@
 
 #include "Utility.h"
 
-Eigen::MatrixXd BasicNN::oneHotEncode(const Eigen::VectorXd &Y, int num_classes)
+Eigen::MatrixXd FlexNN::oneHotEncode(const Eigen::VectorXd &Y, int num_classes)
 {
   Eigen::MatrixXd Y_onehot = Eigen::MatrixXd::Zero(num_classes, Y.size());
   for (int i = 0; i < Y.size(); ++i)
@@ -21,7 +21,7 @@ Eigen::MatrixXd BasicNN::oneHotEncode(const Eigen::VectorXd &Y, int num_classes)
 }
 
 // Reads a CSV file and splits into X (all columns except first) and Y (first column)
-void BasicNN::readCSV_XY(const std::string &filename, Eigen::MatrixXd &X, Eigen::VectorXd &Y)
+void FlexNN::readCSV_XY(const std::string &filename, Eigen::MatrixXd &X, Eigen::VectorXd &Y)
 {
   std::ifstream file(filename);
   std::vector<std::vector<double>> data;
@@ -66,7 +66,7 @@ void BasicNN::readCSV_XY(const std::string &filename, Eigen::MatrixXd &X, Eigen:
 // proportions: e.g. {0.7, 0.2, 0.1} for train/val/test
 // Returns a vector of pairs: { {X1, Y1}, {X2, Y2}, ... }
 std::vector<std::pair<Eigen::MatrixXd, Eigen::VectorXd>>
-BasicNN::splitXY(const Eigen::MatrixXd &X, const Eigen::VectorXd &Y, const std::vector<double> &proportions)
+FlexNN::splitXY(const Eigen::MatrixXd &X, const Eigen::VectorXd &Y, const std::vector<double> &proportions)
 {
   size_t nRows = X.rows();
   std::vector<size_t> indices(nRows);
