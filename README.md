@@ -91,7 +91,7 @@ To build the project, follow these steps:
    ./build/main
    ```
 
-# API Reference
+## API Reference
 For details on the code structure, available classes, and how to use FlexNN in your own projects, please visit the full documentation here: [https://docs.nalinangrish.me/FlexNN](https://docs.nalinangrish.me/FlexNN).
 
 ## Known Issues / Limitations
