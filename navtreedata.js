@@ -28,10 +28,9 @@ var NAVTREE =
     [ "Example Usage", "index.html#autotoc_md1", null ],
     [ "Requirements", "index.html#autotoc_md2", null ],
     [ "Building and Running the Project", "index.html#autotoc_md3", null ],
-    [ "API Reference", "index.html#autotoc_md4", [
-      [ "Known Issues / Limitations", "index.html#autotoc_md5", null ],
-      [ "License", "index.html#autotoc_md6", null ]
-    ] ],
+    [ "API Reference", "index.html#autotoc_md4", null ],
+    [ "Known Issues / Limitations", "index.html#autotoc_md5", null ],
+    [ "License", "index.html#autotoc_md6", null ],
     [ "Namespaces", "namespaces.html", [
       [ "Namespace List", "namespaces.html", "namespaces_dup" ],
       [ "Namespace Members", "namespacemembers.html", [
