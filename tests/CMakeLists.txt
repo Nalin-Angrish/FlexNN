@@ -36,3 +36,8 @@ gtest_discover_tests(activation_test)
 add_executable(dense_test dense_test.cpp)
 target_link_libraries(dense_test PRIVATE FlexNN GTest::gtest_main)
 gtest_discover_tests(dense_test)
+
+# PR-04: layer variant wrapper
+add_executable(layer_variant_test layer_variant_test.cpp)
+target_link_libraries(layer_variant_test PRIVATE FlexNN GTest::gtest_main)
+gtest_discover_tests(layer_variant_test)
