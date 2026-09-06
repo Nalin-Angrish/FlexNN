@@ -54,15 +54,19 @@ Eigen::MatrixXd Dense::backward(const Eigen::MatrixXd& nextW,
   assert(nextW.cols() == currZ.rows() && "nextW cols must equal currZ rows");
   assert(nextW.rows() == nextdZ.rows() && "nextW rows must equal nextdZ rows");
   // Upstream gradient: dA = W_next^T * dZ_next
-  // For the last layer, NeuralNetwork::backward computes dZ_last = (A - Y)/m
-  // directly and never calls backward() on the last layer, so this path
-  // is only for hidden layers.
   Eigen::MatrixXd dA = nextW.transpose() * nextdZ;
+  return backward(dA, currZ);
+}
+
+Eigen::MatrixXd Dense::backward(const Eigen::MatrixXd& upstream,
+                                const Eigen::MatrixXd& currZ) const {
   // Need A for Sigmoid/Tanh to avoid recompute; recompute via forward.
-  // For None/ReLU/Leaky the backward ignores A, but computing it is cheap
-  // and keeps the code uniform; hot path is still O(n).
   Eigen::MatrixXd A = Activations::detail::forward(act_, currZ);
-  return Activations::detail::backward(act_, dA, currZ, A);
+  return Activations::detail::backward(act_, upstream, currZ, A);
+}
+
+Eigen::MatrixXd Dense::propagate(const Eigen::MatrixXd& dZ) const {
+  return W_.transpose() * dZ;
 }
 
 void Dense::update(const Eigen::MatrixXd& dW, const Eigen::VectorXd& db,

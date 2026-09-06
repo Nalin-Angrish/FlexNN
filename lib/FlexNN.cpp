@@ -101,48 +101,44 @@ std::vector<Eigen::MatrixXd> NeuralNetwork::backward(
   dZs.reserve(layers_.size());
 
   // Last-layer handling: if last activation is Softmax, fuse with CE as dZ = A - Y
-  // (divided by batch later in dW). This matches the fix for lib/Layer.cpp:72.
   assert(!layers_.empty() && "NeuralNetwork requires at least one layer");
   Eigen::MatrixXd dZ;
   const auto lastAct = layers_.back().activation();
   if (lastAct == Activations::Activation::Softmax) {
-    dZ = outputs.back() - target; // (A_last - Y_onehot)
+    dZ = outputs.back() - target; // (A_last - Y_onehot), not yet divided by m
   } else {
-    // For non-Softmax last layer, treat as linear CE or use detail::backward
-    // Here dZ = (A - Y) * f'(Z) — but since last is typically Softmax, this
-    // branch is rare in v0.1. We compute dA = (A - Y) and then backward.
     Eigen::MatrixXd A_last = outputs.back();
     Eigen::MatrixXd Z_last = outputs[outputs.size() - 2];
     Eigen::MatrixXd dA = A_last - target;
     dZ = Activations::detail::backward(lastAct, dA, Z_last, A_last);
   }
   dZs.push_back(dZ);
-  Eigen::Index m = dZ.cols();
-  gradients.push_back(dZ.rowwise().mean()); // db_last
-  gradients.push_back(dZ * outputs[outputs.size() - 3].transpose() / static_cast<double>(m)); // dW_last
+  // Use per-layer grad helper so Conv1D's im2col is handled correctly
+  {
+    const auto& lastLayer = layers_.back();
+    const Eigen::MatrixXd& inputToLast = outputs[outputs.size() - 3];
+    auto [dW, db] = lastLayer.grad(dZ, inputToLast);
+    // gradients temporarily as [db, dW] per layer, reversed later to [dW, db] order
+    gradients.push_back(db);
+    gradients.push_back(dW);
+  }
 
-  // Hidden layers reverse
+  // Hidden layers reverse: upstream = nextLayer.propagate(dZ_next)
   for (int i = static_cast<int>(layers_.size()) - 2; i >= 0; --i) {
-    // Extract next layer's weight matrix for upstream dA = W_next^T * dZ_next
-    Eigen::MatrixXd nextW = layers_[static_cast<size_t>(i) + 1].weightsMatrix();
-    // If next layer is weightless (Pool/BN), weightsMatrix() is empty; then
-    // the correct upstream is just dZ_next (pool/BN backward will have already
-    // handled routing). In PR-04 only Dense exists, so nextW is always valid.
-    if (nextW.size() == 0) {
-      // Weightless next layer — upstream is just next dZ (already correctly shaped)
-      dZ = layers_[static_cast<size_t>(i)].backward(
-          Eigen::MatrixXd(), dZs.back(), outputs[2 * static_cast<size_t>(i) + 1]);
-    } else {
-      dZ = layers_[static_cast<size_t>(i)].backward(nextW, dZs.back(),
-                                                     outputs[2 * static_cast<size_t>(i) + 1]);
-    }
+    const auto& nextLayer = layers_[static_cast<size_t>(i) + 1];
+    const auto& currLayer = layers_[static_cast<size_t>(i)];
+    Eigen::MatrixXd upstream = nextLayer.propagate(dZs.back());
+    Eigen::MatrixXd currZ = outputs[2 * static_cast<size_t>(i) + 1];
+    dZ = currLayer.backward(upstream, currZ);
     dZs.push_back(dZ);
-    gradients.push_back(dZ.rowwise().mean()); // db
-    gradients.push_back(dZ * outputs[2 * static_cast<size_t>(i)].transpose() /
-                        static_cast<double>(m)); // dW
+    const Eigen::MatrixXd& inputToCurr = outputs[2 * static_cast<size_t>(i)];
+    auto [dW, db] = currLayer.grad(dZ, inputToCurr);
+    gradients.push_back(db);
+    gradients.push_back(dW);
   }
 
   std::reverse(gradients.begin(), gradients.end());
+  // gradients now in [dW0, db0, dW1, db1, ...] order as expected by updateWeights
   return gradients;
 }
 
