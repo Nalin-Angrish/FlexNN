@@ -27,10 +27,7 @@ endif()
 
 include(GoogleTest)
 
-# Individual tests are added by later PRs, e.g.:
-# add_executable(activation_test activation_test.cpp)
-# target_link_libraries(activation_test PRIVATE FlexNN GTest::gtest_main)
-# gtest_discover_tests(activation_test)
-
-# Placeholder — keeps `ctest` happy with 0 tests in PR-01
-# (no test added yet)
+# PR-02: activation tests
+add_executable(activation_test activation_test.cpp)
+target_link_libraries(activation_test PRIVATE FlexNN GTest::gtest_main)
+gtest_discover_tests(activation_test)
