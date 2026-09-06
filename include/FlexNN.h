@@ -1,131 +1,130 @@
 /**
  * @file FlexNN.h
- * @brief Header file for the FlexNN neural network library.
+ * @brief Header for FlexNN neural network (heterogeneous stack via Layers::Layer).
  *
- * This library provides a flexible neural network implementation using Eigen for matrix operations.
- * It includes classes for layers and the neural network itself, allowing for easy construction,
- * training, and prediction.
+ * After PR-04, `NeuralNetwork` holds `std::vector<FlexNN::Layers::Layer>` —
+ * a type-erased variant over `Dense` (and later `Conv1D`, `BatchNorm1D`,
+ * `MaxPool1D`, `AvgPool1D`). The legacy `FlexNN::Layer` (stringly-typed Dense)
+ * is kept for one release as a deprecated shim so `src/main.cpp` still
+ * builds; it is converted to `Layers::Dense` via `Activations::try_parse`.
  *
- * @author Nalin Angrish <nalin@nalinangrish.me>
+ * Why variant, not inheritance (see LLD_FLEXNN §3): host training stays
+ * simple (Eigen, no vtable), variant is inline, and `std::visit` dispatches
+ * without indirection. For MCU we don't reuse these structs at all — export
+ * is flat arrays.
  */
+
 #ifndef FlexNN_H
 #define FlexNN_H
 
 #include <vector>
 #include <Eigen/Dense>
 
+// New modular headers — must come before legacy Layer.h so `Layers::Layer`
+// is visible for the converting constructor.
+#include "activations/Activation.hpp"
+#include "layers/Layer.hpp"
+
+// Legacy monolithic Layer (string activation, Dense-only) — kept for
+// backward compat until PR-09 migrates `src/main.cpp` to the new API.
+// New code should use `FlexNN::Layers::Dense` + `FlexNN::Activations::Activation`.
 #include "Layer.h"
 
+namespace FlexNN {
+
 /**
- * @namespace FlexNN
- * @brief Namespace for the FlexNN neural network library.
+ * @class NeuralNetwork
+ * @brief Linear stack of heterogeneous layers (vector<Layers::Layer>).
  *
- * This namespace contains all the classes and functions related to the FlexNN library,
- * including the NeuralNetwork class and Layer class. It provides a structured way to organize
- * the library's components and avoid naming conflicts with other libraries.
+ * Currently holds only `Layers::Dense` (PR-04). Later PRs expand the variant
+ * to `Conv1D`, `BatchNorm1D`, `MaxPool1D`, `AvgPool1D` without changing this
+ * header — only `include/layers/Layer.hpp`'s variant list grows.
+ *
+ * Old code `NeuralNetwork({Layer(784,64,"relu"), Layer(64,10,"softmax")})`
+ * still compiles via the deprecated converting constructor that maps each
+ * legacy `Layer` to `Layers::Dense` via `Activations::try_parse`.
  */
-namespace FlexNN
-{
+class NeuralNetwork {
+ public:
   /**
-   * @class NeuralNetwork
-   * @brief Class representing a neural network.
+   * @brief Construct from new modular layers (preferred).
    *
-   * This class encapsulates the functionality of a neural network, including training,
-   * prediction, and accuracy calculation. It uses a vector of Layer objects to represent
-   * the structure of the network.
+   * @param layers Heterogeneous stack — each element is a `Layers::Layer`
+   *               wrapping a concrete `Dense`/`Conv1D`/...
+   *               Example: `NeuralNetwork({Layers::Dense(784,64, Activations::ReLU)})`
    */
-  class NeuralNetwork
-  {
-  public:
-    /**
-     * @brief Constructor for the NeuralNetwork class.
-     *
-     * @param layers A vector of Layer objects representing the layers of the neural network.
-     */
-    NeuralNetwork(const std::vector<Layer> &layers) : layers(layers) {}
+  NeuralNetwork(const std::vector<Layers::Layer>& layers) : layers_(layers) {}
+  NeuralNetwork(std::vector<Layers::Layer>&& layers) : layers_(std::move(layers)) {}
 
-    /**
-     * @brief Train the neural network.
-     *
-     * This method trains the neural network using the provided input and target data.
-     * It performs forward and backward passes, updating weights based on the gradients.
-     *
-     * @param input The input data for training.
-     * @param target The target output data for training.
-     * @param learningRate The learning rate for weight updates.
-     * @param epochs The number of training epochs.
-     */
-    void train(const Eigen::MatrixXd &input, const Eigen::MatrixXd &target, double learningRate, int epochs);
+  /**
+   * @brief Deprecated: construct from legacy `FlexNN::Layer` (Dense-only).
+   *
+   * Converts each legacy `Layer` (which stores `std::string activationFunction`
+   * and `MatrixXd W`/`VectorXd b`) to `Layers::Dense` via `Activations::try_parse`.
+   * On unknown activation string, uses `Activation::None`.
+   *
+   * Kept so `src/main.cpp` (which still uses `Layer(..., "relu")`) builds
+   * until PR-09 migrates it to `Layers::Dense`. New code should not use this.
+   */
+  [[deprecated("use vector<FlexNN::Layers::Layer> with FlexNN::Activations")]]
+  NeuralNetwork(const std::vector<Layer>& oldLayers);
 
-    /**
-     * @brief Calculate the accuracy of the neural network.
-     *
-     * This method computes the accuracy of the neural network's predictions against the target data.
-     *
-     * @param X The input data for prediction.
-     * @param Y The target output data for comparison.
-     * @return The accuracy as a double value.
-     */
-    double accuracy(const Eigen::MatrixXd &X, const Eigen::MatrixXd &Y);
+  /**
+   * @brief Train the network on (X, Y) with SGD.
+   *
+   * `X` is `[features × batch]` (see Utility.h), `Y` is label vector
+   * (converted to one-hot inside). Uses the interleaved `forward` layout
+   * `[input, Z0,A0, Z1,A1, ...]` and `backward` that fuses `Softmax+CE` as
+   * `dZ_last = (A - Y)/m`.
+   */
+  void train(const Eigen::MatrixXd& input, const Eigen::VectorXd& target,
+             double learningRate, int epochs);
 
-    /**
-     * @brief Predict the output for given input data.
-     *
-     * This method performs a forward pass through the neural network to predict the output
-     * for the provided input data.
-     *
-     * @param input The input data for prediction.
-     * @return The predicted output as an Eigen::MatrixXd.
-     */
-    Eigen::MatrixXd predict(const Eigen::MatrixXd &input)
-    {
-      auto outputs = forward(input);
-      return outputs.back(); // Return the final output (activation of the last layer)
-    }
+  /**
+   * @brief Accuracy on (X, Y) — argmax per column.
+   */
+  double accuracy(const Eigen::MatrixXd& X, const Eigen::VectorXd& Y);
 
-  private:
-    /**
-     * @brief A vector of Layer objects representing the layers of the neural network.
-     *
-     * This vector holds all the layers in the neural network, allowing for flexible
-     * architecture and easy manipulation of the network structure.
-     */
-    std::vector<Layer> layers;
+  /**
+   * @brief Predict — forward pass, returns activation of last layer.
+   */
+  Eigen::MatrixXd predict(const Eigen::MatrixXd& input) {
+    auto outputs = forward(input);
+    return outputs.back();
+  }
 
-    /**
-     * @brief Forward pass through the neural network.
-     *
-     * This method performs a forward pass through all layers of the neural network,
-     * computing the activations for each layer based on the input data.
-     *
-     * @param input The input data for the forward pass.
-     * @return A vector of Eigen::MatrixXd containing the outputs of each layer.
-     */
-    std::vector<Eigen::MatrixXd> forward(const Eigen::MatrixXd &input);
+  /**
+   * @brief Direct access to layers (for tests / ModelIO).
+   */
+  const std::vector<Layers::Layer>& layers() const noexcept { return layers_; }
+  std::vector<Layers::Layer>& layers() noexcept { return layers_; }
 
-    /**
-     * @brief Backward pass through the neural network.
-     *
-     * This method performs a backward pass through the neural network, calculating
-     * the gradients for each layer based on the outputs and target data.
-     *
-     * @param outputs The outputs from the forward pass.
-     * @param target The target output data for training.
-     * @return A vector of Eigen::MatrixXd containing the gradients for each layer.
-     */
-    std::vector<Eigen::MatrixXd> backward(const std::vector<Eigen::MatrixXd> &outputs, const Eigen::MatrixXd &target);
+ private:
+  // Heterogeneous stack — currently variant<Dense> only, expands in later PRs.
+  std::vector<Layers::Layer> layers_;
 
-    /**
-     * @brief Update the weights of the neural network.
-     *
-     * This method updates the weights of each layer based on the calculated gradients
-     * and the specified learning rate.
-     *
-     * @param gradients A vector of Eigen::MatrixXd containing the gradients for each layer.
-     * @param learningRate The learning rate for updating weights.
-     */
-    void updateWeights(const std::vector<Eigen::MatrixXd> &gradients, double learningRate);
-  };
-}
+  /**
+   * @brief Forward pass through all layers.
+   * @return Vector `[input, Z0,A0, Z1,A1, ...]` (size `1 + 2*layers_.size()`)
+   */
+  std::vector<Eigen::MatrixXd> forward(const Eigen::MatrixXd& input);
+
+  /**
+   * @brief Backward pass — computes dZ per layer.
+   * @return Gradients as `[dW0, db0, dW1, db1, ...]` (size `2*layers_.size()`)
+   *         in layer order (reversed inside then flipped).
+   */
+  std::vector<Eigen::MatrixXd> backward(
+      const std::vector<Eigen::MatrixXd>& outputs,
+      const Eigen::MatrixXd& target);
+
+  /**
+   * @brief SGD update from gradients.
+   */
+  void updateWeights(const std::vector<Eigen::MatrixXd>& gradients,
+                     double learningRate);
+};
+
+} // namespace FlexNN
 
 #endif // FlexNN_H
