@@ -13,6 +13,7 @@
 #include "ModelIO.hpp"
 #include "layers/Dense.hpp"
 #include "layers/Conv1D.hpp"
+#include "layers/BatchNorm1D.hpp"
 #include "activations/Activation.hpp"
 
 using namespace FlexNN;
@@ -33,10 +34,21 @@ static void expect_networks_near(const NeuralNetwork& a, const NeuralNetwork& b,
           using T = std::decay_t<decltype(va)>;
           const auto* vb = std::get_if<T>(&lb.variant());
           ASSERT_NE(vb, nullptr);
-          EXPECT_TRUE(va.weights().isApprox(vb->weights(), tol))
-              << "weights mismatch at layer " << i;
-          EXPECT_TRUE(va.biases().isApprox(vb->biases(), tol))
-              << "biases mismatch at layer " << i;
+          if constexpr (std::is_same_v<T, Dense> || std::is_same_v<T, Conv1D>) {
+            EXPECT_TRUE(va.weights().isApprox(vb->weights(), tol))
+                << "weights mismatch at layer " << i;
+            EXPECT_TRUE(va.biases().isApprox(vb->biases(), tol))
+                << "biases mismatch at layer " << i;
+          } else if constexpr (std::is_same_v<T, BatchNorm1D>) {
+            EXPECT_TRUE(va.gamma().isApprox(vb->gamma(), tol))
+                << "gamma mismatch at layer " << i;
+            EXPECT_TRUE(va.beta().isApprox(vb->beta(), tol))
+                << "beta mismatch at layer " << i;
+            EXPECT_TRUE(va.runningMean().isApprox(vb->runningMean(), tol))
+                << "mean mismatch at layer " << i;
+            EXPECT_TRUE(va.runningVar().isApprox(vb->runningVar(), tol))
+                << "var mismatch at layer " << i;
+          }
         },
         la.variant());
   }

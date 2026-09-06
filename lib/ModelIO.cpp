@@ -155,7 +155,7 @@ Status exportModel(const NeuralNetwork& net, const std::string& path,
   if (N > 0xFFFF) {
     return Status::Err("too many layers");
   }
-  // Validate each layer
+    // Validate each layer
   for (size_t i = 0; i < N; ++i) {
     const auto& l = layers[i];
     auto act = l.activation();
@@ -174,6 +174,16 @@ Status exportModel(const NeuralNetwork& net, const std::string& path,
       if (c->params().kernelSize <= 0 || c->params().inChannels <= 0 ||
           c->params().outChannels <= 0) {
         return Status::Err("Conv1D invalid dims");
+      }
+    }
+    if (type == Layers::LayerType::BatchNorm1D) {
+      if (act != Activations::Activation::None) {
+        return Status::Err("BatchNorm1D activation must be None in v0.1");
+      }
+      const auto* bn = l.asBatchNorm1D();
+      assert(bn != nullptr);
+      if (bn->params().numFeatures <= 0) {
+        return Status::Err("BatchNorm1D invalid numFeatures");
       }
     }
     // DType only F32
@@ -225,8 +235,21 @@ Status exportModel(const NeuralNetwork& net, const std::string& path,
             h.stride = static_cast<uint16_t>(p.stride);
             h.pad = static_cast<uint16_t>(p.padding);
             h.dilation = static_cast<uint16_t>(p.dilation);
+          } else if constexpr (std::is_same_v<T, Layers::BatchNorm1D>) {
+            auto p = v.params();
+            h.in_dim = static_cast<uint32_t>(p.numFeatures);
+            h.out_dim = static_cast<uint32_t>(p.numFeatures);
+            h.w_cnt = 0;
+            h.b_cnt = 0;
+            h.aux_cnt = static_cast<uint32_t>(4 * p.numFeatures);
+            h.c_in = static_cast<uint16_t>(p.numFeatures);
+            h.c_out = 0;
+            h.k = 0;
+            h.stride = 0;
+            h.pad = 0;
+            h.dilation = 0;
           } else {
-            // Future types (BN, Pool) will be handled in later PRs
+            // Future Pool will be handled in next PR
             h.in_dim = 0;
             h.out_dim = 0;
           }
@@ -354,6 +377,16 @@ Status exportModel(const NeuralNetwork& net, const std::string& path,
               float fv = static_cast<float>(b(r));
               write_f32_le(out, fv);
             }
+          } else if constexpr (std::is_same_v<T, Layers::BatchNorm1D>) {
+            // BatchNorm has no W/b, only aux: gamma, beta, mean, var
+            const auto& gamma = v.gamma();
+            const auto& beta = v.beta();
+            const auto& mean = v.runningMean();
+            const auto& var = v.runningVar();
+            for (Eigen::Index r = 0; r < gamma.size(); ++r) write_f32_le(out, static_cast<float>(gamma(r)));
+            for (Eigen::Index r = 0; r < beta.size(); ++r) write_f32_le(out, static_cast<float>(beta(r)));
+            for (Eigen::Index r = 0; r < mean.size(); ++r) write_f32_le(out, static_cast<float>(mean(r)));
+            for (Eigen::Index r = 0; r < var.size(); ++r) write_f32_le(out, static_cast<float>(var(r)));
           }
         },
         l.variant());
@@ -610,8 +643,47 @@ Status importModel(NeuralNetwork& net, const std::string& path) {
       c.setWeights(W);
       c.setBiases(b);
       new_layers.emplace_back(std::move(c));
+    } else if (type == Layers::LayerType::BatchNorm1D) {
+      if (h.in_dim != h.out_dim || h.in_dim == 0) {
+        return Status::Err("BatchNorm1D in_dim/out_dim mismatch");
+      }
+      if (h.w_cnt != 0 || h.b_cnt != 0) {
+        return Status::Err("BatchNorm1D w_cnt/b_cnt must be 0");
+      }
+      if (h.aux_cnt != 4 * h.c_in) {
+        return Status::Err("BatchNorm1D aux_cnt mismatch 4*F");
+      }
+      if (h.c_in == 0) {
+        return Status::Err("BatchNorm1D missing c_in");
+      }
+      // Aux layout: gamma[F], beta[F], mean[F], var[F]
+      int F = static_cast<int>(h.c_in);
+      Layers::BatchNormParams p{F};
+      Layers::BatchNorm1D bn(p, act);
+      Eigen::VectorXd gamma(F), beta(F), mean(F), var(F);
+      for (int r = 0; r < F; ++r) {
+        size_t idx = h.aux_off + r * 4;
+        gamma(r) = static_cast<double>(read_f32_le(data.data() + idx));
+      }
+      for (int r = 0; r < F; ++r) {
+        size_t idx = h.aux_off + (F + r) * 4;
+        beta(r) = static_cast<double>(read_f32_le(data.data() + idx));
+      }
+      for (int r = 0; r < F; ++r) {
+        size_t idx = h.aux_off + (2 * F + r) * 4;
+        mean(r) = static_cast<double>(read_f32_le(data.data() + idx));
+      }
+      for (int r = 0; r < F; ++r) {
+        size_t idx = h.aux_off + (3 * F + r) * 4;
+        var(r) = static_cast<double>(read_f32_le(data.data() + idx));
+      }
+      bn.setGamma(gamma);
+      bn.setBeta(beta);
+      bn.setRunningMean(mean);
+      bn.setRunningVar(var);
+      new_layers.emplace_back(std::move(bn));
     } else {
-      return Status::Err("unsupported layer type in v0.1 (only Dense/Conv1D)");
+      return Status::Err("unsupported layer type in v0.1 (only Dense/Conv1D/BatchNorm1D)");
     }
   }
 
