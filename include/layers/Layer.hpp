@@ -25,8 +25,7 @@
 #include "Dense.hpp"
 #include "Conv1D.hpp"
 #include "BatchNorm1D.hpp"
-// Future layer headers will be included here as they are added:
-// #include "Pool1D.hpp"
+#include "Pool1D.hpp"
 
 namespace FlexNN::Layers {
 
@@ -53,9 +52,8 @@ class Layer {
   Layer(Dense d) : var_(std::move(d)) {}
   Layer(Conv1D c) : var_(std::move(c)) {}
   Layer(BatchNorm1D b) : var_(std::move(b)) {}
-  // Future ctors added in later PRs:
-  // Layer(MaxPool1D m) : var_(std::move(m)) {}
-  // Layer(AvgPool1D a) : var_(std::move(a)) {}
+  Layer(MaxPool1D m) : var_(std::move(m)) {}
+  Layer(AvgPool1D a) : var_(std::move(a)) {}
 
   /**
    * @brief Layer kind (Dense, Conv1D, ...).
@@ -140,7 +138,10 @@ class Layer {
           } else if constexpr (std::is_same_v<T, Conv1D>) {
             return v.weights();
           } else if constexpr (std::is_same_v<T, BatchNorm1D>) {
-            return Eigen::MatrixXd(); // BN is weightless for W^T* dZ (handled via propagate)
+            return Eigen::MatrixXd();
+          } else if constexpr (std::is_same_v<T, MaxPool1D> ||
+                               std::is_same_v<T, AvgPool1D>) {
+            return Eigen::MatrixXd();
           } else {
             return Eigen::MatrixXd();
           }
@@ -166,6 +167,10 @@ class Layer {
           } else if constexpr (std::is_same_v<T, Conv1D>) {
             return v.propagate(dZ);
           } else if constexpr (std::is_same_v<T, BatchNorm1D>) {
+            return v.propagate(dZ);
+          } else if constexpr (std::is_same_v<T, MaxPool1D>) {
+            return v.propagate(dZ);
+          } else if constexpr (std::is_same_v<T, AvgPool1D>) {
             return v.propagate(dZ);
           } else {
             return dZ;
@@ -195,6 +200,9 @@ class Layer {
             return v.grad(dZ, input);
           } else if constexpr (std::is_same_v<T, BatchNorm1D>) {
             return v.grad(dZ, input);
+          } else if constexpr (std::is_same_v<T, MaxPool1D> ||
+                               std::is_same_v<T, AvgPool1D>) {
+            return v.grad(dZ, input);
           } else {
             return {Eigen::MatrixXd(), Eigen::VectorXd()};
           }
@@ -222,9 +230,17 @@ class Layer {
   BatchNorm1D* asBatchNorm1D() noexcept {
     return std::get_if<BatchNorm1D>(&var_);
   }
+  const MaxPool1D* asMaxPool1D() const noexcept {
+    return std::get_if<MaxPool1D>(&var_);
+  }
+  MaxPool1D* asMaxPool1D() noexcept { return std::get_if<MaxPool1D>(&var_); }
+  const AvgPool1D* asAvgPool1D() const noexcept {
+    return std::get_if<AvgPool1D>(&var_);
+  }
+  AvgPool1D* asAvgPool1D() noexcept { return std::get_if<AvgPool1D>(&var_); }
 
  private:
-  std::variant<Dense, Conv1D, BatchNorm1D> var_;
+  std::variant<Dense, Conv1D, BatchNorm1D, MaxPool1D, AvgPool1D> var_;
 };
 
 } // namespace FlexNN::Layers
