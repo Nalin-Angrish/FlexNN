@@ -9,6 +9,7 @@
 
 #pragma once
 
+#include "ActivationParameters.hpp"
 #include "None.hpp"
 #include "ReLU.hpp"
 #include "LeakyReLU.hpp"
