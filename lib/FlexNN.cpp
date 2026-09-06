@@ -54,7 +54,8 @@ double FlexNN::NeuralNetwork::accuracy(const Eigen::MatrixXd &X, const Eigen::Ma
 {
   Eigen::MatrixXd predictions = this->predict(X); // Get predictions from the neural network
   int correct = 0;
-  for (int i = 0; i < predictions.cols(); ++i) // Iterate through each prediction
+  // Use Eigen::Index for cols() (Eigen uses ptrdiff_t) to avoid -Wsign-compare
+  for (Eigen::Index i = 0; i < predictions.cols(); ++i) // Iterate through each prediction
   {
     int predictedClass;
     predictions.col(i).maxCoeff(&predictedClass);
@@ -105,16 +106,19 @@ std::vector<Eigen::MatrixXd> FlexNN::NeuralNetwork::backward(const std::vector<E
 
   Eigen::MatrixXd dZ = outputs.back() - target;                          // Compute the initial dZ (gradient of the loss w.r.t. output)
   dZs.push_back(dZ);                                                     // Store dZ for this layer
-  int m = dZ.cols();                                                     // Number of examples
-  gradients.push_back(dZ.rowwise().mean());                              // Store both dW and db
+  // dZ.cols() is Eigen::Index (ptrdiff_t); keep as Index to avoid sign warnings
+  Eigen::Index m = dZ.cols();                                            // Number of examples
+  gradients.push_back(dZ.rowwise().mean());                              // Store db (rowwise mean)
   gradients.push_back(dZ * outputs[outputs.size() - 3].transpose() / m); // dW
 
-  for (int i = layers.size() - 2; i >= 0; --i)
+  // Reverse loop over hidden layers: use signed int to allow i>=0 termination.
+  // layers.size() is size_t; cast to int first to avoid wrap when size<2.
+  for (int i = static_cast<int>(layers.size()) - 2; i >= 0; --i)
   {
     dZ = layers[i].backward(layers[i + 1].getWeights(), dZs.back(), outputs[2 * i + 1]);
     dZs.push_back(dZ);                                        // Store dZ for this layer
-    gradients.push_back(dZ.rowwise().mean());                 // Store both db
-    gradients.push_back(dZ * outputs[2 * i].transpose() / m); // dW
+    gradients.push_back(dZ.rowwise().mean());                 // Store db
+    gradients.push_back(dZ * outputs[2 * static_cast<size_t>(i)].transpose() / m); // dW
   }
 
   std::reverse(gradients.begin(), gradients.end()); // Reverse the order of gradients to match layer order
@@ -133,7 +137,7 @@ std::vector<Eigen::MatrixXd> FlexNN::NeuralNetwork::backward(const std::vector<E
  */
 void FlexNN::NeuralNetwork::updateWeights(const std::vector<Eigen::MatrixXd> &gradients, double learningRate)
 {
-  for (int i = 0; i < layers.size(); ++i)
+  for (size_t i = 0; i < layers.size(); ++i)
   {
     Eigen::MatrixXd dW = gradients[2 * i];
     Eigen::VectorXd db = gradients[2 * i + 1];
