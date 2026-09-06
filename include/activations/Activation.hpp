@@ -25,19 +25,22 @@
 
 #include <Eigen/Dense>
 
+#include "ActivationParameters.hpp"
+
 namespace FlexNN::Activations {
 
 /**
  * @brief Activation function identifier.
  *
  * Values are stable on-wire (model.bin) — do not reorder. 0 is linear
- * (pre-BatchNorm or debugging). LeakyReLU alpha is fixed at 0.01 in v0.1;
- * a future per-layer alpha would use the `aux` blob.
+ * (pre-BatchNorm or debugging). LeakyReLU alpha is configurable per-layer
+ * via `ActivationParameters` (default 0.01, see `ActivationParameters.hpp`);
+ * `model.bin` v2 stores it as 1 float32 in `aux` when `act==LeakyReLU`.
  */
 enum class Activation : uint8_t {
   None = 0,      ///< Linear, no activation
   ReLU = 1,      ///< max(0, z)
-  LeakyReLU = 2, ///< z>0 ? z : 0.01*z (alpha fixed)
+  LeakyReLU = 2, ///< z>0 ? z : alpha*z (alpha from ActivationParameters)
   Sigmoid = 3,   ///< 1/(1+exp(-z)), clamped
   Tanh = 4,      ///< std::tanh(z)
   Softmax = 5    ///< Stable col-wise softmax — only on last layer in v0.1
@@ -82,12 +85,15 @@ namespace detail {
  * Pure function on `MatrixXd` (double). Used by `Layers::<Concrete>::forward()`
  * via `switch(act)`. Header-only per-activation impls are in
  * `include/activations/<Act>.hpp` — this dispatcher keeps layer code short.
+ * `params` is only used when `act==LeakyReLU` (others ignore it).
  *
  * @param act Activation to apply
  * @param Z Pre-activation (linear output)
+ * @param params Hyperparameters (e.g., leakyAlpha for LeakyReLU)
  * @return Post-activation matrix A, same shape as Z
  */
-Eigen::MatrixXd forward(Activation act, const Eigen::MatrixXd& Z);
+Eigen::MatrixXd forward(Activation act, const Eigen::MatrixXd& Z,
+                        const ActivationParameters& params = ActivationParameters{});
 
 /**
  * @brief Elementwise backward for a single activation (hidden layers).
@@ -104,10 +110,12 @@ Eigen::MatrixXd forward(Activation act, const Eigen::MatrixXd& Z);
  * @param dA Upstream gradient (same shape as Z/A)
  * @param Z Pre-activation from forward
  * @param A Post-activation from forward (needed for Sigmoid/Tanh to avoid recompute)
+ * @param params Same params as forward (leakyAlpha for LeakyReLU)
  * @return Gradient w.r.t. Z, same shape as Z
  */
 Eigen::MatrixXd backward(Activation act, const Eigen::MatrixXd& dA,
-                         const Eigen::MatrixXd& Z, const Eigen::MatrixXd& A) noexcept;
+                         const Eigen::MatrixXd& Z, const Eigen::MatrixXd& A,
+                         const ActivationParameters& params = ActivationParameters{}) noexcept;
 
 /**
  * @brief Stable column-wise softmax forward.
