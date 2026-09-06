@@ -61,8 +61,8 @@ set(LIB_SOURCES
   lib/Layer.cpp
   lib/Utility.cpp
   lib/activations/Activation.cpp
+  lib/layers/Dense.cpp
   # New modular sources will be appended by later PRs:
-  # lib/layers/Dense.cpp
   # lib/layers/Conv1D.cpp
   # lib/layers/BatchNorm1D.cpp
   # lib/layers/Pool1D.cpp

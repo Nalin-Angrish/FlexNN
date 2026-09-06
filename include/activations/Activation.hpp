@@ -22,6 +22,7 @@
 
 #include <cstdint>
 #include <string_view>
+#include <type_traits>
 
 #include <Eigen/Dense>
 

@@ -31,3 +31,8 @@ include(GoogleTest)
 add_executable(activation_test activation_test.cpp)
 target_link_libraries(activation_test PRIVATE FlexNN GTest::gtest_main)
 gtest_discover_tests(activation_test)
+
+# PR-03: dense tests
+add_executable(dense_test dense_test.cpp)
+target_link_libraries(dense_test PRIVATE FlexNN GTest::gtest_main)
+gtest_discover_tests(dense_test)
