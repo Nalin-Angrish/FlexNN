@@ -22,6 +22,7 @@
 
 #include "LayerTypes.hpp"
 #include "activations/Activation.hpp"
+#include "activations/ActivationParameters.hpp"
 
 namespace FlexNN::Layers {
 
@@ -35,14 +36,16 @@ class Conv1D {
    * @param act Activation (default ReLU)
    */
   explicit Conv1D(Conv1DParams p,
-                  Activations::Activation act = Activations::Activation::ReLU);
+                  Activations::Activation act = Activations::Activation::ReLU,
+                  const Activations::ActivationParameters& params = Activations::ActivationParameters{});
 
   /**
    * @brief Convenience ctor with explicit ints.
    */
   Conv1D(int inChannels, int outChannels, int kernelSize, int stride = 1,
          int padding = 0, int dilation = 1,
-         Activations::Activation act = Activations::Activation::ReLU);
+         Activations::Activation act = Activations::Activation::ReLU,
+         const Activations::ActivationParameters& params = Activations::ActivationParameters{});
 
   [[deprecated("use Activations::Activation enum")]]
   Conv1D(Conv1DParams p, const std::string& actStr);
@@ -52,12 +55,14 @@ class Conv1D {
 
   LayerType type() const noexcept { return LayerType::Conv1D; }
   Activations::Activation activation() const noexcept { return act_; }
+  const Activations::ActivationParameters& activationParams() const noexcept { return actParams_; }
   const Conv1DParams& params() const noexcept { return params_; }
   const Eigen::MatrixXd& weights() const noexcept { return W_; }
   const Eigen::VectorXd& biases() const noexcept { return b_; }
 
   void setWeights(const Eigen::MatrixXd& W) { W_ = W; }
   void setBiases(const Eigen::VectorXd& b) { b_ = b; }
+  void setActivationParameters(const Activations::ActivationParameters& p) { actParams_ = p; }
 
   /**
    * @brief Forward: `Z[oc][ol] = b[oc] + Σic Σk W[oc][ic*K+k] * Xpad[ic][ol*stride - pad + k*dilation]`
@@ -133,6 +138,7 @@ class Conv1D {
 
   Conv1DParams params_{};
   Activations::Activation act_ = Activations::Activation::ReLU;
+  Activations::ActivationParameters actParams_{};
   Eigen::MatrixXd W_; ///< [outChannels × inChannels*K]
   Eigen::VectorXd b_; ///< [outChannels]
 };
