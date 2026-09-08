@@ -64,10 +64,10 @@ set(LIB_SOURCES
   lib/layers/Dense.cpp
   lib/layers/Conv1D.cpp
   lib/layers/Layer.cpp
+  lib/ModelIO.cpp
   # New modular sources will be appended by later PRs:
   # lib/layers/BatchNorm1D.cpp
   # lib/layers/Pool1D.cpp
-  # lib/ModelIO.cpp
 )
 
 add_library(FlexNN ${LIB_SOURCES})
