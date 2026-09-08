@@ -196,6 +196,12 @@ Status exportModel(const NeuralNetwork& net, const std::string& path,
         return Status::Err("BatchNorm1D invalid numFeatures");
       }
     }
+    if (type == Layers::LayerType::MaxPool1D ||
+        type == Layers::LayerType::AvgPool1D) {
+      if (act != Activations::Activation::None) {
+        return Status::Err("Pool activation must be None in v0.1");
+      }
+    }
     // DType only F32
     // (no other checks — unknown type/act still writes so future runtime can read)
   }
@@ -260,8 +266,33 @@ Status exportModel(const NeuralNetwork& net, const std::string& path,
             h.stride = 0;
             h.pad = 0;
             h.dilation = 0;
+          } else if constexpr (std::is_same_v<T, Layers::MaxPool1D>) {
+            auto p = v.params();
+            h.in_dim = 0;
+            h.out_dim = 0;
+            h.w_cnt = 0;
+            h.b_cnt = 0;
+            h.aux_cnt = 0;
+            h.c_in = static_cast<uint16_t>(p.channels);
+            h.c_out = static_cast<uint16_t>(p.channels);
+            h.k = static_cast<uint16_t>(p.kernelSize);
+            h.stride = static_cast<uint16_t>(p.stride);
+            h.pad = static_cast<uint16_t>(p.padding);
+            h.dilation = 0;
+          } else if constexpr (std::is_same_v<T, Layers::AvgPool1D>) {
+            auto p = v.params();
+            h.in_dim = 0;
+            h.out_dim = 0;
+            h.w_cnt = 0;
+            h.b_cnt = 0;
+            h.aux_cnt = 0;
+            h.c_in = static_cast<uint16_t>(p.channels);
+            h.c_out = static_cast<uint16_t>(p.channels);
+            h.k = static_cast<uint16_t>(p.kernelSize);
+            h.stride = static_cast<uint16_t>(p.stride);
+            h.pad = static_cast<uint16_t>(p.padding);
+            h.dilation = 0;
           } else {
-            // Future Pool will be handled in next PR
             h.in_dim = 0;
             h.out_dim = 0;
           }
@@ -752,8 +783,30 @@ Status importModel(NeuralNetwork& net, const std::string& path) {
       bn.setRunningMean(mean);
       bn.setRunningVar(var);
       new_layers.emplace_back(std::move(bn));
+    } else if (type == Layers::LayerType::MaxPool1D) {
+      if (h.w_cnt != 0 || h.b_cnt != 0 || h.aux_cnt != 0) {
+        return Status::Err("Pool w/b/aux must be 0");
+      }
+      if (h.c_in == 0 || h.k == 0) {
+        return Status::Err("Pool missing c_in/k");
+      }
+      Layers::Pool1DParams p{static_cast<int>(h.c_in), static_cast<int>(h.k),
+                             static_cast<int>(h.stride), static_cast<int>(h.pad)};
+      Layers::MaxPool1D m(p, act);
+      new_layers.emplace_back(std::move(m));
+    } else if (type == Layers::LayerType::AvgPool1D) {
+      if (h.w_cnt != 0 || h.b_cnt != 0 || h.aux_cnt != 0) {
+        return Status::Err("Pool w/b/aux must be 0");
+      }
+      if (h.c_in == 0 || h.k == 0) {
+        return Status::Err("Pool missing c_in/k");
+      }
+      Layers::Pool1DParams p{static_cast<int>(h.c_in), static_cast<int>(h.k),
+                             static_cast<int>(h.stride), static_cast<int>(h.pad)};
+      Layers::AvgPool1D m(p, act);
+      new_layers.emplace_back(std::move(m));
     } else {
-      return Status::Err("unsupported layer type in v0.1 (only Dense/Conv1D/BatchNorm1D)");
+      return Status::Err("unsupported layer type");
     }
   }
 
