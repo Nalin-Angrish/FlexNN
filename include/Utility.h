@@ -1,69 +1,92 @@
 /**
  * @file Utility.h
- * @brief Utility functions for FlexNN neural network library.
+ * @brief Utility functions for FlexNN — CSV, one-hot, and deterministic splits.
  *
- * This file contains utility functions for one-hot encoding, reading CSV files,
- * and splitting datasets into training, validation, and test sets.
- *
- * Will add more utility functions as needed.
- *
- * @author Nalin Angrish <nalin@nalinangrish.me>
+ * Adds `setRandomSeed`/`getRandomSeed` so `splitXY` is deterministic when a
+ * seed is set, while keeping the old `splitXY(X,Y,props)` signature for
+ * backward compat (uses the global seed). See LLD_FLEXNN §8.
  */
+
 #ifndef FlexNN_UTILITY_H
 #define FlexNN_UTILITY_H
 
-#include <Eigen/Dense>
+#include <cstdint>
 #include <string>
 #include <vector>
 
+#include <Eigen/Dense>
+
+namespace FlexNN {
+
 /**
- * @namespace FlexNN
- * @brief Namespace for the FlexNN neural network library.
+ * @brief One-hot encodes a vector of class labels.
  *
- * This namespace contains all the classes and functions related to the FlexNN library,
- * including the NeuralNetwork class and Layer class. It provides a structured way to organize
- * the library's components and avoid naming conflicts with other libraries.
+ * @param Y Input vector of class labels (size = batch)
+ * @param num_classes Number of unique classes
+ * @return Matrix [num_classes × batch] where each column is one-hot
  */
-namespace FlexNN
-{
-  /**
-   * @brief One-hot encodes a vector of class labels.
-   *
-   * This function takes a vector of class labels and converts it into a one-hot encoded matrix.
-   * Each row corresponds to a class label, and each column corresponds to a class.
-   *
-   * @param Y The input vector of class labels.
-   * @param num_classes The number of unique classes.
-   * @return An Eigen::MatrixXd where each row is a one-hot encoded vector for the corresponding class label.
-   */
-  Eigen::MatrixXd oneHotEncode(const Eigen::VectorXd &Y, int num_classes);
+Eigen::MatrixXd oneHotEncode(const Eigen::VectorXd &Y, int num_classes);
 
-  /**
-   * @brief Reads a CSV file and splits it into features (X) and labels (Y).
-   *
-   * This function reads a CSV file where the first column is considered the label (Y)
-   * and the remaining columns are considered features (X). It populates the provided
-   * Eigen matrices with the data from the CSV file.
-   *
-   * @param filename The path to the CSV file to read.
-   * @param X The Eigen::MatrixXd to store the features (all columns except the first).
-   * @param Y The Eigen::VectorXd to store the labels (the first column).
-   */
-  void readCSV_XY(const std::string &filename, Eigen::MatrixXd &X, Eigen::VectorXd &Y);
+/**
+ * @brief Reads a CSV where first column is label, rest are features.
+ *
+ * @param filename Path to CSV
+ * @param X Output features [samples × features]
+ * @param Y Output labels [samples]
+ */
+void readCSV_XY(const std::string &filename, Eigen::MatrixXd &X, Eigen::VectorXd &Y);
 
-  /**
-   * @brief Splits the dataset into multiple sets based on specified proportions.
-   *
-   * This function takes a dataset represented by features (X) and labels (Y),
-   * and splits it into multiple sets according to the provided proportions.
-   *
-   * @param X The input feature matrix (Eigen::MatrixXd).
-   * @param Y The input label vector (Eigen::VectorXd).
-   * @param proportions A vector of doubles representing the proportions for each split.
-   * @return A vector of pairs, where each pair contains a feature matrix and a label vector for each split.
-   */
-  std::vector<std::pair<Eigen::MatrixXd, Eigen::VectorXd>>
-  splitXY(const Eigen::MatrixXd &X, const Eigen::VectorXd &Y, const std::vector<double> &proportions);
-}
+/**
+ * @brief Set the global RNG seed for `splitXY` (deterministic splits).
+ *
+ * Thread-safe (atomic). The `thread_local` engine is reseeded on next
+ * `splitXY` call without explicit seed. For per-call determinism, use
+ * `splitXY(X,Y,props,seed)` instead.
+ *
+ * @param seed New seed
+ */
+void setRandomSeed(uint32_t seed);
+
+/**
+ * @brief Get the current global RNG seed.
+ *
+ * @return Current seed (initially from `random_device` once)
+ */
+uint32_t getRandomSeed() noexcept;
+
+/**
+ * @brief Splits dataset into multiple sets by proportions (uses global seed).
+ *
+ * Shuffles indices via a `thread_local mt19937` seeded from the global
+ * `getRandomSeed()` (or `random_device` on first call). For reproducibility,
+ * call `setRandomSeed(42)` before `splitXY`, or use the overload with
+ * explicit `seed`.
+ *
+ * @param X Features [samples × features]
+ * @param Y Labels [samples]
+ * @param proportions Split fractions (sum ≤1, last is remainder)
+ * @return Vector of (X_split, Y_split) pairs
+ */
+std::vector<std::pair<Eigen::MatrixXd, Eigen::VectorXd>> splitXY(
+    const Eigen::MatrixXd &X, const Eigen::VectorXd &Y,
+    const std::vector<double> &proportions);
+
+/**
+ * @brief Splits dataset with explicit seed (deterministic, no global state).
+ *
+ * Uses a local `mt19937(seed)` so the global seed is unchanged. Prefer this
+ * in tests for hermetic determinism.
+ *
+ * @param X Features [samples × features]
+ * @param Y Labels [samples]
+ * @param proportions Split fractions
+ * @param seed Explicit seed
+ * @return Vector of splits
+ */
+std::vector<std::pair<Eigen::MatrixXd, Eigen::VectorXd>> splitXY(
+    const Eigen::MatrixXd &X, const Eigen::VectorXd &Y,
+    const std::vector<double> &proportions, uint32_t seed);
+
+} // namespace FlexNN
 
 #endif // FlexNN_UTILITY_H
