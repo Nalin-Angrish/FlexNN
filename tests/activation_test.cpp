@@ -28,15 +28,17 @@ using namespace FlexNN::Activations::detail;
 
 // Finite-difference gradient w.r.t. Z for a scalar loss `L = sum(forward(Z))`.
 // Used to verify backward() for elementwise activations where dA = 1.
-static Eigen::MatrixXd finite_diff_grad(Activation act, const Eigen::MatrixXd& Z, double eps = 1e-5) {
+static Eigen::MatrixXd finite_diff_grad(Activation act, const Eigen::MatrixXd& Z,
+                                        const ActivationParameters& params = {},
+                                        double eps = 1e-5) {
   Eigen::MatrixXd grad(Z.rows(), Z.cols());
   for (Eigen::Index r = 0; r < Z.rows(); ++r) {
     for (Eigen::Index c = 0; c < Z.cols(); ++c) {
       Eigen::MatrixXd Zp = Z, Zm = Z;
       Zp(r, c) += eps;
       Zm(r, c) -= eps;
-      double fp = forward(act, Zp).sum();
-      double fm = forward(act, Zm).sum();
+      double fp = forward(act, Zp, params).sum();
+      double fm = forward(act, Zm, params).sum();
       grad(r, c) = (fp - fm) / (2 * eps);
     }
   }
@@ -130,6 +132,32 @@ TEST(ActivationForward, LeakyReLU) {
   EXPECT_DOUBLE_EQ(A(0, 2), 2.0);
 }
 
+TEST(ActivationForward, LeakyReLUCustomAlpha) {
+  Eigen::MatrixXd Z(1, 3);
+  Z << -2, 0, 2;
+  ActivationParameters p;
+  p.leakyAlpha = 0.2;
+  Eigen::MatrixXd A = forward(Activation::LeakyReLU, Z, p);
+  EXPECT_DOUBLE_EQ(A(0, 0), -0.4); // -2 * 0.2
+  EXPECT_DOUBLE_EQ(A(0, 1), 0.0);
+  EXPECT_DOUBLE_EQ(A(0, 2), 2.0);
+  // Direct helper with explicit alpha
+  Eigen::MatrixXd A2 = leaky_relu_forward(Z, 0.2);
+  EXPECT_EQ(A, A2);
+}
+
+TEST(ActivationParameters, DefaultsAndEquality) {
+  ActivationParameters p1;
+  EXPECT_DOUBLE_EQ(p1.leakyAlpha, 0.01);
+  EXPECT_DOUBLE_EQ(p1.leakyAlpha, kDefaultLeakyAlpha);
+  ActivationParameters p2;
+  p2.leakyAlpha = 0.2;
+  EXPECT_NE(p1, p2);
+  ActivationParameters p3;
+  p3.leakyAlpha = 0.2;
+  EXPECT_EQ(p2, p3);
+}
+
 TEST(ActivationForward, SigmoidClamped) {
   Eigen::MatrixXd Z(1, 3);
   Z << -100, 0, 100; // extreme values should be clamped to [-15,15] before exp
@@ -218,6 +246,22 @@ TEST(ActivationBackward, LeakyReLUFiniteDiff) {
   Eigen::MatrixXd dZ = backward(Activation::LeakyReLU, dA, Z, A);
   Eigen::MatrixXd fd = finite_diff_grad(Activation::LeakyReLU, Z);
   EXPECT_TRUE((dZ - fd).cwiseAbs().maxCoeff() < 1e-4);
+}
+
+TEST(ActivationBackward, LeakyReLUCustomAlphaFiniteDiff) {
+  Eigen::MatrixXd Z(2, 3);
+  Z << 0.5, -0.5, 1.5,
+       -1.5, 2.0, -0.1;
+  ActivationParameters p;
+  p.leakyAlpha = 0.2;
+  Eigen::MatrixXd A = forward(Activation::LeakyReLU, Z, p);
+  Eigen::MatrixXd dA = Eigen::MatrixXd::Ones(2, 3);
+  Eigen::MatrixXd dZ = backward(Activation::LeakyReLU, dA, Z, A, p);
+  Eigen::MatrixXd fd = finite_diff_grad(Activation::LeakyReLU, Z, p);
+  EXPECT_TRUE((dZ - fd).cwiseAbs().maxCoeff() < 1e-4);
+  // Direct helper
+  Eigen::MatrixXd dZ2 = leaky_relu_backward(dA, Z, A, 0.2);
+  EXPECT_EQ(dZ, dZ2);
 }
 
 TEST(ActivationBackward, SigmoidFiniteDiff) {

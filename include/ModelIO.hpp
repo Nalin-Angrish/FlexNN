@@ -35,25 +35,29 @@ struct Status {
 };
 
 /**
- * @brief Options for export (currently only version).
+ * @brief Options for export (currently version).
  *
- * v0.1 only formatVersion==1. Future versions may add `includeOptimizerState`.
+ * v1: flat binary with enum activation only (LeakyReLU alpha fixed 0.01, no aux).
+ * v2: adds per-layer LeakyReLU alpha as 1 float32 in `aux` when `act==LeakyReLU`
+ *     (see `ActivationParameters`). Default is 2 so new code writes the
+ *     configurable alpha (still 0.01 if user never changed it).
  */
 struct ExportOptions {
-  int formatVersion = 1; ///< Must be 1 in v0.1
+  int formatVersion = 2; ///< 1=legacy, 2=with ActivationParameters
 };
 
 /**
  * @brief Export a trained NeuralNetwork to flat binary `model.bin`.
  *
  * Validates each layer (e.g., Conv1D dilation==1, Softmax only on last layer,
- * unknown DType) and returns `Status::Err` on impossible export without writing.
- * Otherwise writes main header (20B) + N*52B LayerHeaders + blobs (float32 LE,
- * row-major) + file CRC32 and returns `Ok`.
+ * unknown DType, LeakyReLU alpha in (0,1)) and returns `Status::Err` on
+ * impossible export without writing. Otherwise writes main header (20B) +
+ * N*52B LayerHeaders + blobs (float32 LE, row-major) + file CRC32 and
+ * returns `Ok`. v2 writes `ActivationParameters` for LeakyReLU as `aux`.
  *
  * @param net Network to export (weights are double, cast to float32)
  * @param path Destination file (truncated if exists)
- * @param opts Export options (formatVersion must be 1)
+ * @param opts Export options (formatVersion 1 or 2)
  * @return Status::Ok on success, Err with message on failure
  */
 [[nodiscard]] Status exportModel(const NeuralNetwork& net, const std::string& path,
