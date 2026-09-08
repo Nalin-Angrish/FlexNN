@@ -104,9 +104,10 @@ class Dense {
    * @brief Backward with already-propagated upstream (W_next^T*dZ_next).
    *
    * Used by `NeuralNetwork::backward` after `layers[i+1].propagate(dZ_next)`
-   * so the caller handles `Conv1D` transpose via `col2im`.
+   * so the caller handles `Conv1D` transpose via `col2im`. Equivalent to the
+   * three-arg version but skips the `nextW` multiply.
    *
-   * @param upstream Already `W_next^T * dZ_next`
+   * @param upstream Already `W_next^T * dZ_next` (or `propagate` result)
    * @param currZ This layer's Z
    * @return Gradient w.r.t. Z
    */
@@ -115,6 +116,9 @@ class Dense {
 
   /**
    * @brief Propagate gradient to previous layer: `dX = W^T * dZ`.
+   *
+   * @param dZ Gradient w.r.t. Z of this layer `[out × batch]`
+   * @return Gradient w.r.t. input `[in × batch]`
    */
   Eigen::MatrixXd propagate(const Eigen::MatrixXd& dZ) const;
 

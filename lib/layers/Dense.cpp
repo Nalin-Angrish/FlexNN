@@ -55,12 +55,13 @@ Eigen::MatrixXd Dense::backward(const Eigen::MatrixXd& nextW,
   // Last-layer is never called (NeuralNetwork::backward fuses Softmax).
   assert(nextW.cols() == currZ.rows() && "nextW cols must equal currZ rows");
   assert(nextW.rows() == nextdZ.rows() && "nextW rows must equal nextdZ rows");
+  // Upstream gradient: dA = W_next^T * dZ_next
   Eigen::MatrixXd dA = nextW.transpose() * nextdZ;
   return backward(dA, currZ);
 }
 
 Eigen::MatrixXd Dense::backward(const Eigen::MatrixXd& upstream,
-                                 const Eigen::MatrixXd& currZ) const {
+                                const Eigen::MatrixXd& currZ) const {
   Eigen::MatrixXd A = Activations::detail::forward(act_, currZ, actParams_);
   return Activations::detail::backward(act_, upstream, currZ, A, actParams_);
 }

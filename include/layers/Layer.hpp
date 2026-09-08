@@ -23,9 +23,9 @@
 #include <variant>
 
 #include "Dense.hpp"
+#include "Conv1D.hpp"
 #include "activations/ActivationParameters.hpp"
 // Future layer headers will be included here as they are added:
-// #include "Conv1D.hpp"
 // #include "BatchNorm1D.hpp"
 // #include "Pool1D.hpp"
 
@@ -34,8 +34,7 @@ namespace FlexNN::Layers {
 /**
  * @brief Type-erased layer — holds one concrete layer type.
  *
- * In PR-04 the variant holds only `Dense`. Later PRs expand it:
- * - PR-05: `std::variant<Dense, Conv1D>`
+ * In PR-05 the variant holds `Dense` and `Conv1D`. Later PRs expand it:
  * - PR-07: `std::variant<Dense, Conv1D, BatchNorm1D>`
  * - PR-08: `std::variant<Dense, Conv1D, BatchNorm1D, MaxPool1D, AvgPool1D>`
  *
@@ -53,8 +52,8 @@ class Layer {
   // Construction from each concrete type — implicit so
   // `NeuralNetwork net({Dense(...), Dense(...)})` works.
   Layer(Dense d) : var_(std::move(d)) {}
+  Layer(Conv1D c) : var_(std::move(c)) {}
   // Future ctors added in later PRs:
-  // Layer(Conv1D c) : var_(std::move(c)) {}
   // Layer(BatchNorm1D b) : var_(std::move(b)) {}
   // Layer(MaxPool1D m) : var_(std::move(m)) {}
   // Layer(AvgPool1D a) : var_(std::move(a)) {}
@@ -76,16 +75,15 @@ class Layer {
   /**
    * @brief Activation hyperparameters (e.g., LeakyReLU alpha).
    *
-   * Returns default-constructed `ActivationParameters` for layers that do not
-   * use configurable activations. Currently only `Dense` carries params; the
-   * branch is prepared for `Conv1D` in PR#5 (same `if constexpr` will be
-   * extended).
+   * Returns stored `ActivationParameters` for layers that carry it
+   * (`Dense`, `Conv1D`); otherwise default. Non-Leaky activations ignore the
+   * returned struct.
    */
   Activations::ActivationParameters activationParams() const noexcept {
     return std::visit(
         [](auto&& v) -> Activations::ActivationParameters {
           using T = std::decay_t<decltype(v)>;
-          if constexpr (std::is_same_v<T, Dense>) {
+          if constexpr (std::is_same_v<T, Dense> || std::is_same_v<T, Conv1D>) {
             return v.activationParams();
           } else {
             return Activations::ActivationParameters{};
@@ -110,12 +108,26 @@ class Layer {
    * For the last layer, `NeuralNetwork::backward` fuses Softmax+CE and never
    * calls this for the last layer. For hidden layers this applies
    * `f'(Z) ⊙ (W_next^T * dZ_next)`.
+   *
+   * Kept for `dense_test` compatibility (takes nextW/nextdZ).
    */
   Eigen::MatrixXd backward(const Eigen::MatrixXd& nextW,
                            const Eigen::MatrixXd& nextdZ,
                            const Eigen::MatrixXd& currZ) const {
     return std::visit(
         [&](auto&& v) { return v.backward(nextW, nextdZ, currZ); }, var_);
+  }
+
+  /**
+   * @brief Backward with already-propagated upstream (W_next^T*dZ_next).
+   *
+   * Used by `NeuralNetwork::backward` after `layers[i+1].propagate(dZ_next)`
+   * so the caller handles `Conv1D` transpose via `col2im`.
+   */
+  Eigen::MatrixXd backward(const Eigen::MatrixXd& upstream,
+                           const Eigen::MatrixXd& currZ) const {
+    return std::visit(
+        [&](auto&& v) { return v.backward(upstream, currZ); }, var_);
   }
 
   /**
@@ -134,20 +146,72 @@ class Layer {
   }
 
   /**
-   * @brief Weight matrix for backward (W_next^T * dZ_next).
+   * @brief Weight matrix for backward — Dense/Conv1D.
    *
-   * For Dense this is `W [out×in]`; for weightless layers (Pool/BN) this
-   * would be empty in future PRs and the caller handles pooling/BN
-   * specially. In PR-04 only Dense exists, so this always returns Dense weights.
+   * For Dense this is `W [out×in]`; for Conv1D this is `W [outCh×inCh*K]`.
+   * Kept for ModelIO inspection; for backward prefer `propagate()` which
+   * handles Conv1D col2im correctly. Not noexcept (allocates on copy).
    */
-  Eigen::MatrixXd weightsMatrix() const noexcept {
+  Eigen::MatrixXd weightsMatrix() const {
     return std::visit(
         [](auto&& v) -> Eigen::MatrixXd {
           using T = std::decay_t<decltype(v)>;
           if constexpr (std::is_same_v<T, Dense>) {
             return v.weights();
+          } else if constexpr (std::is_same_v<T, Conv1D>) {
+            return v.weights();
           } else {
-            return Eigen::MatrixXd(); // future weightless layers
+            return Eigen::MatrixXd();
+          }
+        },
+        var_);
+  }
+
+  /**
+   * @brief Propagate gradient to previous layer (W^T * dZ or col2im).
+   *
+   * Used by `NeuralNetwork::backward` to compute upstream for hidden layers:
+   * `upstream = layers[i+1].propagate(dZ_next)`. For Dense this is
+   * `W^T * dZ`; for Conv1D this is `col2im(W^T * dZ)` via `Conv1D::propagate`.
+   *
+   * @note Not noexcept: allocates MatrixXd (host, bad_alloc terminates).
+   */
+  Eigen::MatrixXd propagate(const Eigen::MatrixXd& dZ) const {
+    return std::visit(
+        [&](auto&& v) -> Eigen::MatrixXd {
+          using T = std::decay_t<decltype(v)>;
+          if constexpr (std::is_same_v<T, Dense>) {
+            return v.weights().transpose() * dZ;
+          } else if constexpr (std::is_same_v<T, Conv1D>) {
+            return v.propagate(dZ);
+          } else {
+            return dZ; // weightless fallback (should not happen for Dense/Conv1D)
+          }
+        },
+        var_);
+  }
+
+  /**
+   * @brief Compute dW/db for this layer given dZ and input.
+   *
+   * For Dense: `dW = dZ * X^T / batch`, `db = rowMean(dZ)`.
+   * For Conv1D: `dW/db` via `Conv1D::grad`.
+   * Returns pair (dW, db) as two matrices (db as column vector promoted to MatrixXd).
+   */
+  std::pair<Eigen::MatrixXd, Eigen::VectorXd> grad(
+      const Eigen::MatrixXd& dZ, const Eigen::MatrixXd& input) const {
+    return std::visit(
+        [&](auto&& v) -> std::pair<Eigen::MatrixXd, Eigen::VectorXd> {
+          using T = std::decay_t<decltype(v)>;
+          if constexpr (std::is_same_v<T, Dense>) {
+            double m = static_cast<double>(dZ.cols());
+            Eigen::MatrixXd dW = dZ * input.transpose() / m;
+            Eigen::VectorXd db = dZ.rowwise().mean();
+            return {dW, db};
+          } else if constexpr (std::is_same_v<T, Conv1D>) {
+            return v.grad(dZ, input);
+          } else {
+            return {Eigen::MatrixXd(), Eigen::VectorXd()};
           }
         },
         var_);
@@ -163,16 +227,13 @@ class Layer {
   auto& variant() noexcept { return var_; }
 
   // Helpers for ModelIO/tests to query concrete type without visit boilerplate.
-  // Returns nullptr if the active alternative is not Dense.
-  const Dense* asDense() const noexcept {
-    return std::get_if<Dense>(&var_);
-  }
+  const Dense* asDense() const noexcept { return std::get_if<Dense>(&var_); }
   Dense* asDense() noexcept { return std::get_if<Dense>(&var_); }
+  const Conv1D* asConv1D() const noexcept { return std::get_if<Conv1D>(&var_); }
+  Conv1D* asConv1D() noexcept { return std::get_if<Conv1D>(&var_); }
 
  private:
-  // In PR-04 only Dense is active. This keeps the variant size minimal and
-  // the stack base builds without pulling Conv1D/BatchNorm/Pool headers.
-  std::variant<Dense> var_;
+  std::variant<Dense, Conv1D> var_;
 };
 
 } // namespace FlexNN::Layers
