@@ -29,6 +29,11 @@ static void expect_networks_near(const NeuralNetwork& a, const NeuralNetwork& b,
     const auto& lb = b.layers()[i];
     EXPECT_EQ(la.type(), lb.type());
     EXPECT_EQ(la.activation(), lb.activation());
+    // Compare ActivationParameters for LeakyReLU (tolerance for float32)
+    if (la.activation() == Activation::LeakyReLU) {
+      EXPECT_NEAR(la.activationParams().leakyAlpha, lb.activationParams().leakyAlpha, 1e-6)
+          << "leakyAlpha mismatch at layer " << i;
+    }
     std::visit(
         [&](auto&& va) {
           using T = std::decay_t<decltype(va)>;
@@ -102,7 +107,7 @@ TEST(ModelIO, HeaderAndCrc) {
   NeuralNetwork net(std::vector<Layers::Layer>{Dense(2, 2, Activation::None)});
   const std::string path = "/tmp/flexnn_header.bin";
   ASSERT_TRUE(exportModel(net, path).ok);
-  // Read file and check magic/version
+  // Read file and check magic/version (default export is v2 with ActivationParameters)
   std::ifstream in(path, std::ios::binary);
   std::vector<uint8_t> data((std::istreambuf_iterator<char>(in)),
                             std::istreambuf_iterator<char>());
@@ -110,7 +115,7 @@ TEST(ModelIO, HeaderAndCrc) {
   uint32_t magic = data[0] | (data[1] << 8) | (data[2] << 16) | (data[3] << 24);
   EXPECT_EQ(magic, 0x54464E47u);
   uint16_t version = data[4] | (data[5] << 8);
-  EXPECT_EQ(version, 1);
+  EXPECT_EQ(version, 2);
   uint16_t header_len = data[6] | (data[7] << 8);
   EXPECT_EQ(header_len, 20);
   uint32_t layer_count = data[8] | (data[9] << 8) | (data[10] << 16) | (data[11] << 24);
@@ -139,15 +144,15 @@ TEST(ModelIO, NegativeBumpVersion) {
   NeuralNetwork net(std::vector<Layers::Layer>{Dense(2, 2, Activation::ReLU)});
   const std::string path = "/tmp/flexnn_bump_version.bin";
   ASSERT_TRUE(exportModel(net, path).ok);
-  // Bump version to 2 and fix header CRC to make it look like a newer file,
-  // but importer should still reject version !=1
+  // Bump version to 3 and fix header CRC to make it look like a newer file,
+  // but importer should still reject version !=1/2
   // For simplicity, just overwrite version bytes and don't fix CRC — importer will
   // fail on header CRC first, which is also a valid rejection. To test version,
   // we need to fix CRC.
   std::fstream f(path, std::ios::binary | std::ios::in | std::ios::out);
   // version at offset 4
   f.seekp(4);
-  uint8_t v[2] = {2, 0};
+  uint8_t v[2] = {3, 0};
   f.write(reinterpret_cast<char*>(v), 2);
   // Recompute header CRC over first 16B
   f.seekp(0);
@@ -218,4 +223,66 @@ TEST(ModelIO, NegativeSoftmaxNotLast) {
   auto st = exportModel(net, "/tmp/flexnn_softmax.bin");
   EXPECT_FALSE(st.ok);
   EXPECT_NE(st.error.find("Softmax"), std::string::npos);
+}
+
+TEST(ModelIO, LeakyReLUDefaultRoundTrip) {
+  NeuralNetwork net(std::vector<Layers::Layer>{
+      Dense(4, 3, Activation::LeakyReLU),
+      Dense(3, 2, Activation::Softmax),
+  });
+  const std::string path = "/tmp/flexnn_leaky_default.bin";
+  ASSERT_TRUE(exportModel(net, path).ok);
+  NeuralNetwork net2(std::vector<Layers::Layer>{Dense(1, 1)});
+  ASSERT_TRUE(importModel(net2, path).ok);
+  expect_networks_near(net, net2);
+  // Check aux was written (v2)
+  std::ifstream in(path, std::ios::binary);
+  std::vector<uint8_t> data((std::istreambuf_iterator<char>(in)), std::istreambuf_iterator<char>());
+  uint16_t ver = data[4] | (data[5] << 8);
+  EXPECT_EQ(ver, 2);
+  std::remove(path.c_str());
+}
+
+TEST(ModelIO, LeakyReLUCustomAlphaRoundTrip) {
+  ActivationParameters p;
+  p.leakyAlpha = 0.2;
+  NeuralNetwork net(std::vector<Layers::Layer>{
+      Dense(4, 3, Activation::LeakyReLU, p),
+      Conv1D(Conv1DParams{1, 2, 3, 1, 1, 1}, Activation::LeakyReLU, p),
+      Dense(2 * 6, 2, Activation::Softmax),
+  });
+  const std::string path = "/tmp/flexnn_leaky_custom.bin";
+  ASSERT_TRUE(exportModel(net, path).ok);
+  NeuralNetwork net2(std::vector<Layers::Layer>{Dense(1, 1)});
+  ASSERT_TRUE(importModel(net2, path).ok);
+  expect_networks_near(net, net2);
+  EXPECT_NEAR(net2.layers()[0].activationParams().leakyAlpha, 0.2, 1e-6);
+  EXPECT_NEAR(net2.layers()[1].activationParams().leakyAlpha, 0.2, 1e-6);
+  std::remove(path.c_str());
+}
+
+TEST(ModelIO, LeakyReLUCustomAlphaRequiresV2) {
+  ActivationParameters p;
+  p.leakyAlpha = 0.3;
+  NeuralNetwork net(std::vector<Layers::Layer>{Dense(2, 2, Activation::LeakyReLU, p)});
+  // Export with v1 should fail
+  ExportOptions opts;
+  opts.formatVersion = 1;
+  auto st = exportModel(net, "/tmp/flexnn_leaky_v1.bin", opts);
+  EXPECT_FALSE(st.ok);
+  EXPECT_NE(st.error.find("formatVersion"), std::string::npos);
+  // v2 should succeed
+  opts.formatVersion = 2;
+  EXPECT_TRUE(exportModel(net, "/tmp/flexnn_leaky_v2.bin", opts).ok);
+  std::remove("/tmp/flexnn_leaky_v2.bin");
+  std::remove("/tmp/flexnn_leaky_v1.bin");
+}
+
+TEST(ModelIO, LeakyReLUInvalidAlpha) {
+  ActivationParameters p;
+  p.leakyAlpha = 1.5; // invalid >1
+  NeuralNetwork net(std::vector<Layers::Layer>{Dense(2, 2, Activation::LeakyReLU, p)});
+  auto st = exportModel(net, "/tmp/flexnn_invalid.bin");
+  EXPECT_FALSE(st.ok);
+  EXPECT_NE(st.error.find("alpha"), std::string::npos);
 }
