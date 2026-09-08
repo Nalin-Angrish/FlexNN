@@ -18,8 +18,9 @@
 
 namespace FlexNN::Layers {
 
-Conv1D::Conv1D(Conv1DParams p, Activations::Activation act)
-    : params_(p), act_(act) {
+Conv1D::Conv1D(Conv1DParams p, Activations::Activation act,
+             const Activations::ActivationParameters& params)
+    : params_(p), act_(act), actParams_(params) {
   int K = params_.kernelSize;
   int inCh = params_.inChannels;
   int outCh = params_.outChannels;
@@ -29,8 +30,9 @@ Conv1D::Conv1D(Conv1DParams p, Activations::Activation act)
 }
 
 Conv1D::Conv1D(int inCh, int outCh, int K, int stride, int pad, int dilation,
-               Activations::Activation act)
-    : Conv1D(Conv1DParams{inCh, outCh, K, stride, pad, dilation}, act) {}
+               Activations::Activation act,
+               const Activations::ActivationParameters& params)
+    : Conv1D(Conv1DParams{inCh, outCh, K, stride, pad, dilation}, act, params) {}
 
 Conv1D::Conv1D(Conv1DParams p, const std::string& actStr)
     : Conv1D(p, Activations::Activation::ReLU) {
@@ -110,15 +112,15 @@ std::pair<Eigen::MatrixXd, Eigen::MatrixXd> Conv1D::forward(
     }
   }
 
-  Eigen::MatrixXd A = Activations::detail::forward(act_, Z);
+  Eigen::MatrixXd A = Activations::detail::forward(act_, Z, actParams_);
   return {Z, A};
 }
 
 Eigen::MatrixXd Conv1D::backward(const Eigen::MatrixXd& upstream,
                                  const Eigen::MatrixXd& currZ) const {
-  // Hidden backward: dZ = f'(Z) ⊙ upstream
-  Eigen::MatrixXd A = Activations::detail::forward(act_, currZ);
-  return Activations::detail::backward(act_, upstream, currZ, A);
+  // Hidden backward: dZ = f'(Z) ⊙ upstream with per-layer params
+  Eigen::MatrixXd A = Activations::detail::forward(act_, currZ, actParams_);
+  return Activations::detail::backward(act_, upstream, currZ, A, actParams_);
 }
 
 Eigen::MatrixXd Conv1D::backward(const Eigen::MatrixXd& nextW,
