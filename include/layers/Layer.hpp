@@ -25,6 +25,7 @@
 #include "Dense.hpp"
 #include "Conv1D.hpp"
 #include "BatchNorm1D.hpp"
+#include "activations/ActivationParameters.hpp"
 // Future layer headers will be included here as they are added:
 // #include "Pool1D.hpp"
 
@@ -69,6 +70,26 @@ class Layer {
    */
   Activations::Activation activation() const noexcept {
     return std::visit([](auto&& v) { return v.activation(); }, var_);
+  }
+
+  /**
+   * @brief Activation hyperparameters (e.g., LeakyReLU alpha).
+   *
+   * Returns stored `ActivationParameters` for layers that carry it
+   * (`Dense`, `Conv1D`); otherwise default. Non-Leaky activations ignore the
+   * returned struct.
+   */
+  Activations::ActivationParameters activationParams() const noexcept {
+    return std::visit(
+        [](auto&& v) -> Activations::ActivationParameters {
+          using T = std::decay_t<decltype(v)>;
+          if constexpr (std::is_same_v<T, Dense> || std::is_same_v<T, Conv1D>) {
+            return v.activationParams();
+          } else {
+            return Activations::ActivationParameters{};
+          }
+        },
+        var_);
   }
 
   /**

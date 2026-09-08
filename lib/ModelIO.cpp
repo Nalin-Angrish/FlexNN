@@ -143,8 +143,8 @@ static_assert(sizeof(LayerHeader) == 52, "LayerHeader must be 52B");
 
 Status exportModel(const NeuralNetwork& net, const std::string& path,
                    ExportOptions opts) {
-  if (opts.formatVersion != 1) {
-    return Status::Err("unsupported formatVersion (only 1 in v0.1)");
+  if (opts.formatVersion != 1 && opts.formatVersion != 2) {
+    return Status::Err("unsupported formatVersion (only 1 or 2)");
   }
 
   const auto& layers = net.layers();
@@ -163,6 +163,16 @@ Status exportModel(const NeuralNetwork& net, const std::string& path,
     // Softmax only on last layer in v0.1
     if (act == Activations::Activation::Softmax && i + 1 != N) {
       return Status::Err("Softmax only on last layer in v0.1");
+    }
+    // LeakyReLU alpha must be 0 < alpha < 1
+    if (act == Activations::Activation::LeakyReLU) {
+      double a = l.activationParams().leakyAlpha;
+      if (!(a > 0.0 && a < 1.0)) {
+        return Status::Err("LeakyReLU alpha must be 0 < alpha < 1");
+      }
+      if (opts.formatVersion == 1 && a != Activations::kDefaultLeakyAlpha) {
+        return Status::Err("LeakyReLU custom alpha requires formatVersion 2");
+      }
     }
     // Dilation check for Conv1D
     if (type == Layers::LayerType::Conv1D) {
@@ -212,7 +222,8 @@ Status exportModel(const NeuralNetwork& net, const std::string& path,
             h.out_dim = static_cast<uint32_t>(v.params().outputSize);
             h.w_cnt = static_cast<uint32_t>(v.weights().size());
             h.b_cnt = static_cast<uint32_t>(v.biases().size());
-            h.aux_cnt = 0;
+            h.aux_cnt = (v.activation() == Activations::Activation::LeakyReLU &&
+                         opts.formatVersion == 2) ? 1 : 0;
             h.c_in = 0;
             h.c_out = 0;
             h.k = 0;
@@ -228,7 +239,8 @@ Status exportModel(const NeuralNetwork& net, const std::string& path,
             h.out_dim = 0;
             h.w_cnt = static_cast<uint32_t>(v.weights().size());
             h.b_cnt = static_cast<uint32_t>(v.biases().size());
-            h.aux_cnt = 0;
+            h.aux_cnt = (v.activation() == Activations::Activation::LeakyReLU &&
+                         opts.formatVersion == 2) ? 1 : 0;
             h.c_in = static_cast<uint16_t>(p.inChannels);
             h.c_out = static_cast<uint16_t>(p.outChannels);
             h.k = static_cast<uint16_t>(p.kernelSize);
@@ -289,6 +301,7 @@ Status exportModel(const NeuralNetwork& net, const std::string& path,
 
   // Write main header (first 16B, then CRC)
   MainHeader mh{};
+  mh.version = static_cast<uint16_t>(opts.formatVersion);
   mh.layer_count = static_cast<uint32_t>(N);
   // Compute header CRC over first 16B (magic..flags)
   uint8_t hdr_tmp[16];
@@ -364,6 +377,11 @@ Status exportModel(const NeuralNetwork& net, const std::string& path,
               float fv = static_cast<float>(b(r));
               write_f32_le(out, fv);
             }
+            // Aux for LeakyReLU alpha (v2 only, 1 float)
+            if (v.activation() == Activations::Activation::LeakyReLU &&
+                opts.formatVersion == 2) {
+              write_f32_le(out, static_cast<float>(v.activationParams().leakyAlpha));
+            }
           } else if constexpr (std::is_same_v<T, Layers::Conv1D>) {
             const auto& W = v.weights();
             for (Eigen::Index r = 0; r < W.rows(); ++r) {
@@ -376,6 +394,10 @@ Status exportModel(const NeuralNetwork& net, const std::string& path,
             for (Eigen::Index r = 0; r < b.size(); ++r) {
               float fv = static_cast<float>(b(r));
               write_f32_le(out, fv);
+            }
+            if (v.activation() == Activations::Activation::LeakyReLU &&
+                opts.formatVersion == 2) {
+              write_f32_le(out, static_cast<float>(v.activationParams().leakyAlpha));
             }
           } else if constexpr (std::is_same_v<T, Layers::BatchNorm1D>) {
             // BatchNorm has no W/b, only aux: gamma, beta, mean, var
@@ -456,8 +478,8 @@ Status importModel(NeuralNetwork& net, const std::string& path) {
     return Status::Err("magic mismatch (expected TFNG)");
   }
   uint16_t version = read_u16_le(data.data() + 4);
-  if (version != 1) {
-    return Status::Err("unsupported version (only 1)");
+  if (version != 1 && version != 2) {
+    return Status::Err("unsupported version (only 1 or 2)");
   }
   uint16_t header_len = read_u16_le(data.data() + 6);
   if (header_len != 20) {
@@ -579,12 +601,36 @@ Status importModel(NeuralNetwork& net, const std::string& path) {
       if (h.b_cnt != h.out_dim) {
         return Status::Err("Dense b_cnt mismatch out_dim");
       }
-      if (h.aux_cnt != 0 || h.c_in != 0 || h.c_out != 0 || h.k != 0) {
-        // Allow but warn? For Dense, these should be 0
+      if (h.c_in != 0 || h.c_out != 0 || h.k != 0) {
+        // For Dense, c_in/c_out/k should be 0
+      }
+      Activations::ActivationParameters denseActParams;
+      if (act == Activations::Activation::LeakyReLU) {
+        if (version == 1) {
+          if (h.aux_cnt != 0) {
+            return Status::Err("LeakyReLU aux_cnt must be 0 in v1");
+          }
+          denseActParams = Activations::ActivationParameters{};
+        } else {
+          if (h.aux_cnt != 1) {
+            return Status::Err("LeakyReLU aux_cnt must be 1 in v2");
+          }
+          float fv = read_f32_le(data.data() + h.aux_off);
+          double alpha = static_cast<double>(fv);
+          if (!(alpha > 0.0 && alpha < 1.0)) {
+            return Status::Err("LeakyReLU alpha must be 0 < alpha < 1");
+          }
+          denseActParams.leakyAlpha = alpha;
+        }
+      } else {
+        if (h.aux_cnt != 0) {
+          return Status::Err("non-LeakyReLU Dense aux_cnt must be 0");
+        }
+        denseActParams = Activations::ActivationParameters{};
       }
       Layers::DenseParams p{static_cast<int>(h.in_dim),
                             static_cast<int>(h.out_dim)};
-      Layers::Dense d(p, act);
+      Layers::Dense d(p, act, denseActParams);
       // Load W row-major
       Eigen::MatrixXd W(h.out_dim, h.in_dim);
       for (uint32_t r = 0; r < h.out_dim; ++r) {
@@ -618,13 +664,37 @@ Status importModel(NeuralNetwork& net, const std::string& path) {
       if (h.dilation != 1) {
         return Status::Err("Conv1D dilation !=1 unsupported on import");
       }
+      Activations::ActivationParameters convActParams;
+      if (act == Activations::Activation::LeakyReLU) {
+        if (version == 1) {
+          if (h.aux_cnt != 0) {
+            return Status::Err("LeakyReLU aux_cnt must be 0 in v1");
+          }
+          convActParams = Activations::ActivationParameters{};
+        } else {
+          if (h.aux_cnt != 1) {
+            return Status::Err("LeakyReLU aux_cnt must be 1 in v2");
+          }
+          float fv = read_f32_le(data.data() + h.aux_off);
+          double alpha = static_cast<double>(fv);
+          if (!(alpha > 0.0 && alpha < 1.0)) {
+            return Status::Err("LeakyReLU alpha must be 0 < alpha < 1");
+          }
+          convActParams.leakyAlpha = alpha;
+        }
+      } else {
+        if (h.aux_cnt != 0) {
+          return Status::Err("non-LeakyReLU Conv1D aux_cnt must be 0");
+        }
+        convActParams = Activations::ActivationParameters{};
+      }
       Layers::Conv1DParams p{static_cast<int>(h.c_in),
                              static_cast<int>(h.c_out),
                              static_cast<int>(h.k),
                              static_cast<int>(h.stride),
                              static_cast<int>(h.pad),
                              static_cast<int>(h.dilation)};
-      Layers::Conv1D c(p, act);
+      Layers::Conv1D c(p, act, convActParams);
       Eigen::MatrixXd W(h.c_out, h.c_in * h.k);
       for (uint32_t r = 0; r < h.c_out; ++r) {
         for (uint32_t cc = 0; cc < h.c_in * h.k; ++cc) {

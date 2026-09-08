@@ -94,7 +94,8 @@ bool try_parse(std::string_view s, Activation& out) noexcept {
 
 namespace detail {
 
-Eigen::MatrixXd forward(Activation act, const Eigen::MatrixXd& Z) {
+Eigen::MatrixXd forward(Activation act, const Eigen::MatrixXd& Z,
+                        const ActivationParameters& params) {
   // Exhaustive switch — no default so new Activation values trigger -Wswitch-enum.
   switch (act) {
     case Activation::None:
@@ -102,7 +103,7 @@ Eigen::MatrixXd forward(Activation act, const Eigen::MatrixXd& Z) {
     case Activation::ReLU:
       return relu_forward(Z);
     case Activation::LeakyReLU:
-      return leaky_relu_forward(Z);
+      return leaky_relu_forward(Z, params.leakyAlpha);
     case Activation::Sigmoid:
       return sigmoid_forward(Z);
     case Activation::Tanh:
@@ -114,14 +115,15 @@ Eigen::MatrixXd forward(Activation act, const Eigen::MatrixXd& Z) {
 }
 
 Eigen::MatrixXd backward(Activation act, const Eigen::MatrixXd& dA,
-                         const Eigen::MatrixXd& Z, const Eigen::MatrixXd& A) noexcept {
+                         const Eigen::MatrixXd& Z, const Eigen::MatrixXd& A,
+                         const ActivationParameters& params) noexcept {
   switch (act) {
     case Activation::None:
       return none_backward(dA, Z, A);
     case Activation::ReLU:
       return relu_backward(dA, Z, A);
     case Activation::LeakyReLU:
-      return leaky_relu_backward(dA, Z, A);
+      return leaky_relu_backward(dA, Z, A, params.leakyAlpha);
     case Activation::Sigmoid:
       return sigmoid_backward(dA, Z, A);
     case Activation::Tanh:

@@ -17,6 +17,7 @@
 
 #include "LayerTypes.hpp"
 #include "activations/Activation.hpp"
+#include "activations/ActivationParameters.hpp"
 
 namespace FlexNN::Layers {
 
@@ -41,13 +42,15 @@ class Dense {
    * @param act Activation (default ReLU)
    */
   Dense(int in, int out,
-        Activations::Activation act = Activations::Activation::ReLU);
+        Activations::Activation act = Activations::Activation::ReLU,
+        const Activations::ActivationParameters& params = Activations::ActivationParameters{});
 
   /**
    * @brief Construct from DenseParams POD.
    */
   explicit Dense(DenseParams p,
-                 Activations::Activation act = Activations::Activation::ReLU);
+                 Activations::Activation act = Activations::Activation::ReLU,
+                 const Activations::ActivationParameters& params = Activations::ActivationParameters{});
 
   /**
    * @brief Deprecated string ctor — delegates to enum via try_parse.
@@ -61,6 +64,7 @@ class Dense {
   // Accessors — used by NeuralNetwork and ModelIO via visit.
   LayerType type() const noexcept { return LayerType::Dense; }
   Activations::Activation activation() const noexcept { return act_; }
+  const Activations::ActivationParameters& activationParams() const noexcept { return actParams_; }
   const DenseParams& params() const noexcept { return params_; }
   const Eigen::MatrixXd& weights() const noexcept { return W_; }
   const Eigen::VectorXd& biases() const noexcept { return b_; }
@@ -68,6 +72,7 @@ class Dense {
   // Mutators for importModel (replaces weights after allocation).
   void setWeights(const Eigen::MatrixXd& W) { W_ = W; }
   void setBiases(const Eigen::VectorXd& b) { b_ = b; }
+  void setActivationParameters(const Activations::ActivationParameters& p) { actParams_ = p; }
 
   /**
    * @brief Forward pass: `Z = W*X + b`, `A = act(Z)`.
@@ -84,6 +89,7 @@ class Dense {
    * For Softmax hidden, this uses `detail::softmax_backward_hidden` via
    * `Activations::detail::backward`. Last-layer Softmax is fused in
    * `NeuralNetwork::backward` and never calls this for the last layer.
+   * `activationParams` threaded for LeakyReLU alpha.
    *
    * @param nextW Weights of next layer (or empty for last layer)
    * @param nextdZ Gradient of next layer's Z
@@ -125,6 +131,7 @@ class Dense {
  private:
   DenseParams params_{};
   Activations::Activation act_ = Activations::Activation::ReLU;
+  Activations::ActivationParameters actParams_{};
   Eigen::MatrixXd W_; ///< [out × in] double
   Eigen::VectorXd b_; ///< [out] double
 };
