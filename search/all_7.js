@@ -1,8 +1,6 @@
 var searchData=
 [
-  ['layer_0',['layer',['../classFlexNN_1_1Layer.html',1,'FlexNN::Layer'],['../classFlexNN_1_1Layer.html#ad47b22581c698822902c361816dc487e',1,'FlexNN::Layer::Layer()']]],
-  ['layer_2ecpp_1',['Layer.cpp',['../Layer_8cpp.html',1,'']]],
-  ['layer_2eh_2',['Layer.h',['../Layer_8h.html',1,'']]],
-  ['license_3',['License',['../index.html#autotoc_md6',1,'']]],
-  ['limitations_4',['Known Issues / Limitations',['../index.html#autotoc_md5',1,'']]]
+  ['kdefaultleakyalpha_0',['kDefaultLeakyAlpha',['../namespaceFlexNN_1_1Activations.html#a057e8d7cf33a5d9c93311eb2d5ccfff6',1,'FlexNN::Activations']]],
+  ['kleakyalpha_1',['kLeakyAlpha',['../namespaceFlexNN_1_1Activations_1_1detail.html#a286a4a2464e5d0e033f45bddc1955dc0',1,'FlexNN::Activations::detail']]],
+  ['known_20issues_20limitations_2',['Known Issues / Limitations',['../index.html#autotoc_md5',1,'']]]
 ];

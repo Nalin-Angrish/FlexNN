@@ -1,5 +1,6 @@
 var namespaceFlexNN =
 [
+    [ "Activations", "namespaceFlexNN_1_1Activations.html", "namespaceFlexNN_1_1Activations" ],
     [ "Layer", "classFlexNN_1_1Layer.html", "classFlexNN_1_1Layer" ],
     [ "NeuralNetwork", "classFlexNN_1_1NeuralNetwork.html", "classFlexNN_1_1NeuralNetwork" ],
     [ "oneHotEncode", "namespaceFlexNN.html#a875a6d420ac25e491a6016b0e17b0397", null ],

@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['flexnn_2ecpp_0',['FlexNN.cpp',['../FlexNN_8cpp.html',1,'']]],
-  ['flexnn_2eh_1',['FlexNN.h',['../FlexNN_8h.html',1,'']]]
+  ['activation_2ecpp_0',['Activation.cpp',['../Activation_8cpp.html',1,'']]],
+  ['activation_2ehpp_1',['Activation.hpp',['../Activation_8hpp.html',1,'']]],
+  ['activationparameters_2ehpp_2',['ActivationParameters.hpp',['../ActivationParameters_8hpp.html',1,'']]]
 ];

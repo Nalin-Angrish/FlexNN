@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['layer_0',['Layer',['../classFlexNN_1_1Layer.html',1,'FlexNN']]]
+  ['activationparameters_0',['ActivationParameters',['../structFlexNN_1_1Activations_1_1ActivationParameters.html',1,'FlexNN::Activations']]]
 ];

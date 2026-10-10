@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['neuralnetwork_0',['NeuralNetwork',['../classFlexNN_1_1NeuralNetwork.html',1,'FlexNN']]]
+  ['layer_0',['Layer',['../classFlexNN_1_1Layer.html',1,'FlexNN']]]
 ];
