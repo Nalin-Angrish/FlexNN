@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['relu_0',['ReLU',['../namespaceFlexNN_1_1Activations.html#a4f60b76f06f34f079a603f4f6977638badd10d919fa85cf27fc78c0e06fe0b378',1,'FlexNN::Activations']]]
+  ['conv1d_0',['Conv1D',['../namespaceFlexNN_1_1Layers.html#a87a775003aba48da48c3abba4c8324b9a558b99b68d2bc2129f8617b9bdb36e59',1,'FlexNN::Layers']]]
 ];

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['layer_0',['Layer',['../classFlexNN_1_1Layer.html',1,'FlexNN']]]
+  ['batchnormparams_0',['BatchNormParams',['../structFlexNN_1_1Layers_1_1BatchNormParams.html',1,'FlexNN::Layers']]]
 ];

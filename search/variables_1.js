@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['leakyalpha_0',['leakyAlpha',['../structFlexNN_1_1Activations_1_1ActivationParameters.html#a89b612d20dad62b30843854a16d765c4',1,'FlexNN::Activations::ActivationParameters']]]
+  ['dilation_0',['dilation',['../structFlexNN_1_1Layers_1_1Conv1DParams.html#a89c26650c4e570ca511ea3ea9fa8d314',1,'FlexNN::Layers::Conv1DParams']]]
 ];

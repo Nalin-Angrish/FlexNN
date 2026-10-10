@@ -252,7 +252,7 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Elementwise forward for a single activation. </p>
-<p>Pure function on <code>MatrixXd</code> (double). Used by <code>Layers::&lt;Concrete&gt;::<a class="el" href="namespaceFlexNN_1_1Activations_1_1detail.html#a40d521cedbaa87782313a19b9d1fb17d" title="Elementwise forward for a single activation.">forward()</a></code> via <code>switch(act)</code>. Header-only per-activation impls are in <code>include/activations/&lt;Act&gt;.hpp</code> — this dispatcher keeps layer code short. <code>params</code> is only used when <code>act==LeakyReLU</code> (others ignore it).</p>
+<p>Pure function on <code>MatrixXd</code> (double). Used by <code><a class="el" href="namespaceFlexNN_1_1Layers.html">Layers</a>::&lt;Concrete&gt;::<a class="el" href="namespaceFlexNN_1_1Activations_1_1detail.html#a40d521cedbaa87782313a19b9d1fb17d" title="Elementwise forward for a single activation.">forward()</a></code> via <code>switch(act)</code>. Header-only per-activation impls are in <code>include/activations/&lt;Act&gt;.hpp</code> — this dispatcher keeps layer code short. <code>params</code> is only used when <code>act==LeakyReLU</code> (others ignore it).</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">act</td><td>Activation to apply </td></tr>

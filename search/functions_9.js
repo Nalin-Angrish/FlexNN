@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['readcsv_5fxy_0',['readCSV_XY',['../namespaceFlexNN.html#adde282a64978645bc79db0ee56c28d91',1,'FlexNN']]],
-  ['relu_5fbackward_1',['relu_backward',['../namespaceFlexNN_1_1Activations_1_1detail.html#a00ec6653cccd2ef54ca73ce18aba1c75',1,'FlexNN::Activations::detail']]],
-  ['relu_5fforward_2',['relu_forward',['../namespaceFlexNN_1_1Activations_1_1detail.html#a738f492dcaa0191b8cc97872cd443a24',1,'FlexNN::Activations::detail']]]
+  ['params_0',['params',['../classFlexNN_1_1Layers_1_1Dense.html#a5a633af61da643d9a95a44b6a47ac3f5',1,'FlexNN::Layers::Dense']]],
+  ['predict_1',['predict',['../classFlexNN_1_1NeuralNetwork.html#afd9ed23b0d67e3bd6a4d1583730d187a',1,'FlexNN::NeuralNetwork']]],
+  ['propagate_2',['propagate',['../classFlexNN_1_1Layers_1_1Dense.html#aa19216dfe1d5c00946b3a157c862860d',1,'FlexNN::Layers::Dense']]]
 ];

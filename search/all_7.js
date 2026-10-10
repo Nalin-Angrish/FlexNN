@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['kdefaultleakyalpha_0',['kDefaultLeakyAlpha',['../namespaceFlexNN_1_1Activations.html#a057e8d7cf33a5d9c93311eb2d5ccfff6',1,'FlexNN::Activations']]],
-  ['kleakyalpha_1',['kLeakyAlpha',['../namespaceFlexNN_1_1Activations_1_1detail.html#a286a4a2464e5d0e033f45bddc1955dc0',1,'FlexNN::Activations::detail']]],
-  ['known_20issues_20limitations_2',['Known Issues / Limitations',['../index.html#autotoc_md5',1,'']]]
+  ['inchannels_0',['inChannels',['../structFlexNN_1_1Layers_1_1Conv1DParams.html#aaa076aa447732440376cbe0436d581fe',1,'FlexNN::Layers::Conv1DParams']]],
+  ['inputsize_1',['inputSize',['../structFlexNN_1_1Layers_1_1DenseParams.html#afe031f23e7f3798d8f4bdce90cfc3b4c',1,'FlexNN::Layers::DenseParams']]],
+  ['issues_20limitations_2',['Known Issues / Limitations',['../index.html#autotoc_md5',1,'']]]
 ];

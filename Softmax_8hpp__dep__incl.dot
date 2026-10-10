@@ -9,4 +9,6 @@ digraph "include/activations/Softmax.hpp"
   Node2 [id="Node000002",label="include/activations\l/detail.hpp",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$detail_8hpp.html",tooltip="Convenience re-export for activation detail headers."];
   Node2 -> Node3 [id="edge2_Node000002_Node000003",dir="back",color="steelblue1",style="solid",tooltip=" "];
   Node3 [id="Node000003",label="lib/activations/Activation.cpp",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$Activation_8cpp.html",tooltip="Implements FlexNN::Activations helpers (to_string, try_parse, dispatch)."];
+  Node2 -> Node4 [id="edge3_Node000002_Node000004",dir="back",color="steelblue1",style="solid",tooltip=" "];
+  Node4 [id="Node000004",label="lib/layers/Dense.cpp",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$Dense_8cpp.html",tooltip="Implements FlexNN::Layers::Dense forward/backward/update."];
 }

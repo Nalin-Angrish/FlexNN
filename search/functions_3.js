@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['getbiases_0',['getBiases',['../classFlexNN_1_1Layer.html#af486a1cfedf6288ab8afa2c163589f96',1,'FlexNN::Layer']]],
-  ['getweights_1',['getWeights',['../classFlexNN_1_1Layer.html#a79373920227625f5e225ce49df533e14',1,'FlexNN::Layer']]]
+  ['forward_0',['forward',['../classFlexNN_1_1Layer.html#a0837c21dffec4cb2df94a48b5932630b',1,'FlexNN::Layer::forward()'],['../classFlexNN_1_1Layers_1_1Dense.html#ac72137c7d56598c0d3edccc4ea1e60b5',1,'FlexNN::Layers::Dense::forward()'],['../namespaceFlexNN_1_1Activations_1_1detail.html#a40d521cedbaa87782313a19b9d1fb17d',1,'FlexNN::Activations::detail::forward()']]]
 ];

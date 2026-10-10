@@ -61,7 +61,8 @@ var NAVTREE =
 
 var NAVTREEINDEX =
 [
-"ActivationParameters_8hpp.html"
+"ActivationParameters_8hpp.html",
+"structFlexNN_1_1Layers_1_1Pool1DParams.html#af697f00b53caceeeac85b3bd8ffaece6"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

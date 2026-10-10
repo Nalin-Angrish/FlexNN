@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['tanh_0',['Tanh',['../namespaceFlexNN_1_1Activations.html#a4f60b76f06f34f079a603f4f6977638bacc132a41cab5676334f353a22a0aa5c5',1,'FlexNN::Activations']]]
+  ['f32_0',['F32',['../namespaceFlexNN_1_1Layers.html#a55536871bafe7c11ff9091b5bc7d989ca44ad4ef5a76e6aa6fb3e3fa079a54fda',1,'FlexNN::Layers']]]
 ];
