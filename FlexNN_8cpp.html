@@ -92,26 +92,37 @@ $(document).ready(function(){initNavTree('FlexNN_8cpp.html',''); initResizable()
 </div>
 
 <div class="header">
+  <div class="summary">
+<a href="#namespaces">Namespaces</a>  </div>
   <div class="headertitle"><div class="title">FlexNN.cpp File Reference</div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>Source file for the <a class="el" href="namespaceFlexNN.html" title="Namespace for the FlexNN neural network library.">FlexNN</a> neural network library.  
+<p>Implements <a class="el" href="classFlexNN_1_1NeuralNetwork.html" title="Linear stack of heterogeneous layers (vector&lt;Layers::Layer&gt;).">FlexNN::NeuralNetwork</a> with heterogeneous Layers::Layer variant.  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &lt;iostream&gt;</code><br />
+<div class="textblock"><code>#include &quot;<a class="el" href="FlexNN_8h_source.html">FlexNN.h</a>&quot;</code><br />
+<code>#include &lt;cassert&gt;</code><br />
+<code>#include &lt;iostream&gt;</code><br />
 <code>#include &lt;vector&gt;</code><br />
 <code>#include &lt;Eigen/Dense&gt;</code><br />
-<code>#include &quot;<a class="el" href="FlexNN_8h_source.html">FlexNN.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="Utility_8h_source.html">Utility.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="Activation_8hpp_source.html">activations/Activation.hpp</a>&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for FlexNN.cpp:</div>
 <div class="dyncontent">
 <div class="center"><img src="FlexNN_8cpp__incl.png" border="0" usemap="#alib_2FlexNN_8cpp" alt=""/></div>
 </div>
-</div><a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Source file for the <a class="el" href="namespaceFlexNN.html" title="Namespace for the FlexNN neural network library.">FlexNN</a> neural network library. </p>
-<p>This library provides a flexible neural network implementation using Eigen for matrix operations. It includes classes for layers and the neural network itself, allowing for easy construction, training, and prediction.</p>
-<dl class="section author"><dt>Author</dt><dd>Nalin Angrish <a href="#" onclick="location.href='mai'+'lto:'+'nal'+'in'+'@na'+'li'+'nan'+'gr'+'ish'+'.m'+'e'; return false;">nalin<span class="obfuscator">.nosp@m.</span>@nal<span class="obfuscator">.nosp@m.</span>inang<span class="obfuscator">.nosp@m.</span>rish<span class="obfuscator">.nosp@m.</span>.me</a> </dd></dl>
+</div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="namespaces" name="namespaces"></a>
+Namespaces</h2></td></tr>
+<tr class="memitem:namespaceFlexNN" id="r_namespaceFlexNN"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceFlexNN.html">FlexNN</a></td></tr>
+<tr class="memdesc:namespaceFlexNN"><td class="mdescLeft">&#160;</td><td class="mdescRight">Namespace for the <a class="el" href="namespaceFlexNN.html" title="Namespace for the FlexNN neural network library.">FlexNN</a> neural network library. <br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Implements <a class="el" href="classFlexNN_1_1NeuralNetwork.html" title="Linear stack of heterogeneous layers (vector&lt;Layers::Layer&gt;).">FlexNN::NeuralNetwork</a> with heterogeneous Layers::Layer variant. </p>
+<p>After PR-04, the network holds <code>vector&lt;Layers::Layer&gt;</code> where each <code>Layer</code> is a <code>variant&lt;Dense, ...&gt;</code> (currently only Dense). Forward/backward use <code>std::visit</code> via <code>Layer::forward/backward</code>. The last-layer Softmax + cross-entropy is fused as <code>dZ = (A - Y)/m</code> in <code>backward()</code> — never calling <code>Dense::backward</code> for the last layer when it is Softmax, which fixes the legacy <code><a class="el" href="Layer_8cpp.html" title="Source file for the Layer class in the FlexNN neural network library.">lib/Layer.cpp</a>:72</code> Jacobian bug.</p>
+<p>The legacy <code>NeuralNetwork(vector&lt;Layer&gt;)</code> (stringly-typed Dense) is kept as a deprecated shim that converts each old <code>Layer</code> to <code>Layers::Dense</code> via <code>Activations::try_parse</code>. </p>
 </div></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

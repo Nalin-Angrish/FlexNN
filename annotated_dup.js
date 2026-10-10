@@ -9,6 +9,7 @@ var annotated_dup =
         [ "Conv1DParams", "structFlexNN_1_1Layers_1_1Conv1DParams.html", "structFlexNN_1_1Layers_1_1Conv1DParams" ],
         [ "Dense", "classFlexNN_1_1Layers_1_1Dense.html", "classFlexNN_1_1Layers_1_1Dense" ],
         [ "DenseParams", "structFlexNN_1_1Layers_1_1DenseParams.html", "structFlexNN_1_1Layers_1_1DenseParams" ],
+        [ "Layer", "classFlexNN_1_1Layers_1_1Layer.html", "classFlexNN_1_1Layers_1_1Layer" ],
         [ "Pool1DParams", "structFlexNN_1_1Layers_1_1Pool1DParams.html", "structFlexNN_1_1Layers_1_1Pool1DParams" ]
       ] ],
       [ "Layer", "classFlexNN_1_1Layer.html", "classFlexNN_1_1Layer" ],

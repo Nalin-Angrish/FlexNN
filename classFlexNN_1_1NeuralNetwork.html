@@ -99,32 +99,43 @@ $(document).ready(function(){initNavTree('classFlexNN_1_1NeuralNetwork.html','')
 </div><!--header-->
 <div class="contents">
 
-<p>Class representing a neural network.  
+<p>Linear stack of heterogeneous layers (vector&lt;Layers::Layer&gt;).  
  <a href="classFlexNN_1_1NeuralNetwork.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="FlexNN_8h_source.html">FlexNN.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a978888ef8e021ec90c620fc3b30596a0" id="r_a978888ef8e021ec90c620fc3b30596a0"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classFlexNN_1_1NeuralNetwork.html#a978888ef8e021ec90c620fc3b30596a0">NeuralNetwork</a> (const std::vector&lt; <a class="el" href="classFlexNN_1_1Layer.html">Layer</a> &gt; &amp;layers)</td></tr>
-<tr class="memdesc:a978888ef8e021ec90c620fc3b30596a0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor for the <a class="el" href="classFlexNN_1_1NeuralNetwork.html" title="Class representing a neural network.">NeuralNetwork</a> class.  <br /></td></tr>
-<tr class="separator:a978888ef8e021ec90c620fc3b30596a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0f851edf7e4aa0ca0bf2ee52348b6a50" id="r_a0f851edf7e4aa0ca0bf2ee52348b6a50"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classFlexNN_1_1NeuralNetwork.html#a0f851edf7e4aa0ca0bf2ee52348b6a50">train</a> (const Eigen::MatrixXd &amp;input, const Eigen::MatrixXd &amp;target, double learningRate, int epochs)</td></tr>
-<tr class="memdesc:a0f851edf7e4aa0ca0bf2ee52348b6a50"><td class="mdescLeft">&#160;</td><td class="mdescRight">Train the neural network.  <br /></td></tr>
-<tr class="separator:a0f851edf7e4aa0ca0bf2ee52348b6a50"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9e5b7f4538576624b9ce0fd63df6723f" id="r_a9e5b7f4538576624b9ce0fd63df6723f"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classFlexNN_1_1NeuralNetwork.html#a9e5b7f4538576624b9ce0fd63df6723f">accuracy</a> (const Eigen::MatrixXd &amp;X, const Eigen::MatrixXd &amp;Y)</td></tr>
-<tr class="memdesc:a9e5b7f4538576624b9ce0fd63df6723f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate the accuracy of the neural network.  <br /></td></tr>
-<tr class="separator:a9e5b7f4538576624b9ce0fd63df6723f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a43195fa07624eb5f41bd5f5f6e1ccf5e" id="r_a43195fa07624eb5f41bd5f5f6e1ccf5e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classFlexNN_1_1NeuralNetwork.html#a43195fa07624eb5f41bd5f5f6e1ccf5e">NeuralNetwork</a> (const std::vector&lt; <a class="el" href="classFlexNN_1_1Layers_1_1Layer.html">Layers::Layer</a> &gt; &amp;<a class="el" href="classFlexNN_1_1NeuralNetwork.html#a9c13ca590b8a7cfabdc180cdd83a8b88">layers</a>)</td></tr>
+<tr class="memdesc:a43195fa07624eb5f41bd5f5f6e1ccf5e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct from new modular layers (preferred).  <br /></td></tr>
+<tr class="separator:a43195fa07624eb5f41bd5f5f6e1ccf5e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae37b76fec98e6f7adb173d85f93adf96" id="r_ae37b76fec98e6f7adb173d85f93adf96"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classFlexNN_1_1NeuralNetwork.html#ae37b76fec98e6f7adb173d85f93adf96">NeuralNetwork</a> (std::vector&lt; <a class="el" href="classFlexNN_1_1Layers_1_1Layer.html">Layers::Layer</a> &gt; &amp;&amp;<a class="el" href="classFlexNN_1_1NeuralNetwork.html#a9c13ca590b8a7cfabdc180cdd83a8b88">layers</a>)</td></tr>
+<tr class="separator:ae37b76fec98e6f7adb173d85f93adf96"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9abb723803c4185f76bcd814f2aa4b94" id="r_a9abb723803c4185f76bcd814f2aa4b94"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classFlexNN_1_1NeuralNetwork.html#a9abb723803c4185f76bcd814f2aa4b94">NeuralNetwork</a> (const std::vector&lt; <a class="el" href="classFlexNN_1_1Layer.html">Layer</a> &gt; &amp;oldLayers)</td></tr>
+<tr class="memdesc:a9abb723803c4185f76bcd814f2aa4b94"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deprecated: construct from legacy <code><a class="el" href="classFlexNN_1_1Layer.html" title="Represents a single layer in a neural network.">FlexNN::Layer</a></code> (Dense-only).  <br /></td></tr>
+<tr class="separator:a9abb723803c4185f76bcd814f2aa4b94"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a94d30d8ec8371bdd94961a59df6522a8" id="r_a94d30d8ec8371bdd94961a59df6522a8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classFlexNN_1_1NeuralNetwork.html#a94d30d8ec8371bdd94961a59df6522a8">train</a> (const Eigen::MatrixXd &amp;input, const Eigen::VectorXd &amp;target, double learningRate, int epochs)</td></tr>
+<tr class="memdesc:a94d30d8ec8371bdd94961a59df6522a8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Train the network on (X, Y) with SGD.  <br /></td></tr>
+<tr class="separator:a94d30d8ec8371bdd94961a59df6522a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac9ae07d0e19dc22b47f7bb8babfec611" id="r_ac9ae07d0e19dc22b47f7bb8babfec611"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classFlexNN_1_1NeuralNetwork.html#ac9ae07d0e19dc22b47f7bb8babfec611">accuracy</a> (const Eigen::MatrixXd &amp;X, const Eigen::VectorXd &amp;Y)</td></tr>
+<tr class="memdesc:ac9ae07d0e19dc22b47f7bb8babfec611"><td class="mdescLeft">&#160;</td><td class="mdescRight">Accuracy on (X, Y) — argmax per column.  <br /></td></tr>
+<tr class="separator:ac9ae07d0e19dc22b47f7bb8babfec611"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afd9ed23b0d67e3bd6a4d1583730d187a" id="r_afd9ed23b0d67e3bd6a4d1583730d187a"><td class="memItemLeft" align="right" valign="top">Eigen::MatrixXd&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classFlexNN_1_1NeuralNetwork.html#afd9ed23b0d67e3bd6a4d1583730d187a">predict</a> (const Eigen::MatrixXd &amp;input)</td></tr>
-<tr class="memdesc:afd9ed23b0d67e3bd6a4d1583730d187a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Predict the output for given input data.  <br /></td></tr>
+<tr class="memdesc:afd9ed23b0d67e3bd6a4d1583730d187a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Predict — forward pass, returns activation of last layer.  <br /></td></tr>
 <tr class="separator:afd9ed23b0d67e3bd6a4d1583730d187a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9c13ca590b8a7cfabdc180cdd83a8b88" id="r_a9c13ca590b8a7cfabdc180cdd83a8b88"><td class="memItemLeft" align="right" valign="top">const std::vector&lt; <a class="el" href="classFlexNN_1_1Layers_1_1Layer.html">Layers::Layer</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classFlexNN_1_1NeuralNetwork.html#a9c13ca590b8a7cfabdc180cdd83a8b88">layers</a> () const noexcept</td></tr>
+<tr class="memdesc:a9c13ca590b8a7cfabdc180cdd83a8b88"><td class="mdescLeft">&#160;</td><td class="mdescRight">Direct access to layers (for tests / ModelIO).  <br /></td></tr>
+<tr class="separator:a9c13ca590b8a7cfabdc180cdd83a8b88"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae51938cd2309560cef72a833d90f44d9" id="r_ae51938cd2309560cef72a833d90f44d9"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="classFlexNN_1_1Layers_1_1Layer.html">Layers::Layer</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classFlexNN_1_1NeuralNetwork.html#ae51938cd2309560cef72a833d90f44d9">layers</a> () noexcept</td></tr>
+<tr class="separator:ae51938cd2309560cef72a833d90f44d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Class representing a neural network. </p>
-<p>This class encapsulates the functionality of a neural network, including training, prediction, and accuracy calculation. It uses a vector of <a class="el" href="classFlexNN_1_1Layer.html" title="Represents a single layer in a neural network.">Layer</a> objects to represent the structure of the network. </p>
+<div class="textblock"><p>Linear stack of heterogeneous layers (vector&lt;Layers::Layer&gt;). </p>
+<p>Currently holds only <code><a class="el" href="classFlexNN_1_1Layers_1_1Dense.html" title="Fully-connected layer: Z = W*X + b, A = act(Z).">Layers::Dense</a></code> (PR-04). Later PRs expand the variant to <code>Conv1D</code>, <code>BatchNorm1D</code>, <code>MaxPool1D</code>, <code>AvgPool1D</code> without changing this header — only <code><a class="el" href="Layer_8hpp.html" title="Type-erased wrapper for FlexNN::Layers — heterogeneous stack without inheritance.">include/layers/Layer.hpp</a></code>'s variant list grows.</p>
+<p>Old code <code><a class="el" href="classFlexNN_1_1NeuralNetwork.html" title="Linear stack of heterogeneous layers (vector&lt;Layers::Layer&gt;).">NeuralNetwork</a>({<a class="el" href="classFlexNN_1_1Layer.html" title="Represents a single layer in a neural network.">Layer</a>(784,64,"relu"), <a class="el" href="classFlexNN_1_1Layer.html" title="Represents a single layer in a neural network.">Layer</a>(64,10,"softmax")})</code> still compiles via the deprecated converting constructor that maps each legacy <code><a class="el" href="classFlexNN_1_1Layer.html" title="Represents a single layer in a neural network.">Layer</a></code> to <code><a class="el" href="classFlexNN_1_1Layers_1_1Dense.html" title="Fully-connected layer: Z = W*X + b, A = act(Z).">Layers::Dense</a></code> via <code><a class="el" href="namespaceFlexNN_1_1Activations.html#ac176c76eb067acf2eafb7c3982b6bc8a" title="Parse a string into an Activation.">Activations::try_parse</a></code>. </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a978888ef8e021ec90c620fc3b30596a0" name="a978888ef8e021ec90c620fc3b30596a0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a978888ef8e021ec90c620fc3b30596a0">&#9670;&#160;</a></span>NeuralNetwork()</h2>
+<a id="a43195fa07624eb5f41bd5f5f6e1ccf5e" name="a43195fa07624eb5f41bd5f5f6e1ccf5e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a43195fa07624eb5f41bd5f5f6e1ccf5e">&#9670;&#160;</a></span>NeuralNetwork() <span class="overload">[1/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -135,7 +146,7 @@ Public Member Functions</h2></td></tr>
         <tr>
           <td class="memname">FlexNN::NeuralNetwork::NeuralNetwork </td>
           <td>(</td>
-          <td class="paramtype">const std::vector&lt; <a class="el" href="classFlexNN_1_1Layer.html">Layer</a> &gt; &amp;&#160;</td>
+          <td class="paramtype">const std::vector&lt; <a class="el" href="classFlexNN_1_1Layers_1_1Layer.html">Layers::Layer</a> &gt; &amp;&#160;</td>
           <td class="paramname"><em>layers</em></td><td>)</td>
           <td></td>
         </tr>
@@ -147,19 +158,67 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Constructor for the <a class="el" href="classFlexNN_1_1NeuralNetwork.html" title="Class representing a neural network.">NeuralNetwork</a> class. </p>
+<p>Construct from new modular layers (preferred). </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">layers</td><td>A vector of <a class="el" href="classFlexNN_1_1Layer.html" title="Represents a single layer in a neural network.">Layer</a> objects representing the layers of the neural network. </td></tr>
+    <tr><td class="paramname">layers</td><td>Heterogeneous stack — each element is a <code><a class="el" href="classFlexNN_1_1Layers_1_1Layer.html" title="Type-erased layer — holds one concrete layer type.">Layers::Layer</a></code> wrapping a concrete <code>Dense</code>/<code>Conv1D</code>/... Example: <code><a class="el" href="classFlexNN_1_1NeuralNetwork.html" title="Linear stack of heterogeneous layers (vector&lt;Layers::Layer&gt;).">NeuralNetwork</a>({Layers::Dense(784,64, Activations::ReLU)})</code> </td></tr>
   </table>
   </dd>
 </dl>
 
 </div>
 </div>
+<a id="ae37b76fec98e6f7adb173d85f93adf96" name="ae37b76fec98e6f7adb173d85f93adf96"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae37b76fec98e6f7adb173d85f93adf96">&#9670;&#160;</a></span>NeuralNetwork() <span class="overload">[2/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">FlexNN::NeuralNetwork::NeuralNetwork </td>
+          <td>(</td>
+          <td class="paramtype">std::vector&lt; <a class="el" href="classFlexNN_1_1Layers_1_1Layer.html">Layers::Layer</a> &gt; &amp;&amp;&#160;</td>
+          <td class="paramname"><em>layers</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a9abb723803c4185f76bcd814f2aa4b94" name="a9abb723803c4185f76bcd814f2aa4b94"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9abb723803c4185f76bcd814f2aa4b94">&#9670;&#160;</a></span>NeuralNetwork() <span class="overload">[3/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">FlexNN::NeuralNetwork::NeuralNetwork </td>
+          <td>(</td>
+          <td class="paramtype">const std::vector&lt; <a class="el" href="classFlexNN_1_1Layer.html">Layer</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>oldLayers</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Deprecated: construct from legacy <code><a class="el" href="classFlexNN_1_1Layer.html" title="Represents a single layer in a neural network.">FlexNN::Layer</a></code> (Dense-only). </p>
+<p>Converts each legacy <code><a class="el" href="classFlexNN_1_1Layer.html" title="Represents a single layer in a neural network.">Layer</a></code> (which stores <code>std::string activationFunction</code> and <code>MatrixXd W</code>/<code>VectorXd b</code>) to <code><a class="el" href="classFlexNN_1_1Layers_1_1Dense.html" title="Fully-connected layer: Z = W*X + b, A = act(Z).">Layers::Dense</a></code> via <code><a class="el" href="namespaceFlexNN_1_1Activations.html#ac176c76eb067acf2eafb7c3982b6bc8a" title="Parse a string into an Activation.">Activations::try_parse</a></code>. On unknown activation string, uses <code>Activation::None</code>.</p>
+<p>Kept so <code><a class="el" href="main_8cpp.html" title="Main file for the MNIST digit recognition example using FlexNN.">src/main.cpp</a></code> (which still uses <code><a class="el" href="classFlexNN_1_1Layer.html" title="Represents a single layer in a neural network.">Layer</a>(..., "relu")</code>) builds until PR-09 migrates it to <code><a class="el" href="classFlexNN_1_1Layers_1_1Dense.html" title="Fully-connected layer: Z = W*X + b, A = act(Z).">Layers::Dense</a></code>. New code should not use this. </p>
+
+</div>
+</div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a9e5b7f4538576624b9ce0fd63df6723f" name="a9e5b7f4538576624b9ce0fd63df6723f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9e5b7f4538576624b9ce0fd63df6723f">&#9670;&#160;</a></span>accuracy()</h2>
+<a id="ac9ae07d0e19dc22b47f7bb8babfec611" name="ac9ae07d0e19dc22b47f7bb8babfec611"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac9ae07d0e19dc22b47f7bb8babfec611">&#9670;&#160;</a></span>accuracy()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -173,7 +232,7 @@ Public Member Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const Eigen::MatrixXd &amp;&#160;</td>
+          <td class="paramtype">const Eigen::VectorXd &amp;&#160;</td>
           <td class="paramname"><em>Y</em>&#160;</td>
         </tr>
         <tr>
@@ -184,16 +243,59 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Calculate the accuracy of the neural network. </p>
-<p>This method computes the accuracy of the neural network's predictions against the target data.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">X</td><td>The input data for prediction. </td></tr>
-    <tr><td class="paramname">Y</td><td>The target output data for comparison. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>The accuracy as a double value. </dd></dl>
+<p>Accuracy on (X, Y) — argmax per column. </p>
+
+</div>
+</div>
+<a id="a9c13ca590b8a7cfabdc180cdd83a8b88" name="a9c13ca590b8a7cfabdc180cdd83a8b88"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9c13ca590b8a7cfabdc180cdd83a8b88">&#9670;&#160;</a></span>layers() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::vector&lt; <a class="el" href="classFlexNN_1_1Layers_1_1Layer.html">Layers::Layer</a> &gt; &amp; FlexNN::NeuralNetwork::layers </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Direct access to layers (for tests / ModelIO). </p>
+
+</div>
+</div>
+<a id="ae51938cd2309560cef72a833d90f44d9" name="ae51938cd2309560cef72a833d90f44d9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae51938cd2309560cef72a833d90f44d9">&#9670;&#160;</a></span>layers() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt; <a class="el" href="classFlexNN_1_1Layers_1_1Layer.html">Layers::Layer</a> &gt; &amp; FlexNN::NeuralNetwork::layers </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
 
 </div>
 </div>
@@ -221,20 +323,12 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Predict the output for given input data. </p>
-<p>This method performs a forward pass through the neural network to predict the output for the provided input data.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">input</td><td>The input data for prediction. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>The predicted output as an Eigen::MatrixXd. </dd></dl>
+<p>Predict — forward pass, returns activation of last layer. </p>
 
 </div>
 </div>
-<a id="a0f851edf7e4aa0ca0bf2ee52348b6a50" name="a0f851edf7e4aa0ca0bf2ee52348b6a50"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0f851edf7e4aa0ca0bf2ee52348b6a50">&#9670;&#160;</a></span>train()</h2>
+<a id="a94d30d8ec8371bdd94961a59df6522a8" name="a94d30d8ec8371bdd94961a59df6522a8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a94d30d8ec8371bdd94961a59df6522a8">&#9670;&#160;</a></span>train()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -248,7 +342,7 @@ Public Member Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const Eigen::MatrixXd &amp;&#160;</td>
+          <td class="paramtype">const Eigen::VectorXd &amp;&#160;</td>
           <td class="paramname"><em>target</em>, </td>
         </tr>
         <tr>
@@ -271,17 +365,8 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Train the neural network. </p>
-<p>This method trains the neural network using the provided input and target data. It performs forward and backward passes, updating weights based on the gradients.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">input</td><td>The input data for training. </td></tr>
-    <tr><td class="paramname">target</td><td>The target output data for training. </td></tr>
-    <tr><td class="paramname">learningRate</td><td>The learning rate for weight updates. </td></tr>
-    <tr><td class="paramname">epochs</td><td>The number of training epochs. </td></tr>
-  </table>
-  </dd>
-</dl>
+<p>Train the network on (X, Y) with SGD. </p>
+<p><code>X</code> is <code>[features × batch]</code> (see <a class="el" href="Utility_8h.html" title="Utility functions for FlexNN neural network library.">Utility.h</a>), <code>Y</code> is label vector (converted to one-hot inside). Uses the interleaved <code>forward</code> layout <code>[input, Z0,A0, Z1,A1, ...]</code> and <code>backward</code> that fuses <code>Softmax+CE</code> as <code>dZ_last = (A - Y)/m</code>. </p>
 
 </div>
 </div>

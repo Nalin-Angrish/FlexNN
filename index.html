@@ -129,7 +129,7 @@ Example Usage</h1>
 <div class="line">    });</div>
 <div class="line"> </div>
 <div class="line">    <span class="comment">// Train the network</span></div>
-<div class="line">    nn.<a class="code hl_function" href="classFlexNN_1_1NeuralNetwork.html#a0f851edf7e4aa0ca0bf2ee52348b6a50">train</a>(X_train, Y_train, 0.5, 100);</div>
+<div class="line">    nn.<a class="code hl_function" href="classFlexNN_1_1NeuralNetwork.html#a94d30d8ec8371bdd94961a59df6522a8">train</a>(X_train, Y_train, 0.5, 100);</div>
 <div class="line"> </div>
 <div class="line">    <span class="comment">// Evaluate accuracy</span></div>
 <div class="line">    <span class="keywordtype">double</span> train_acc = nn.accuracy(X_train, Y_train);</div>
@@ -140,10 +140,10 @@ Example Usage</h1>
 <div class="line"> </div>
 <div class="line">    <span class="keywordflow">return</span> 0;</div>
 <div class="line">}</div>
-<div class="ttc" id="aFlexNN_8h_html"><div class="ttname"><a href="FlexNN_8h.html">FlexNN.h</a></div><div class="ttdoc">Header file for the FlexNN neural network library.</div></div>
-<div class="ttc" id="aclassFlexNN_1_1Layer_html"><div class="ttname"><a href="classFlexNN_1_1Layer.html">FlexNN::Layer</a></div><div class="ttdoc">Represents a single layer in a neural network.</div><div class="ttdef"><b>Definition</b> Layer.h:38</div></div>
-<div class="ttc" id="aclassFlexNN_1_1NeuralNetwork_html"><div class="ttname"><a href="classFlexNN_1_1NeuralNetwork.html">FlexNN::NeuralNetwork</a></div><div class="ttdoc">Class representing a neural network.</div><div class="ttdef"><b>Definition</b> FlexNN.h:38</div></div>
-<div class="ttc" id="aclassFlexNN_1_1NeuralNetwork_html_a0f851edf7e4aa0ca0bf2ee52348b6a50"><div class="ttname"><a href="classFlexNN_1_1NeuralNetwork.html#a0f851edf7e4aa0ca0bf2ee52348b6a50">FlexNN::NeuralNetwork::train</a></div><div class="ttdeci">void train(const Eigen::MatrixXd &amp;input, const Eigen::MatrixXd &amp;target, double learningRate, int epochs)</div><div class="ttdoc">Train the neural network.</div><div class="ttdef"><b>Definition</b> FlexNN.cpp:29</div></div>
+<div class="ttc" id="aFlexNN_8h_html"><div class="ttname"><a href="FlexNN_8h.html">FlexNN.h</a></div><div class="ttdoc">Header for FlexNN neural network (heterogeneous stack via Layers::Layer).</div></div>
+<div class="ttc" id="aclassFlexNN_1_1Layer_html"><div class="ttname"><a href="classFlexNN_1_1Layer.html">FlexNN::Layer</a></div><div class="ttdoc">Represents a single layer in a neural network.</div><div class="ttdef"><b>Definition</b> Layer.h:39</div></div>
+<div class="ttc" id="aclassFlexNN_1_1NeuralNetwork_html"><div class="ttname"><a href="classFlexNN_1_1NeuralNetwork.html">FlexNN::NeuralNetwork</a></div><div class="ttdoc">Linear stack of heterogeneous layers (vector&lt;Layers::Layer&gt;).</div><div class="ttdef"><b>Definition</b> FlexNN.h:47</div></div>
+<div class="ttc" id="aclassFlexNN_1_1NeuralNetwork_html_a94d30d8ec8371bdd94961a59df6522a8"><div class="ttname"><a href="classFlexNN_1_1NeuralNetwork.html#a94d30d8ec8371bdd94961a59df6522a8">FlexNN::NeuralNetwork::train</a></div><div class="ttdeci">void train(const Eigen::MatrixXd &amp;input, const Eigen::VectorXd &amp;target, double learningRate, int epochs)</div><div class="ttdoc">Train the network on (X, Y) with SGD.</div><div class="ttdef"><b>Definition</b> FlexNN.cpp:54</div></div>
 <div class="ttc" id="amain_8cpp_html_ae66f6b31b5ad750f1fe042a706a4e3d4"><div class="ttname"><a href="main_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4">main</a></div><div class="ttdeci">int main()</div><div class="ttdoc">Main function to demonstrate a simple neural network for MNIST digit recognition.</div><div class="ttdef"><b>Definition</b> main.cpp:26</div></div>
 <div class="ttc" id="anamespaceFlexNN_html_a62ced14f183da07af191c6ced74c54e7"><div class="ttname"><a href="namespaceFlexNN.html#a62ced14f183da07af191c6ced74c54e7">FlexNN::splitXY</a></div><div class="ttdeci">std::vector&lt; std::pair&lt; Eigen::MatrixXd, Eigen::VectorXd &gt; &gt; splitXY(const Eigen::MatrixXd &amp;X, const Eigen::VectorXd &amp;Y, const std::vector&lt; double &gt; &amp;proportions)</div><div class="ttdoc">Splits the dataset into multiple sets based on specified proportions.</div><div class="ttdef"><b>Definition</b> Utility.cpp:109</div></div>
 <div class="ttc" id="anamespaceFlexNN_html_adde282a64978645bc79db0ee56c28d91"><div class="ttname"><a href="namespaceFlexNN.html#adde282a64978645bc79db0ee56c28d91">FlexNN::readCSV_XY</a></div><div class="ttdeci">void readCSV_XY(const std::string &amp;filename, Eigen::MatrixXd &amp;X, Eigen::VectorXd &amp;Y)</div><div class="ttdoc">Reads a CSV file and splits it into features (X) and labels (Y).</div><div class="ttdef"><b>Definition</b> Utility.cpp:55</div></div>

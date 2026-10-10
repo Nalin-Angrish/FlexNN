@@ -6,9 +6,21 @@ digraph "include/activations/Activation.hpp"
   node [fontname=Helvetica,fontsize=10,shape=box,height=0.2,width=0.4];
   Node1 [id="Node000001",label="include/activations\l/Activation.hpp",height=0.2,width=0.4,color="gray40", fillcolor="grey60", style="filled", fontcolor="black",tooltip="Public activation enum and helpers for FlexNN."];
   Node1 -> Node2 [id="edge1_Node000001_Node000002",dir="back",color="steelblue1",style="solid",tooltip=" "];
-  Node2 [id="Node000002",label="include/layers/Dense.hpp",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$Dense_8hpp.html",tooltip="Dense (fully-connected) layer for FlexNN::Layers."];
+  Node2 [id="Node000002",label="include/FlexNN.h",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$FlexNN_8h.html",tooltip="Header for FlexNN neural network (heterogeneous stack via Layers::Layer)."];
   Node2 -> Node3 [id="edge2_Node000002_Node000003",dir="back",color="steelblue1",style="solid",tooltip=" "];
-  Node3 [id="Node000003",label="lib/layers/Dense.cpp",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$Dense_8cpp.html",tooltip="Implements FlexNN::Layers::Dense forward/backward/update."];
-  Node1 -> Node4 [id="edge3_Node000001_Node000004",dir="back",color="steelblue1",style="solid",tooltip=" "];
-  Node4 [id="Node000004",label="lib/activations/Activation.cpp",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$Activation_8cpp.html",tooltip="Implements FlexNN::Activations helpers (to_string, try_parse, dispatch)."];
+  Node3 [id="Node000003",label="lib/FlexNN.cpp",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$FlexNN_8cpp.html",tooltip="Implements FlexNN::NeuralNetwork with heterogeneous Layers::Layer variant."];
+  Node2 -> Node4 [id="edge3_Node000002_Node000004",dir="back",color="steelblue1",style="solid",tooltip=" "];
+  Node4 [id="Node000004",label="src/main.cpp",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$main_8cpp.html",tooltip="Main file for the MNIST digit recognition example using FlexNN."];
+  Node1 -> Node5 [id="edge4_Node000001_Node000005",dir="back",color="steelblue1",style="solid",tooltip=" "];
+  Node5 [id="Node000005",label="include/layers/Dense.hpp",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$Dense_8hpp.html",tooltip="Dense (fully-connected) layer for FlexNN::Layers."];
+  Node5 -> Node6 [id="edge5_Node000005_Node000006",dir="back",color="steelblue1",style="solid",tooltip=" "];
+  Node6 [id="Node000006",label="include/layers/Layer.hpp",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$Layer_8hpp.html",tooltip="Type-erased wrapper for FlexNN::Layers — heterogeneous stack without inheritance."];
+  Node6 -> Node2 [id="edge6_Node000006_Node000002",dir="back",color="steelblue1",style="solid",tooltip=" "];
+  Node6 -> Node7 [id="edge7_Node000006_Node000007",dir="back",color="steelblue1",style="solid",tooltip=" "];
+  Node7 [id="Node000007",label="lib/layers/Layer.cpp",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$layers_2Layer_8cpp.html",tooltip="Out-of-line helpers for FlexNN::Layers::Layer (currently header-only)."];
+  Node5 -> Node8 [id="edge8_Node000005_Node000008",dir="back",color="steelblue1",style="solid",tooltip=" "];
+  Node8 [id="Node000008",label="lib/layers/Dense.cpp",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$Dense_8cpp.html",tooltip="Implements FlexNN::Layers::Dense forward/backward/update."];
+  Node1 -> Node3 [id="edge9_Node000001_Node000003",dir="back",color="steelblue1",style="solid",tooltip=" "];
+  Node1 -> Node9 [id="edge10_Node000001_Node000009",dir="back",color="steelblue1",style="solid",tooltip=" "];
+  Node9 [id="Node000009",label="lib/activations/Activation.cpp",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$Activation_8cpp.html",tooltip="Implements FlexNN::Activations helpers (to_string, try_parse, dispatch)."];
 }

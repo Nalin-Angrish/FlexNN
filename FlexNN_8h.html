@@ -99,10 +99,12 @@ $(document).ready(function(){initNavTree('FlexNN_8h.html',''); initResizable(); 
 </div><!--header-->
 <div class="contents">
 
-<p>Header file for the <a class="el" href="namespaceFlexNN.html" title="Namespace for the FlexNN neural network library.">FlexNN</a> neural network library.  
+<p>Header for <a class="el" href="namespaceFlexNN.html" title="Namespace for the FlexNN neural network library.">FlexNN</a> neural network (heterogeneous stack via Layers::Layer).  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;vector&gt;</code><br />
 <code>#include &lt;Eigen/Dense&gt;</code><br />
+<code>#include &quot;<a class="el" href="Activation_8hpp_source.html">activations/Activation.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="Layer_8hpp_source.html">layers/Layer.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="Layer_8h_source.html">Layer.h</a>&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for FlexNN.h:</div>
@@ -120,7 +122,7 @@ This graph shows which files directly or indirectly include this file:</div>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classFlexNN_1_1NeuralNetwork.html">FlexNN::NeuralNetwork</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Class representing a neural network.  <a href="classFlexNN_1_1NeuralNetwork.html#details">More...</a><br /></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Linear stack of heterogeneous layers (vector&lt;Layers::Layer&gt;).  <a href="classFlexNN_1_1NeuralNetwork.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="namespaces" name="namespaces"></a>
@@ -130,9 +132,9 @@ Namespaces</h2></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Header file for the <a class="el" href="namespaceFlexNN.html" title="Namespace for the FlexNN neural network library.">FlexNN</a> neural network library. </p>
-<p>This library provides a flexible neural network implementation using Eigen for matrix operations. It includes classes for layers and the neural network itself, allowing for easy construction, training, and prediction.</p>
-<dl class="section author"><dt>Author</dt><dd>Nalin Angrish <a href="#" onclick="location.href='mai'+'lto:'+'nal'+'in'+'@na'+'li'+'nan'+'gr'+'ish'+'.m'+'e'; return false;">nalin<span class="obfuscator">.nosp@m.</span>@nal<span class="obfuscator">.nosp@m.</span>inang<span class="obfuscator">.nosp@m.</span>rish<span class="obfuscator">.nosp@m.</span>.me</a> </dd></dl>
+<div class="textblock"><p>Header for <a class="el" href="namespaceFlexNN.html" title="Namespace for the FlexNN neural network library.">FlexNN</a> neural network (heterogeneous stack via Layers::Layer). </p>
+<p>After PR-04, <code>NeuralNetwork</code> holds <code>std::vector&lt;<a class="el" href="classFlexNN_1_1Layers_1_1Layer.html" title="Type-erased layer — holds one concrete layer type.">FlexNN::Layers::Layer</a>&gt;</code> — a type-erased variant over <code>Dense</code> (and later <code>Conv1D</code>, <code>BatchNorm1D</code>, <code>MaxPool1D</code>, <code>AvgPool1D</code>). The legacy <code><a class="el" href="classFlexNN_1_1Layer.html" title="Represents a single layer in a neural network.">FlexNN::Layer</a></code> (stringly-typed Dense) is kept for one release as a deprecated shim so <code><a class="el" href="main_8cpp.html" title="Main file for the MNIST digit recognition example using FlexNN.">src/main.cpp</a></code> still builds; it is converted to <code>Layers::Dense</code> via <code>Activations::try_parse</code>.</p>
+<p>Why variant, not inheritance (see LLD_FLEXNN §3): host training stays simple (Eigen, no vtable), variant is inline, and <code>std::visit</code> dispatches without indirection. For MCU we don't reuse these structs at all — export is flat arrays. </p>
 </div></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

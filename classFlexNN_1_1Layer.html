@@ -115,6 +115,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:af486a1cfedf6288ab8afa2c163589f96" id="r_af486a1cfedf6288ab8afa2c163589f96"><td class="memItemLeft" align="right" valign="top">Eigen::VectorXd&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classFlexNN_1_1Layer.html#af486a1cfedf6288ab8afa2c163589f96">getBiases</a> () const</td></tr>
 <tr class="memdesc:af486a1cfedf6288ab8afa2c163589f96"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getters for biases.  <br /></td></tr>
 <tr class="separator:af486a1cfedf6288ab8afa2c163589f96"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a603e2b41f3e1de37e65b8cc6e8f1b5a6" id="r_a603e2b41f3e1de37e65b8cc6e8f1b5a6"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classFlexNN_1_1Layer.html#a603e2b41f3e1de37e65b8cc6e8f1b5a6">getActivationFunction</a> () const</td></tr>
+<tr class="memdesc:a603e2b41f3e1de37e65b8cc6e8f1b5a6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get activation string (for deprecated conversion to <a class="el" href="classFlexNN_1_1Layers_1_1Dense.html" title="Fully-connected layer: Z = W*X + b, A = act(Z).">Layers::Dense</a>).  <br /></td></tr>
+<tr class="separator:a603e2b41f3e1de37e65b8cc6e8f1b5a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5664082dbfb98de7cb3a1233f3795c11" id="r_a5664082dbfb98de7cb3a1233f3795c11"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classFlexNN_1_1Layer.html#a5664082dbfb98de7cb3a1233f3795c11">updateWeights</a> (const Eigen::MatrixXd &amp;dW, const Eigen::VectorXd &amp;db, double learningRate)</td></tr>
 <tr class="memdesc:a5664082dbfb98de7cb3a1233f3795c11"><td class="mdescLeft">&#160;</td><td class="mdescRight">Update weights and biases.  <br /></td></tr>
 <tr class="separator:a5664082dbfb98de7cb3a1233f3795c11"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -256,6 +259,35 @@ Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>A pair containing the linear output (Z) and the activated output (A). </dd></dl>
+
+</div>
+</div>
+<a id="a603e2b41f3e1de37e65b8cc6e8f1b5a6" name="a603e2b41f3e1de37e65b8cc6e8f1b5a6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a603e2b41f3e1de37e65b8cc6e8f1b5a6">&#9670;&#160;</a></span>getActivationFunction()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string FlexNN::Layer::getActivationFunction </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Get activation string (for deprecated conversion to <a class="el" href="classFlexNN_1_1Layers_1_1Dense.html" title="Fully-connected layer: Z = W*X + b, A = act(Z).">Layers::Dense</a>). </p>
+<p>Exposed so <code><a class="el" href="classFlexNN_1_1NeuralNetwork.html" title="Linear stack of heterogeneous layers (vector&lt;Layers::Layer&gt;).">NeuralNetwork</a></code>'s deprecated <code>vector&lt;<a class="el" href="classFlexNN_1_1Layer.html" title="Represents a single layer in a neural network.">Layer</a>&gt;</code> ctor can preserve the requested activation via <code><a class="el" href="namespaceFlexNN_1_1Activations.html#ac176c76eb067acf2eafb7c3982b6bc8a" title="Parse a string into an Activation.">Activations::try_parse</a></code>. New code should use <code><a class="el" href="classFlexNN_1_1Layers_1_1Dense.html" title="Fully-connected layer: Z = W*X + b, A = act(Z).">FlexNN::Layers::Dense</a></code> with <code><a class="el" href="namespaceFlexNN_1_1Activations.html#a4f60b76f06f34f079a603f4f6977638b" title="Activation function identifier.">Activations::Activation</a></code>.</p>
+<dl class="section return"><dt>Returns</dt><dd>Activation string (e.g., "relu", "softmax") </dd></dl>
 
 </div>
 </div>
