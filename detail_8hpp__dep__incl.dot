@@ -8,5 +8,7 @@ digraph "include/activations/detail.hpp"
   Node1 -> Node2 [id="edge1_Node000001_Node000002",dir="back",color="steelblue1",style="solid",tooltip=" "];
   Node2 [id="Node000002",label="lib/activations/Activation.cpp",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$Activation_8cpp.html",tooltip="Implements FlexNN::Activations helpers (to_string, try_parse, dispatch)."];
   Node1 -> Node3 [id="edge2_Node000001_Node000003",dir="back",color="steelblue1",style="solid",tooltip=" "];
-  Node3 [id="Node000003",label="lib/layers/Dense.cpp",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$Dense_8cpp.html",tooltip="Implements FlexNN::Layers::Dense forward/backward/update."];
+  Node3 [id="Node000003",label="lib/layers/Conv1D.cpp",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$Conv1D_8cpp.html",tooltip="Implements FlexNN::Layers::Conv1D forward/backward/propagate."];
+  Node1 -> Node4 [id="edge3_Node000001_Node000004",dir="back",color="steelblue1",style="solid",tooltip=" "];
+  Node4 [id="Node000004",label="lib/layers/Dense.cpp",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$Dense_8cpp.html",tooltip="Implements FlexNN::Layers::Dense forward/backward/update."];
 }

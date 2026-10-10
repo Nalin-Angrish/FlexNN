@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['params_0',['params',['../classFlexNN_1_1Layers_1_1Dense.html#a5a633af61da643d9a95a44b6a47ac3f5',1,'FlexNN::Layers::Dense']]],
-  ['predict_1',['predict',['../classFlexNN_1_1NeuralNetwork.html#afd9ed23b0d67e3bd6a4d1583730d187a',1,'FlexNN::NeuralNetwork']]],
-  ['propagate_2',['propagate',['../classFlexNN_1_1Layers_1_1Dense.html#aa19216dfe1d5c00946b3a157c862860d',1,'FlexNN::Layers::Dense']]]
+  ['onehotencode_0',['oneHotEncode',['../namespaceFlexNN.html#a875a6d420ac25e491a6016b0e17b0397',1,'FlexNN']]],
+  ['operator_21_3d_1',['operator!=',['../structFlexNN_1_1Activations_1_1ActivationParameters.html#aee9bc3375a8f14814686dd9261617c54',1,'FlexNN::Activations::ActivationParameters']]],
+  ['operator_3d_3d_2',['operator==',['../structFlexNN_1_1Activations_1_1ActivationParameters.html#a902a23de67184340c70300933ae32a64',1,'FlexNN::Activations::ActivationParameters']]]
 ];

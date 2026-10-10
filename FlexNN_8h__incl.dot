@@ -38,10 +38,17 @@ digraph "include/FlexNN.h"
   Node14 -> Node7 [id="edge18_Node000014_Node000007",color="steelblue1",style="solid",tooltip=" "];
   Node11 -> Node4 [id="edge19_Node000011_Node000004",color="steelblue1",style="solid",tooltip=" "];
   Node11 -> Node8 [id="edge20_Node000011_Node000008",color="steelblue1",style="solid",tooltip=" "];
-  Node9 -> Node8 [id="edge21_Node000009_Node000008",color="steelblue1",style="solid",tooltip=" "];
-  Node1 -> Node15 [id="edge22_Node000001_Node000015",color="steelblue1",style="solid",tooltip=" "];
-  Node15 [id="Node000015",label="Layer.h",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$Layer_8h.html",tooltip="Header file for the Layer class in the FlexNN neural network library."];
-  Node15 -> Node12 [id="edge23_Node000015_Node000012",color="steelblue1",style="solid",tooltip=" "];
-  Node15 -> Node13 [id="edge24_Node000015_Node000013",color="steelblue1",style="solid",tooltip=" "];
-  Node15 -> Node3 [id="edge25_Node000015_Node000003",color="steelblue1",style="solid",tooltip=" "];
+  Node9 -> Node15 [id="edge21_Node000009_Node000015",color="steelblue1",style="solid",tooltip=" "];
+  Node15 [id="Node000015",label="Conv1D.hpp",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$Conv1D_8hpp.html",tooltip="1D temporal convolution for FlexNN::Layers."];
+  Node15 -> Node13 [id="edge22_Node000015_Node000013",color="steelblue1",style="solid",tooltip=" "];
+  Node15 -> Node3 [id="edge23_Node000015_Node000003",color="steelblue1",style="solid",tooltip=" "];
+  Node15 -> Node14 [id="edge24_Node000015_Node000014",color="steelblue1",style="solid",tooltip=" "];
+  Node15 -> Node4 [id="edge25_Node000015_Node000004",color="steelblue1",style="solid",tooltip=" "];
+  Node15 -> Node8 [id="edge26_Node000015_Node000008",color="steelblue1",style="solid",tooltip=" "];
+  Node9 -> Node8 [id="edge27_Node000009_Node000008",color="steelblue1",style="solid",tooltip=" "];
+  Node1 -> Node16 [id="edge28_Node000001_Node000016",color="steelblue1",style="solid",tooltip=" "];
+  Node16 [id="Node000016",label="Layer.h",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$Layer_8h.html",tooltip="Header file for the Layer class in the FlexNN neural network library."];
+  Node16 -> Node12 [id="edge29_Node000016_Node000012",color="steelblue1",style="solid",tooltip=" "];
+  Node16 -> Node13 [id="edge30_Node000016_Node000013",color="steelblue1",style="solid",tooltip=" "];
+  Node16 -> Node3 [id="edge31_Node000016_Node000003",color="steelblue1",style="solid",tooltip=" "];
 }

@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['variant_0',['variant',['../classFlexNN_1_1Layers_1_1Layer.html#a5380977ff1f9e261f723a04bf7b8253b',1,'FlexNN::Layers::Layer::variant() const noexcept'],['../classFlexNN_1_1Layers_1_1Layer.html#a7932f0c3b29936210d40b4b3e21c5fa0',1,'FlexNN::Layers::Layer::variant() noexcept']]]
+  ['update_0',['update',['../classFlexNN_1_1Layers_1_1Conv1D.html#af9b5b0ea0b3b41c9462e07de2559691b',1,'FlexNN::Layers::Conv1D::update()'],['../classFlexNN_1_1Layers_1_1Dense.html#a91dc760a8753fd505b4a16cf66c3055a',1,'FlexNN::Layers::Dense::update()'],['../classFlexNN_1_1Layers_1_1Layer.html#a61470cca44580999989922e32863d61e',1,'FlexNN::Layers::Layer::update()']]],
+  ['updateweights_1',['updateweights',['../classFlexNN_1_1Layer.html#a5664082dbfb98de7cb3a1233f3795c11',1,'FlexNN::Layer::updateWeights()'],['../classFlexNN_1_1Layers_1_1Conv1D.html#a23d4d6b5105fb01821ea51f1ca413dad',1,'FlexNN::Layers::Conv1D::updateWeights()'],['../classFlexNN_1_1Layers_1_1Layer.html#a97c634594d4a5d1aeec484fd2fc3fb0e',1,'FlexNN::Layers::Layer::updateWeights()']]]
 ];

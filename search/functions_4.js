@@ -1,6 +1,4 @@
 var searchData=
 [
-  ['getactivationfunction_0',['getActivationFunction',['../classFlexNN_1_1Layer.html#a603e2b41f3e1de37e65b8cc6e8f1b5a6',1,'FlexNN::Layer']]],
-  ['getbiases_1',['getBiases',['../classFlexNN_1_1Layer.html#af486a1cfedf6288ab8afa2c163589f96',1,'FlexNN::Layer']]],
-  ['getweights_2',['getWeights',['../classFlexNN_1_1Layer.html#a79373920227625f5e225ce49df533e14',1,'FlexNN::Layer']]]
+  ['forward_0',['forward',['../classFlexNN_1_1Layer.html#a0837c21dffec4cb2df94a48b5932630b',1,'FlexNN::Layer::forward()'],['../classFlexNN_1_1Layers_1_1Conv1D.html#ad9598d0bf318cdeceffdd5a2f7c0fde4',1,'FlexNN::Layers::Conv1D::forward()'],['../classFlexNN_1_1Layers_1_1Dense.html#ac72137c7d56598c0d3edccc4ea1e60b5',1,'FlexNN::Layers::Dense::forward()'],['../classFlexNN_1_1Layers_1_1Layer.html#aa64c197d720ba01dd0116cf035671960',1,'FlexNN::Layers::Layer::forward()'],['../namespaceFlexNN_1_1Activations_1_1detail.html#a40d521cedbaa87782313a19b9d1fb17d',1,'FlexNN::Activations::detail::forward()']]]
 ];

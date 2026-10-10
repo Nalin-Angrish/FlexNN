@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['utility_2ecpp_0',['Utility.cpp',['../Utility_8cpp.html',1,'']]],
-  ['utility_2eh_1',['Utility.h',['../Utility_8h.html',1,'']]]
+  ['tanh_2ehpp_0',['Tanh.hpp',['../Tanh_8hpp.html',1,'']]]
 ];

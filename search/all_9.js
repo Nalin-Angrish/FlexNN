@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['layer_0',['layer',['../classFlexNN_1_1Layers_1_1Layer.html',1,'FlexNN::Layers::Layer'],['../classFlexNN_1_1Layers_1_1Layer.html#aa777cb2e3a254f1e2cd91694360dcc05',1,'FlexNN::Layers::Layer::Layer()'],['../classFlexNN_1_1Layer.html#ad47b22581c698822902c361816dc487e',1,'FlexNN::Layer::Layer()'],['../classFlexNN_1_1Layer.html',1,'FlexNN::Layer']]],
+  ['layer_0',['layer',['../classFlexNN_1_1Layers_1_1Layer.html',1,'FlexNN::Layers::Layer'],['../classFlexNN_1_1Layers_1_1Layer.html#aec0de8ccb9d693e1e08dfb2974f4018a',1,'FlexNN::Layers::Layer::Layer(Conv1D c)'],['../classFlexNN_1_1Layers_1_1Layer.html#aa777cb2e3a254f1e2cd91694360dcc05',1,'FlexNN::Layers::Layer::Layer(Dense d)'],['../classFlexNN_1_1Layer.html#ad47b22581c698822902c361816dc487e',1,'FlexNN::Layer::Layer()'],['../classFlexNN_1_1Layer.html',1,'FlexNN::Layer']]],
   ['layer_2ecpp_1',['layer.cpp',['../Layer_8cpp.html',1,'(Global Namespace)'],['../layers_2Layer_8cpp.html',1,'(Global Namespace)']]],
   ['layer_2eh_2',['Layer.h',['../Layer_8h.html',1,'']]],
   ['layer_2ehpp_3',['Layer.hpp',['../Layer_8hpp.html',1,'']]],

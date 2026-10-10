@@ -1,9 +1,11 @@
 var searchData=
 [
-  ['tanh_5fbackward_0',['tanh_backward',['../namespaceFlexNN_1_1Activations_1_1detail.html#a571db3457dbfdbf3c9e4d44fb3bd463d',1,'FlexNN::Activations::detail']]],
-  ['tanh_5fforward_1',['tanh_forward',['../namespaceFlexNN_1_1Activations_1_1detail.html#a776d646fb73c3ab45f10365aee561599',1,'FlexNN::Activations::detail']]],
-  ['to_5fstring_2',['to_string',['../namespaceFlexNN_1_1Activations.html#a4406005a9e7f79add26fe5ccbb3b2292',1,'FlexNN::Activations']]],
-  ['train_3',['train',['../classFlexNN_1_1NeuralNetwork.html#a94d30d8ec8371bdd94961a59df6522a8',1,'FlexNN::NeuralNetwork']]],
-  ['try_5fparse_4',['try_parse',['../namespaceFlexNN_1_1Activations.html#ac176c76eb067acf2eafb7c3982b6bc8a',1,'FlexNN::Activations']]],
-  ['type_5',['type',['../classFlexNN_1_1Layers_1_1Dense.html#a0fcdaccd130d28316cc5c3a88924ca8d',1,'FlexNN::Layers::Dense::type()'],['../classFlexNN_1_1Layers_1_1Layer.html#af850697fd51b4b20912b5f6997ec6958',1,'FlexNN::Layers::Layer::type()']]]
+  ['setactivationparameters_0',['setactivationparameters',['../classFlexNN_1_1Layers_1_1Conv1D.html#ac5d00cc89e0be80fbb2150a55c48c884',1,'FlexNN::Layers::Conv1D::setActivationParameters()'],['../classFlexNN_1_1Layers_1_1Dense.html#a53e7fcd723362e32ea41591cea74400a',1,'FlexNN::Layers::Dense::setActivationParameters()']]],
+  ['setbiases_1',['setbiases',['../classFlexNN_1_1Layers_1_1Conv1D.html#ab46979db23e71bcab736bdeba9b2d359',1,'FlexNN::Layers::Conv1D::setBiases()'],['../classFlexNN_1_1Layers_1_1Dense.html#a6b57c2ba877b54d0275ed7a2f3158985',1,'FlexNN::Layers::Dense::setBiases()']]],
+  ['setweights_2',['setweights',['../classFlexNN_1_1Layers_1_1Conv1D.html#a83e88ddbcf3684992b424b7b217e3d53',1,'FlexNN::Layers::Conv1D::setWeights()'],['../classFlexNN_1_1Layers_1_1Dense.html#ad643baf3cdb279fec4689ea4b98b34ba',1,'FlexNN::Layers::Dense::setWeights()']]],
+  ['sigmoid_5fbackward_3',['sigmoid_backward',['../namespaceFlexNN_1_1Activations_1_1detail.html#a300703d7974cde1494015dd01e9766c5',1,'FlexNN::Activations::detail']]],
+  ['sigmoid_5fforward_4',['sigmoid_forward',['../namespaceFlexNN_1_1Activations_1_1detail.html#aa0d78ba319f0279377b31ad3bf0a12cc',1,'FlexNN::Activations::detail']]],
+  ['softmax_5fbackward_5fhidden_5',['softmax_backward_hidden',['../namespaceFlexNN_1_1Activations_1_1detail.html#af8cf629aab328b647281b81f5a3bddfc',1,'FlexNN::Activations::detail']]],
+  ['softmax_5fforward_6',['softmax_forward',['../namespaceFlexNN_1_1Activations_1_1detail.html#a2a6fc7caa0da3a5e79ec24ff66f95501',1,'FlexNN::Activations::detail']]],
+  ['splitxy_7',['splitXY',['../namespaceFlexNN.html#a62ced14f183da07af191c6ced74c54e7',1,'FlexNN']]]
 ];

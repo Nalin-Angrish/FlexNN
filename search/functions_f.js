@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['weights_0',['weights',['../classFlexNN_1_1Layers_1_1Dense.html#abb1742ccc11a22efbe665054eaaefe0e',1,'FlexNN::Layers::Dense']]],
-  ['weightsmatrix_1',['weightsMatrix',['../classFlexNN_1_1Layers_1_1Layer.html#ade9a2d165d6dd59cf9b02415aab4354f',1,'FlexNN::Layers::Layer']]]
+  ['variant_0',['variant',['../classFlexNN_1_1Layers_1_1Layer.html#a5380977ff1f9e261f723a04bf7b8253b',1,'FlexNN::Layers::Layer::variant() const noexcept'],['../classFlexNN_1_1Layers_1_1Layer.html#a7932f0c3b29936210d40b4b3e21c5fa0',1,'FlexNN::Layers::Layer::variant() noexcept']]]
 ];

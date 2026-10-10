@@ -409,10 +409,10 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Backward with already-propagated upstream (W_next^T*dZ_next). </p>
-<p>Used by <code>NeuralNetwork::backward</code> after <code>layers[i+1].propagate(dZ_next)</code> so the caller handles <code>Conv1D</code> transpose via <code>col2im</code>.</p>
+<p>Used by <code>NeuralNetwork::backward</code> after <code>layers[i+1].propagate(dZ_next)</code> so the caller handles <code><a class="el" href="classFlexNN_1_1Layers_1_1Conv1D.html">Conv1D</a></code> transpose via <code>col2im</code>. Equivalent to the three-arg version but skips the <code>nextW</code> multiply.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">upstream</td><td>Already <code>W_next^T * dZ_next</code> </td></tr>
+    <tr><td class="paramname">upstream</td><td>Already <code>W_next^T * dZ_next</code> (or <code>propagate</code> result) </td></tr>
     <tr><td class="paramname">currZ</td><td>This layer's Z </td></tr>
   </table>
   </dd>
@@ -515,6 +515,13 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Propagate gradient to previous layer: <code>dX = W^T * dZ</code>. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">dZ</td><td>Gradient w.r.t. Z of this layer <code>[out × batch]</code> </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Gradient w.r.t. input <code>[in × batch]</code> </dd></dl>
 
 </div>
 </div>

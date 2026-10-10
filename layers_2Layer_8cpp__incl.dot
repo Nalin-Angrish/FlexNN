@@ -34,5 +34,12 @@ digraph "lib/layers/Layer.cpp"
   Node11 -> Node13 [id="edge16_Node000011_Node000013",color="steelblue1",style="solid",tooltip=" "];
   Node13 [id="Node000013",label="ActivationParameters.hpp",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$ActivationParameters_8hpp.html",tooltip="Per-activation hyperparameters for FlexNN::Activations."];
   Node5 -> Node13 [id="edge17_Node000005_Node000013",color="steelblue1",style="solid",tooltip=" "];
-  Node2 -> Node13 [id="edge18_Node000002_Node000013",color="steelblue1",style="solid",tooltip=" "];
+  Node2 -> Node14 [id="edge18_Node000002_Node000014",color="steelblue1",style="solid",tooltip=" "];
+  Node14 [id="Node000014",label="Conv1D.hpp",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$Conv1D_8hpp.html",tooltip="1D temporal convolution for FlexNN::Layers."];
+  Node14 -> Node7 [id="edge19_Node000014_Node000007",color="steelblue1",style="solid",tooltip=" "];
+  Node14 -> Node8 [id="edge20_Node000014_Node000008",color="steelblue1",style="solid",tooltip=" "];
+  Node14 -> Node9 [id="edge21_Node000014_Node000009",color="steelblue1",style="solid",tooltip=" "];
+  Node14 -> Node11 [id="edge22_Node000014_Node000011",color="steelblue1",style="solid",tooltip=" "];
+  Node14 -> Node13 [id="edge23_Node000014_Node000013",color="steelblue1",style="solid",tooltip=" "];
+  Node2 -> Node13 [id="edge24_Node000002_Node000013",color="steelblue1",style="solid",tooltip=" "];
 }
