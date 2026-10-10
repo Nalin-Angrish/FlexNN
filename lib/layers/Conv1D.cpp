@@ -12,7 +12,6 @@
 
 #include <cassert>
 #include <cmath>
-#include <string>
 
 #include "activations/detail.hpp"
 
@@ -33,22 +32,6 @@ Conv1D::Conv1D(int inCh, int outCh, int K, int stride, int pad, int dilation,
                Activations::Activation act,
                const Activations::ActivationParameters& params)
     : Conv1D(Conv1DParams{inCh, outCh, K, stride, pad, dilation}, act, params) {}
-
-Conv1D::Conv1D(Conv1DParams p, const std::string& actStr)
-    : Conv1D(p, Activations::Activation::ReLU) {
-  Activations::Activation parsed;
-  if (Activations::try_parse(actStr, parsed)) act_ = parsed;
-  else act_ = Activations::Activation::None;
-}
-
-Conv1D::Conv1D(int inCh, int outCh, int K, int stride, int pad, int dilation,
-               const std::string& actStr)
-    : Conv1D(Conv1DParams{inCh, outCh, K, stride, pad, dilation},
-             Activations::Activation::ReLU) {
-  Activations::Activation parsed;
-  if (Activations::try_parse(actStr, parsed)) act_ = parsed;
-  else act_ = Activations::Activation::None;
-}
 
 int Conv1D::l_out(int L_in) const noexcept {
   int K = params_.kernelSize;

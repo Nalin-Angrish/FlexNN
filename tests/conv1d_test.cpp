@@ -201,14 +201,6 @@ TEST(Conv1DVariant, InLayer) {
   EXPECT_EQ(l.asConv1D()->params().inChannels, 1);
 }
 
-TEST(Conv1DStringShim, Deprecated) {
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
-  Conv1D conv(Conv1DParams{1, 2, 3, 1, 1, 1}, std::string("relu"));
-#pragma GCC diagnostic pop
-  EXPECT_EQ(conv.activation(), Activation::ReLU);
-}
-
 TEST(Conv1DNetwork, DenseAfterConv) {
   // Conv1D -> Dense -> Softmax stack should train without NaN
   // Input: C=2, L=8 => in dim 16

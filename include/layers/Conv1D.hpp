@@ -15,7 +15,6 @@
 
 #pragma once
 
-#include <string>
 #include <utility>
 
 #include <Eigen/Dense>
@@ -46,12 +45,6 @@ class Conv1D {
          int padding = 0, int dilation = 1,
          Activations::Activation act = Activations::Activation::ReLU,
          const Activations::ActivationParameters& params = Activations::ActivationParameters{});
-
-  [[deprecated("use Activations::Activation enum")]]
-  Conv1D(Conv1DParams p, const std::string& actStr);
-  [[deprecated("use Activations::Activation enum")]]
-  Conv1D(int inChannels, int outChannels, int kernelSize, int stride,
-         int padding, int dilation, const std::string& actStr);
 
   LayerType type() const noexcept { return LayerType::Conv1D; }
   Activations::Activation activation() const noexcept { return act_; }
