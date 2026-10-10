@@ -1,146 +1,158 @@
 /**
  * @file FlexNN.cpp
- * @brief Source file for the FlexNN neural network library.
+ * @brief Implements FlexNN::NeuralNetwork with heterogeneous Layers::Layer variant.
  *
- * This library provides a flexible neural network implementation using Eigen for matrix operations.
- * It includes classes for layers and the neural network itself, allowing for easy construction,
- * training, and prediction.
+ * After PR-04, the network holds `vector<Layers::Layer>` where each `Layer`
+ * is a `variant<Dense, ...>` (currently only Dense). Forward/backward use
+ * `std::visit` via `Layer::forward/backward`. The last-layer Softmax +
+ * cross-entropy is fused as `dZ = (A - Y)/m` in `backward()` — never calling
+ * `Dense::backward` for the last layer when it is Softmax, which fixes the
+ * legacy `lib/Layer.cpp:72` Jacobian bug.
  *
- * @author Nalin Angrish <nalin@nalinangrish.me>
+ * The legacy `NeuralNetwork(vector<Layer>)` (stringly-typed Dense) is kept
+ * as a deprecated shim that converts each old `Layer` to `Layers::Dense`
+ * via `Activations::try_parse`.
  */
+
+#include "FlexNN.h"
+
+#include <cassert>
 #include <iostream>
 #include <vector>
 #include <Eigen/Dense>
 
-#include "FlexNN.h"
 #include "Utility.h"
+#include "activations/Activation.hpp"
 
-/**
- * @brief Train the neural network.
- *
- * This method trains the neural network using the provided input and target data.
- * It performs forward and backward passes, updating weights based on the gradients.
- *
- * @param input The input data for training.
- * @param target The target output data for training.
- * @param learningRate The learning rate for weight updates.
- * @param epochs The number of training epochs.
- */
-void FlexNN::NeuralNetwork::train(const Eigen::MatrixXd &input, const Eigen::MatrixXd &target, double learningRate, int epochs)
-{
-  Eigen::MatrixXd Y_onehot = FlexNN::oneHotEncode(target, target.maxCoeff() + 1); // Convert target to one-hot encoding
-  for (int epoch = 0; epoch < epochs; ++epoch)                                    // for each epoch
-  {
-    auto outputs = forward(input);                // Perform forward pass to compute outputs
-    auto gradients = backward(outputs, Y_onehot); // Perform backward pass to compute gradients
-    updateWeights(gradients, learningRate);       // Update weights based on gradients
-    if ((epoch + 1) % 10 == 0)                    // Log the accuracy every 10 epochs for debugging
-    {
-      std::cout << "Epoch " << epoch + 1 << "/" << epochs << ": Accuracy = " << this->accuracy(input, target) << std::endl;
+namespace FlexNN {
+
+// Legacy shim — converts old stringly-typed Dense layers to new enum-typed Dense.
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
+NeuralNetwork::NeuralNetwork(const std::vector<Layer>& oldLayers) {
+  layers_.reserve(oldLayers.size());
+  for (const auto& old : oldLayers) {
+    int in = static_cast<int>(old.getWeights().cols());
+    int out = static_cast<int>(old.getWeights().rows());
+    // Preserve the requested activation string via the new getter
+    Activations::Activation act = Activations::Activation::ReLU;
+    std::string s = old.getActivationFunction();
+    Activations::Activation parsed;
+    if (Activations::try_parse(s, parsed)) {
+      act = parsed;
+    } else {
+      act = Activations::Activation::None;
+    }
+    Layers::Dense d(in, out, act);
+    d.setWeights(old.getWeights());
+    d.setBiases(old.getBiases());
+    layers_.emplace_back(std::move(d));
+  }
+}
+#pragma GCC diagnostic pop
+
+void NeuralNetwork::train(const Eigen::MatrixXd& input,
+                          const Eigen::VectorXd& target, double learningRate,
+                          int epochs) {
+  // One-hot encode target once. `target` is label vector (size = batch)
+  Eigen::MatrixXd Y_onehot = FlexNN::oneHotEncode(target, static_cast<int>(target.maxCoeff()) + 1);
+  for (int epoch = 0; epoch < epochs; ++epoch) {
+    auto outputs = forward(input);
+    auto gradients = backward(outputs, Y_onehot);
+    updateWeights(gradients, learningRate);
+    if ((epoch + 1) % 10 == 0) {
+      std::cout << "Epoch " << epoch + 1 << "/" << epochs
+                << ": Accuracy = " << this->accuracy(input, target) << std::endl;
     }
   }
 }
 
-/**
- * @brief Calculate the accuracy of the neural network.
- *
- * This method computes the accuracy of the neural network's predictions against the target data.
- *
- * @param X The input data for prediction.
- * @param Y The target output data for comparison.
- * @return The accuracy as a double value.
- */
-double FlexNN::NeuralNetwork::accuracy(const Eigen::MatrixXd &X, const Eigen::MatrixXd &Y)
-{
-  Eigen::MatrixXd predictions = this->predict(X); // Get predictions from the neural network
+double NeuralNetwork::accuracy(const Eigen::MatrixXd& X, const Eigen::VectorXd& Y) {
+  Eigen::MatrixXd predictions = this->predict(X);
   int correct = 0;
-  // Use Eigen::Index for cols() (Eigen uses ptrdiff_t) to avoid -Wsign-compare
-  for (Eigen::Index i = 0; i < predictions.cols(); ++i) // Iterate through each prediction
-  {
+  for (Eigen::Index i = 0; i < predictions.cols(); ++i) {
     int predictedClass;
     predictions.col(i).maxCoeff(&predictedClass);
-    if (predictedClass == static_cast<int>(Y(i)))
-    {
-      correct++; // Increment correct count if prediction matches the target class
+    if (predictedClass == static_cast<int>(Y(i))) {
+      ++correct;
     }
   }
-  return static_cast<double>(correct) / predictions.cols(); // Calculate accuracy as the ratio of correct predictions to total predictions
+  return static_cast<double>(correct) / predictions.cols();
 }
 
-/**
- * @brief Forward pass through the neural network.
- *
- * This method performs a forward pass through all layers of the neural network,
- * computing the activations for each layer based on the input data.
- *
- * @param input The input data for the forward pass.
- * @return A vector of Eigen::MatrixXd containing the outputs of each layer.
- */
-std::vector<Eigen::MatrixXd> FlexNN::NeuralNetwork::forward(const Eigen::MatrixXd &input)
-{
+std::vector<Eigen::MatrixXd> NeuralNetwork::forward(const Eigen::MatrixXd& input) {
   std::vector<Eigen::MatrixXd> outputs;
-  outputs.push_back(input); // Start with the input as the first output
-  for (size_t i = 0; i < layers.size(); ++i)
-  {
-    auto result = layers[i].forward(outputs[outputs.size() - 1]); // Forward pass through the layer
-    outputs.push_back(result.first);
-    outputs.push_back(result.second); // Store both Z and A
+  outputs.reserve(1 + 2 * layers_.size());
+  outputs.push_back(input);
+  for (size_t i = 0; i < layers_.size(); ++i) {
+    // Dispatch via Layers::Layer::forward (std::visit)
+    auto result = layers_[i].forward(outputs.back());
+    outputs.push_back(result.first);  // Z
+    outputs.push_back(result.second); // A
   }
-  return outputs; // Return all outputs including activations and pre-activations
+  return outputs;
 }
 
-/**
- * @brief Backward pass through the neural network.
- *
- * This method performs a backward pass through the neural network, calculating
- * the gradients for each layer based on the outputs and target data.
- *
- * @param outputs The outputs from the forward pass.
- * @param target The target output data for training.
- * @return A vector of Eigen::MatrixXd containing the gradients for each layer.
- */
-std::vector<Eigen::MatrixXd> FlexNN::NeuralNetwork::backward(const std::vector<Eigen::MatrixXd> &outputs, const Eigen::MatrixXd &target)
-{
+std::vector<Eigen::MatrixXd> NeuralNetwork::backward(
+    const std::vector<Eigen::MatrixXd>& outputs, const Eigen::MatrixXd& target) {
   std::vector<Eigen::MatrixXd> gradients;
-  std::vector<Eigen::MatrixXd> dZs; // To store dZ for each layer
+  gradients.reserve(2 * layers_.size());
+  std::vector<Eigen::MatrixXd> dZs;
+  dZs.reserve(layers_.size());
 
-  Eigen::MatrixXd dZ = outputs.back() - target;                          // Compute the initial dZ (gradient of the loss w.r.t. output)
-  dZs.push_back(dZ);                                                     // Store dZ for this layer
-  // dZ.cols() is Eigen::Index (ptrdiff_t); keep as Index to avoid sign warnings
-  Eigen::Index m = dZ.cols();                                            // Number of examples
-  gradients.push_back(dZ.rowwise().mean());                              // Store db (rowwise mean)
-  gradients.push_back(dZ * outputs[outputs.size() - 3].transpose() / m); // dW
+  // Last-layer handling: if last activation is Softmax, fuse with CE as dZ = A - Y
+  // (divided by batch later in dW). This matches the fix for lib/Layer.cpp:72.
+  assert(!layers_.empty() && "NeuralNetwork requires at least one layer");
+  Eigen::MatrixXd dZ;
+  const auto lastAct = layers_.back().activation();
+  if (lastAct == Activations::Activation::Softmax) {
+    dZ = outputs.back() - target; // (A_last - Y_onehot)
+  } else {
+    // For non-Softmax last layer, treat as linear CE or use detail::backward
+    // Here dZ = (A - Y) * f'(Z) — but since last is typically Softmax, this
+    // branch is rare in v0.1. We compute dA = (A - Y) and then backward.
+    Eigen::MatrixXd A_last = outputs.back();
+    Eigen::MatrixXd Z_last = outputs[outputs.size() - 2];
+    Eigen::MatrixXd dA = A_last - target;
+    dZ = Activations::detail::backward(lastAct, dA, Z_last, A_last);
+  }
+  dZs.push_back(dZ);
+  Eigen::Index m = dZ.cols();
+  gradients.push_back(dZ.rowwise().mean()); // db_last
+  gradients.push_back(dZ * outputs[outputs.size() - 3].transpose() / static_cast<double>(m)); // dW_last
 
-  // Reverse loop over hidden layers: use signed int to allow i>=0 termination.
-  // layers.size() is size_t; cast to int first to avoid wrap when size<2.
-  for (int i = static_cast<int>(layers.size()) - 2; i >= 0; --i)
-  {
-    dZ = layers[i].backward(layers[i + 1].getWeights(), dZs.back(), outputs[2 * i + 1]);
-    dZs.push_back(dZ);                                        // Store dZ for this layer
-    gradients.push_back(dZ.rowwise().mean());                 // Store db
-    gradients.push_back(dZ * outputs[2 * static_cast<size_t>(i)].transpose() / m); // dW
+  // Hidden layers reverse
+  for (int i = static_cast<int>(layers_.size()) - 2; i >= 0; --i) {
+    // Extract next layer's weight matrix for upstream dA = W_next^T * dZ_next
+    Eigen::MatrixXd nextW = layers_[static_cast<size_t>(i) + 1].weightsMatrix();
+    // If next layer is weightless (Pool/BN), weightsMatrix() is empty; then
+    // the correct upstream is just dZ_next (pool/BN backward will have already
+    // handled routing). In PR-04 only Dense exists, so nextW is always valid.
+    if (nextW.size() == 0) {
+      // Weightless next layer — upstream is just next dZ (already correctly shaped)
+      dZ = layers_[static_cast<size_t>(i)].backward(
+          Eigen::MatrixXd(), dZs.back(), outputs[2 * static_cast<size_t>(i) + 1]);
+    } else {
+      dZ = layers_[static_cast<size_t>(i)].backward(nextW, dZs.back(),
+                                                     outputs[2 * static_cast<size_t>(i) + 1]);
+    }
+    dZs.push_back(dZ);
+    gradients.push_back(dZ.rowwise().mean()); // db
+    gradients.push_back(dZ * outputs[2 * static_cast<size_t>(i)].transpose() /
+                        static_cast<double>(m)); // dW
   }
 
-  std::reverse(gradients.begin(), gradients.end()); // Reverse the order of gradients to match layer order
-  // gradients now contains dW and db for each layer in the correct order
+  std::reverse(gradients.begin(), gradients.end());
   return gradients;
 }
 
-/**
- * @brief Update the weights of the neural network.
- *
- * This method updates the weights of each layer based on the calculated gradients
- * and the specified learning rate.
- *
- * @param gradients A vector of Eigen::MatrixXd containing the gradients for each layer.
- * @param learningRate The learning rate for updating weights.
- */
-void FlexNN::NeuralNetwork::updateWeights(const std::vector<Eigen::MatrixXd> &gradients, double learningRate)
-{
-  for (size_t i = 0; i < layers.size(); ++i)
-  {
+void NeuralNetwork::updateWeights(const std::vector<Eigen::MatrixXd>& gradients,
+                                  double learningRate) {
+  for (size_t i = 0; i < layers_.size(); ++i) {
     Eigen::MatrixXd dW = gradients[2 * i];
     Eigen::VectorXd db = gradients[2 * i + 1];
-    layers[i].updateWeights(dW, db, learningRate); // Update weights and biases of the layer
+    layers_[i].updateWeights(dW, db, learningRate);
   }
 }
+
+} // namespace FlexNN

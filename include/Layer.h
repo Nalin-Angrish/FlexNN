@@ -11,6 +11,7 @@
 #ifndef FlexNN_Layer_H
 #define FlexNN_Layer_H
 
+#include <string>
 #include <utility>
 #include <Eigen/Dense>
 
@@ -79,6 +80,17 @@ namespace FlexNN
     {
       return b; // Return the biases of the layer
     }
+
+    /**
+     * @brief Get activation string (for deprecated conversion to Layers::Dense).
+     *
+     * Exposed so `NeuralNetwork`'s deprecated `vector<Layer>` ctor can preserve
+     * the requested activation via `Activations::try_parse`. New code should
+     * use `FlexNN::Layers::Dense` with `Activations::Activation`.
+     *
+     * @return Activation string (e.g., "relu", "softmax")
+     */
+    std::string getActivationFunction() const { return activationFunction; }
 
     /**
      * @brief Update weights and biases.
