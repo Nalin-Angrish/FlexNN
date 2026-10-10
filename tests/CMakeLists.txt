@@ -41,3 +41,8 @@ gtest_discover_tests(dense_test)
 add_executable(layer_variant_test layer_variant_test.cpp)
 target_link_libraries(layer_variant_test PRIVATE FlexNN GTest::gtest_main)
 gtest_discover_tests(layer_variant_test)
+
+# PR-05: Conv1D
+add_executable(conv1d_test conv1d_test.cpp)
+target_link_libraries(conv1d_test PRIVATE FlexNN GTest::gtest_main)
+gtest_discover_tests(conv1d_test)
