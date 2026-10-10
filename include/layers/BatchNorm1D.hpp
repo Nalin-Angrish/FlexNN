@@ -14,7 +14,6 @@
 
 #pragma once
 
-#include <string>
 #include <utility>
 
 #include <Eigen/Dense>
@@ -30,11 +29,6 @@ class BatchNorm1D {
                        Activations::Activation act = Activations::Activation::None);
   explicit BatchNorm1D(int numFeatures, float epsilon = 1e-5f,
                        Activations::Activation act = Activations::Activation::None);
-
-  [[deprecated("use Activations::Activation enum")]]
-  BatchNorm1D(BatchNormParams p, const std::string& actStr);
-  [[deprecated("use Activations::Activation enum")]]
-  BatchNorm1D(int numFeatures, const std::string& actStr);
 
   LayerType type() const noexcept { return LayerType::BatchNorm1D; }
   Activations::Activation activation() const noexcept { return act_; }

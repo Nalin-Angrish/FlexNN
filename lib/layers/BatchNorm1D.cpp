@@ -12,7 +12,6 @@
 
 #include <cassert>
 #include <cmath>
-#include <string>
 
 #include "activations/detail.hpp"
 
@@ -30,19 +29,6 @@ BatchNorm1D::BatchNorm1D(BatchNormParams p, Activations::Activation act)
 BatchNorm1D::BatchNorm1D(int numFeatures, float epsilon,
                          Activations::Activation act)
     : BatchNorm1D(BatchNormParams{numFeatures, epsilon, 0.1f}, act) {}
-
-BatchNorm1D::BatchNorm1D(BatchNormParams p, const std::string& actStr)
-    : BatchNorm1D(p, Activations::Activation::None) {
-  Activations::Activation parsed;
-  if (Activations::try_parse(actStr, parsed)) act_ = parsed;
-}
-
-BatchNorm1D::BatchNorm1D(int numFeatures, const std::string& actStr)
-    : BatchNorm1D(BatchNormParams{numFeatures, 1e-5f, 0.1f},
-                  Activations::Activation::None) {
-  Activations::Activation parsed;
-  if (Activations::try_parse(actStr, parsed)) act_ = parsed;
-}
 
 std::pair<Eigen::MatrixXd, Eigen::MatrixXd> BatchNorm1D::forward(
     const Eigen::MatrixXd& input) const {
