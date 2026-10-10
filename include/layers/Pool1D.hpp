@@ -9,7 +9,6 @@
 
 #pragma once
 
-#include <string>
 #include <utility>
 #include <vector>
 
@@ -24,8 +23,6 @@ class MaxPool1D {
  public:
   explicit MaxPool1D(Pool1DParams p,
                      Activations::Activation act = Activations::Activation::None);
-  [[deprecated("use Activations::Activation enum")]]
-  MaxPool1D(Pool1DParams p, const std::string& actStr);
 
   LayerType type() const noexcept { return LayerType::MaxPool1D; }
   Activations::Activation activation() const noexcept { return act_; }
@@ -62,8 +59,6 @@ class AvgPool1D {
  public:
   explicit AvgPool1D(Pool1DParams p,
                      Activations::Activation act = Activations::Activation::None);
-  [[deprecated("use Activations::Activation enum")]]
-  AvgPool1D(Pool1DParams p, const std::string& actStr);
 
   LayerType type() const noexcept { return LayerType::AvgPool1D; }
   Activations::Activation activation() const noexcept { return act_; }

@@ -7,7 +7,6 @@
 
 #include <cassert>
 #include <limits>
-#include <string>
 
 #include "activations/detail.hpp"
 
@@ -28,12 +27,6 @@ static int l_out_pool(int L_in, int K, int stride, int pad) noexcept {
 MaxPool1D::MaxPool1D(Pool1DParams p, Activations::Activation act)
     : params_(p), act_(act) {
   assert(p.channels > 0 && p.kernelSize > 0 && p.stride > 0);
-}
-
-MaxPool1D::MaxPool1D(Pool1DParams p, const std::string& actStr)
-    : MaxPool1D(p, Activations::Activation::None) {
-  Activations::Activation parsed;
-  if (Activations::try_parse(actStr, parsed)) act_ = parsed;
 }
 
 int MaxPool1D::l_out(int L_in) const noexcept {
@@ -154,12 +147,6 @@ void MaxPool1D::update(const Eigen::MatrixXd& /*dW*/, const Eigen::VectorXd& /*d
 AvgPool1D::AvgPool1D(Pool1DParams p, Activations::Activation act)
     : params_(p), act_(act) {
   assert(p.channels > 0 && p.kernelSize > 0 && p.stride > 0);
-}
-
-AvgPool1D::AvgPool1D(Pool1DParams p, const std::string& actStr)
-    : AvgPool1D(p, Activations::Activation::None) {
-  Activations::Activation parsed;
-  if (Activations::try_parse(actStr, parsed)) act_ = parsed;
 }
 
 int AvgPool1D::l_out(int L_in) const noexcept {
