@@ -56,3 +56,8 @@ gtest_discover_tests(export_import_test)
 add_executable(batchnorm_test batchnorm_test.cpp)
 target_link_libraries(batchnorm_test PRIVATE FlexNN GTest::gtest_main)
 gtest_discover_tests(batchnorm_test)
+
+# PR-08: Pool1D
+add_executable(pool_test pool_test.cpp)
+target_link_libraries(pool_test PRIVATE FlexNN GTest::gtest_main)
+gtest_discover_tests(pool_test)
