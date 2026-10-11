@@ -123,7 +123,7 @@ Public Attributes</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Parameters for a <a class="el" href="classFlexNN_1_1Layers_1_1Conv1D.html">Conv1D</a> layer. </p>
 <p>Weight layout: <code>W[outChannels][inChannels*K]</code> row-major logical, stored in Eigen column-major <code>MatrixXd</code> but serialized row-major float32. Bias is <code>[outChannels]</code>.</p>
-<p>Output length: <code>L_out = (L_in + 2*pad - dilation*(K-1) -1)/stride +1</code> Must be &gt;=1 or export returns Status error. </p>
+<p>Output length: <code>L_out = (L_in + 2*pad - dilation*(K-1) -1)/stride +1</code> Must be &gt;=1 or export returns <a class="el" href="structFlexNN_1_1Status.html" title="Result of export/import.">Status</a> error. </p>
 </div><h2 class="groupheader">Member Data Documentation</h2>
 <a id="a89c26650c4e570ca511ea3ea9fa8d314" name="a89c26650c4e570ca511ea3ea9fa8d314"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a89c26650c4e570ca511ea3ea9fa8d314">&#9670;&#160;</a></span>dilation</h2>

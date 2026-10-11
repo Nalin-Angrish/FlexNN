@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['inchannels_0',['inChannels',['../structFlexNN_1_1Layers_1_1Conv1DParams.html#aaa076aa447732440376cbe0436d581fe',1,'FlexNN::Layers::Conv1DParams']]],
-  ['inputsize_1',['inputSize',['../structFlexNN_1_1Layers_1_1DenseParams.html#afe031f23e7f3798d8f4bdce90cfc3b4c',1,'FlexNN::Layers::DenseParams']]],
-  ['issues_20limitations_2',['Known Issues / Limitations',['../index.html#autotoc_md5',1,'']]]
+  ['header_5fcrc32_0',['header_crc32',['../structFlexNN_1_1MainHeader.html#a48475b816695446cb9d705321aab93c7',1,'FlexNN::MainHeader']]],
+  ['header_5flen_1',['header_len',['../structFlexNN_1_1MainHeader.html#a27d6b4cf6df21919d58dd9620ccc6c10',1,'FlexNN::MainHeader']]]
 ];

@@ -101,28 +101,42 @@ $(document).ready(function(){initNavTree('Utility_8h_source.html',''); initResiz
 </div><!--header-->
 <div class="contents">
 <a href="Utility_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span> </div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#ifndef FlexNN_UTILITY_H</span></div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#define FlexNN_UTILITY_H</span></div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">#include &lt;Eigen/Dense&gt;</span></div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="preprocessor">#include &lt;string&gt;</span></div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#ifndef FlexNN_UTILITY_H</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#define FlexNN_UTILITY_H</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &lt;cstdint&gt;</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#include &lt;string&gt;</span></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span> </div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="preprocessor">#include &lt;Eigen/Dense&gt;</span></div>
 <div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span> </div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespaceFlexNN.html">FlexNN</a></div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>{</div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>  Eigen::MatrixXd <a class="code hl_function" href="namespaceFlexNN.html#a875a6d420ac25e491a6016b0e17b0397">oneHotEncode</a>(<span class="keyword">const</span> Eigen::VectorXd &amp;Y, <span class="keywordtype">int</span> num_classes);</div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span> </div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>  <span class="keywordtype">void</span> <a class="code hl_function" href="namespaceFlexNN.html#adde282a64978645bc79db0ee56c28d91">readCSV_XY</a>(<span class="keyword">const</span> std::string &amp;filename, Eigen::MatrixXd &amp;X, Eigen::VectorXd &amp;Y);</div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span> </div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>  std::vector&lt;std::pair&lt;Eigen::MatrixXd, Eigen::VectorXd&gt;&gt;</div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>  <a class="code hl_function" href="namespaceFlexNN.html#a62ced14f183da07af191c6ced74c54e7">splitXY</a>(<span class="keyword">const</span> Eigen::MatrixXd &amp;X, <span class="keyword">const</span> Eigen::VectorXd &amp;Y, <span class="keyword">const</span> std::vector&lt;double&gt; &amp;proportions);</div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>}</div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span> </div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span><span class="preprocessor">#endif </span><span class="comment">// FlexNN_UTILITY_H</span></div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespaceFlexNN.html">FlexNN</a> {</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span> </div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>Eigen::MatrixXd <a class="code hl_function" href="namespaceFlexNN.html#a875a6d420ac25e491a6016b0e17b0397">oneHotEncode</a>(<span class="keyword">const</span> Eigen::VectorXd &amp;Y, <span class="keywordtype">int</span> num_classes);</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span><span class="keywordtype">void</span> <a class="code hl_function" href="namespaceFlexNN.html#adde282a64978645bc79db0ee56c28d91">readCSV_XY</a>(<span class="keyword">const</span> std::string &amp;filename, Eigen::MatrixXd &amp;X, Eigen::VectorXd &amp;Y);</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span> </div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span><span class="keywordtype">void</span> <a class="code hl_function" href="namespaceFlexNN.html#a75bb83ab69de199da0fff0a1d98e5cfc">setRandomSeed</a>(uint32_t seed);</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span> </div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>uint32_t <a class="code hl_function" href="namespaceFlexNN.html#acdb2a7cad525ea49d2f8b0ecee1af456">getRandomSeed</a>() noexcept;</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span> </div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>std::vector&lt;std::pair&lt;Eigen::MatrixXd, Eigen::VectorXd&gt;&gt; <a class="code hl_function" href="namespaceFlexNN.html#a62ced14f183da07af191c6ced74c54e7">splitXY</a>(</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>    const Eigen::MatrixXd &amp;X, const Eigen::VectorXd &amp;Y,</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>    const std::vector&lt;<span class="keywordtype">double</span>&gt; &amp;proportions);</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span> </div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>std::vector&lt;std::pair&lt;Eigen::MatrixXd, Eigen::VectorXd&gt;&gt; <a class="code hl_function" href="namespaceFlexNN.html#a62ced14f183da07af191c6ced74c54e7">splitXY</a>(</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>    const Eigen::MatrixXd &amp;X, const Eigen::VectorXd &amp;Y,</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>    const std::vector&lt;<span class="keywordtype">double</span>&gt; &amp;proportions, uint32_t seed);</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span> </div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>} <span class="comment">// namespace FlexNN</span></div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span> </div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span><span class="preprocessor">#endif </span><span class="comment">// FlexNN_UTILITY_H</span></div>
 <div class="ttc" id="anamespaceFlexNN_html"><div class="ttname"><a href="namespaceFlexNN.html">FlexNN</a></div><div class="ttdoc">Namespace for the FlexNN neural network library.</div><div class="ttdef"><b>Definition</b> Activation.hpp:31</div></div>
-<div class="ttc" id="anamespaceFlexNN_html_a62ced14f183da07af191c6ced74c54e7"><div class="ttname"><a href="namespaceFlexNN.html#a62ced14f183da07af191c6ced74c54e7">FlexNN::splitXY</a></div><div class="ttdeci">std::vector&lt; std::pair&lt; Eigen::MatrixXd, Eigen::VectorXd &gt; &gt; splitXY(const Eigen::MatrixXd &amp;X, const Eigen::VectorXd &amp;Y, const std::vector&lt; double &gt; &amp;proportions)</div><div class="ttdoc">Splits the dataset into multiple sets based on specified proportions.</div><div class="ttdef"><b>Definition</b> Utility.cpp:109</div></div>
-<div class="ttc" id="anamespaceFlexNN_html_a875a6d420ac25e491a6016b0e17b0397"><div class="ttname"><a href="namespaceFlexNN.html#a875a6d420ac25e491a6016b0e17b0397">FlexNN::oneHotEncode</a></div><div class="ttdeci">Eigen::MatrixXd oneHotEncode(const Eigen::VectorXd &amp;Y, int num_classes)</div><div class="ttdoc">One-hot encodes a vector of class labels.</div><div class="ttdef"><b>Definition</b> Utility.cpp:32</div></div>
-<div class="ttc" id="anamespaceFlexNN_html_adde282a64978645bc79db0ee56c28d91"><div class="ttname"><a href="namespaceFlexNN.html#adde282a64978645bc79db0ee56c28d91">FlexNN::readCSV_XY</a></div><div class="ttdeci">void readCSV_XY(const std::string &amp;filename, Eigen::MatrixXd &amp;X, Eigen::VectorXd &amp;Y)</div><div class="ttdoc">Reads a CSV file and splits it into features (X) and labels (Y).</div><div class="ttdef"><b>Definition</b> Utility.cpp:55</div></div>
+<div class="ttc" id="anamespaceFlexNN_html_a62ced14f183da07af191c6ced74c54e7"><div class="ttname"><a href="namespaceFlexNN.html#a62ced14f183da07af191c6ced74c54e7">FlexNN::splitXY</a></div><div class="ttdeci">std::vector&lt; std::pair&lt; Eigen::MatrixXd, Eigen::VectorXd &gt; &gt; splitXY(const Eigen::MatrixXd &amp;X, const Eigen::VectorXd &amp;Y, const std::vector&lt; double &gt; &amp;proportions)</div><div class="ttdoc">Splits dataset into multiple sets by proportions (uses global seed).</div><div class="ttdef"><b>Definition</b> Utility.cpp:85</div></div>
+<div class="ttc" id="anamespaceFlexNN_html_a75bb83ab69de199da0fff0a1d98e5cfc"><div class="ttname"><a href="namespaceFlexNN.html#a75bb83ab69de199da0fff0a1d98e5cfc">FlexNN::setRandomSeed</a></div><div class="ttdeci">void setRandomSeed(uint32_t seed)</div><div class="ttdoc">Set the global RNG seed for splitXY (deterministic splits).</div><div class="ttdef"><b>Definition</b> Utility.cpp:37</div></div>
+<div class="ttc" id="anamespaceFlexNN_html_a875a6d420ac25e491a6016b0e17b0397"><div class="ttname"><a href="namespaceFlexNN.html#a875a6d420ac25e491a6016b0e17b0397">FlexNN::oneHotEncode</a></div><div class="ttdeci">Eigen::MatrixXd oneHotEncode(const Eigen::VectorXd &amp;Y, int num_classes)</div><div class="ttdoc">One-hot encodes a vector of class labels.</div><div class="ttdef"><b>Definition</b> Utility.cpp:44</div></div>
+<div class="ttc" id="anamespaceFlexNN_html_acdb2a7cad525ea49d2f8b0ecee1af456"><div class="ttname"><a href="namespaceFlexNN.html#acdb2a7cad525ea49d2f8b0ecee1af456">FlexNN::getRandomSeed</a></div><div class="ttdeci">uint32_t getRandomSeed() noexcept</div><div class="ttdoc">Get the current global RNG seed.</div><div class="ttdef"><b>Definition</b> Utility.cpp:42</div></div>
+<div class="ttc" id="anamespaceFlexNN_html_adde282a64978645bc79db0ee56c28d91"><div class="ttname"><a href="namespaceFlexNN.html#adde282a64978645bc79db0ee56c28d91">FlexNN::readCSV_XY</a></div><div class="ttdeci">void readCSV_XY(const std::string &amp;filename, Eigen::MatrixXd &amp;X, Eigen::VectorXd &amp;Y)</div><div class="ttdoc">Reads a CSV where first column is label, rest are features.</div><div class="ttdef"><b>Definition</b> Utility.cpp:53</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

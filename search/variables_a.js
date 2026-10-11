@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['stride_0',['stride',['../structFlexNN_1_1Layers_1_1Conv1DParams.html#a791e4dbbbf15e6783253c464fe1e8504',1,'FlexNN::Layers::Conv1DParams::stride'],['../structFlexNN_1_1Layers_1_1Pool1DParams.html#a6e8985957fdeb17b3b3029135b851aab',1,'FlexNN::Layers::Pool1DParams::stride']]]
+  ['magic_0',['magic',['../structFlexNN_1_1MainHeader.html#aef311da76a97ee6db59eea13e724b67e',1,'FlexNN::MainHeader']]],
+  ['momentum_1',['momentum',['../structFlexNN_1_1Layers_1_1BatchNormParams.html#a9968be98719e7a0e2690d7a0aa5f5c37',1,'FlexNN::Layers::BatchNormParams']]]
 ];

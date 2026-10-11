@@ -212,7 +212,7 @@ Public Member Functions</h2></td></tr>
 
 <p>Deprecated: construct from legacy <code><a class="el" href="classFlexNN_1_1Layer.html" title="Represents a single layer in a neural network.">FlexNN::Layer</a></code> (Dense-only). </p>
 <p>Converts each legacy <code><a class="el" href="classFlexNN_1_1Layer.html" title="Represents a single layer in a neural network.">Layer</a></code> (which stores <code>std::string activationFunction</code> and <code>MatrixXd W</code>/<code>VectorXd b</code>) to <code><a class="el" href="classFlexNN_1_1Layers_1_1Dense.html" title="Fully-connected layer: Z = W*X + b, A = act(Z).">Layers::Dense</a></code> via <code><a class="el" href="namespaceFlexNN_1_1Activations.html#ac176c76eb067acf2eafb7c3982b6bc8a" title="Parse a string into an Activation.">Activations::try_parse</a></code>. On unknown activation string, uses <code>Activation::None</code>.</p>
-<p>Kept so <code><a class="el" href="main_8cpp.html" title="Main file for the MNIST digit recognition example using FlexNN.">src/main.cpp</a></code> (which still uses <code><a class="el" href="classFlexNN_1_1Layer.html" title="Represents a single layer in a neural network.">Layer</a>(..., "relu")</code>) builds until PR-09 migrates it to <code><a class="el" href="classFlexNN_1_1Layers_1_1Dense.html" title="Fully-connected layer: Z = W*X + b, A = act(Z).">Layers::Dense</a></code>. New code should not use this. </p>
+<p>Kept so <code><a class="el" href="main_8cpp.html" title="MNIST example — now uses FlexNN::Layers::Dense + Activations + deterministic seed.">src/main.cpp</a></code> (which still uses <code><a class="el" href="classFlexNN_1_1Layer.html" title="Represents a single layer in a neural network.">Layer</a>(..., "relu")</code>) builds until PR-09 migrates it to <code><a class="el" href="classFlexNN_1_1Layers_1_1Dense.html" title="Fully-connected layer: Z = W*X + b, A = act(Z).">Layers::Dense</a></code>. New code should not use this. </p>
 
 </div>
 </div>
@@ -366,7 +366,7 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Train the network on (X, Y) with SGD. </p>
-<p><code>X</code> is <code>[features × batch]</code> (see <a class="el" href="Utility_8h.html" title="Utility functions for FlexNN neural network library.">Utility.h</a>), <code>Y</code> is label vector (converted to one-hot inside). Uses the interleaved <code>forward</code> layout <code>[input, Z0,A0, Z1,A1, ...]</code> and <code>backward</code> that fuses <code>Softmax+CE</code> as <code>dZ_last = (A - Y)/m</code>. </p>
+<p><code>X</code> is <code>[features × batch]</code> (see <a class="el" href="Utility_8h.html" title="Utility functions for FlexNN — CSV, one-hot, and deterministic splits.">Utility.h</a>), <code>Y</code> is label vector (converted to one-hot inside). Uses the interleaved <code>forward</code> layout <code>[input, Z0,A0, Z1,A1, ...]</code> and <code>backward</code> that fuses <code>Softmax+CE</code> as <code>dZ_last = (A - Y)/m</code>. </p>
 
 </div>
 </div>

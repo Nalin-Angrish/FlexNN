@@ -10,7 +10,11 @@ digraph "include/activations/ReLU.hpp"
   Node2 -> Node3 [id="edge2_Node000002_Node000003",dir="back",color="steelblue1",style="solid",tooltip=" "];
   Node3 [id="Node000003",label="lib/activations/Activation.cpp",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$Activation_8cpp.html",tooltip="Implements FlexNN::Activations helpers (to_string, try_parse, dispatch)."];
   Node2 -> Node4 [id="edge3_Node000002_Node000004",dir="back",color="steelblue1",style="solid",tooltip=" "];
-  Node4 [id="Node000004",label="lib/layers/Conv1D.cpp",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$Conv1D_8cpp.html",tooltip="Implements FlexNN::Layers::Conv1D forward/backward/propagate."];
+  Node4 [id="Node000004",label="lib/layers/BatchNorm1D.cpp",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$BatchNorm1D_8cpp.html",tooltip="Implements FlexNN::Layers::BatchNorm1D forward/backward."];
   Node2 -> Node5 [id="edge4_Node000002_Node000005",dir="back",color="steelblue1",style="solid",tooltip=" "];
-  Node5 [id="Node000005",label="lib/layers/Dense.cpp",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$Dense_8cpp.html",tooltip="Implements FlexNN::Layers::Dense forward/backward/update."];
+  Node5 [id="Node000005",label="lib/layers/Conv1D.cpp",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$Conv1D_8cpp.html",tooltip="Implements FlexNN::Layers::Conv1D forward/backward/propagate."];
+  Node2 -> Node6 [id="edge5_Node000002_Node000006",dir="back",color="steelblue1",style="solid",tooltip=" "];
+  Node6 [id="Node000006",label="lib/layers/Dense.cpp",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$Dense_8cpp.html",tooltip="Implements FlexNN::Layers::Dense forward/backward/update."];
+  Node2 -> Node7 [id="edge6_Node000002_Node000007",dir="back",color="steelblue1",style="solid",tooltip=" "];
+  Node7 [id="Node000007",label="lib/layers/Pool1D.cpp",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$Pool1D_8cpp.html",tooltip="Implements MaxPool1D and AvgPool1D forward/backward."];
 }

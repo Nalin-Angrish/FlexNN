@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['tanh_2ehpp_0',['Tanh.hpp',['../Tanh_8hpp.html',1,'']]]
+  ['readme_2emd_0',['README.md',['../README_8md.html',1,'']]],
+  ['relu_2ehpp_1',['ReLU.hpp',['../ReLU_8hpp.html',1,'']]]
 ];

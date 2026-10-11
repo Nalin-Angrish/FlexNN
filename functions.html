@@ -96,20 +96,33 @@ $(document).ready(function(){initNavTree('functions.html',''); initResizable(); 
 
 <h3><a id="index_a" name="index_a"></a>- a -</h3><ul>
 <li>accuracy()&#160;:&#160;<a class="el" href="classFlexNN_1_1NeuralNetwork.html#ac9ae07d0e19dc22b47f7bb8babfec611">FlexNN::NeuralNetwork</a></li>
-<li>activation()&#160;:&#160;<a class="el" href="classFlexNN_1_1Layers_1_1Conv1D.html#a9930a1b6e98b7720790b949dcbed4fe0">FlexNN::Layers::Conv1D</a>, <a class="el" href="classFlexNN_1_1Layers_1_1Dense.html#a23982119eff14ff1aede05c36c45cd83">FlexNN::Layers::Dense</a>, <a class="el" href="classFlexNN_1_1Layers_1_1Layer.html#a3dd034b3c77ccac4cb96576a8dfea760">FlexNN::Layers::Layer</a></li>
+<li>act&#160;:&#160;<a class="el" href="structFlexNN_1_1LayerHeader.html#a51c32b39b8276532db5e4fd35e3c4de5">FlexNN::LayerHeader</a></li>
+<li>activation()&#160;:&#160;<a class="el" href="classFlexNN_1_1Layers_1_1AvgPool1D.html#aaa0e55705c3d61bd7ec7ca13f9f9d028">FlexNN::Layers::AvgPool1D</a>, <a class="el" href="classFlexNN_1_1Layers_1_1BatchNorm1D.html#adffc9af32d46d76d580eb1cdfc1de634">FlexNN::Layers::BatchNorm1D</a>, <a class="el" href="classFlexNN_1_1Layers_1_1Conv1D.html#a9930a1b6e98b7720790b949dcbed4fe0">FlexNN::Layers::Conv1D</a>, <a class="el" href="classFlexNN_1_1Layers_1_1Dense.html#a23982119eff14ff1aede05c36c45cd83">FlexNN::Layers::Dense</a>, <a class="el" href="classFlexNN_1_1Layers_1_1Layer.html#a3dd034b3c77ccac4cb96576a8dfea760">FlexNN::Layers::Layer</a>, <a class="el" href="classFlexNN_1_1Layers_1_1MaxPool1D.html#adcd57e0eeeeceb42a41605ca0373cb38">FlexNN::Layers::MaxPool1D</a></li>
 <li>activationParams()&#160;:&#160;<a class="el" href="classFlexNN_1_1Layers_1_1Conv1D.html#a29697a568f13e62f3e887b32e783c79f">FlexNN::Layers::Conv1D</a>, <a class="el" href="classFlexNN_1_1Layers_1_1Dense.html#a65e7b3f0fb90c052a3ff53b72b9932fd">FlexNN::Layers::Dense</a>, <a class="el" href="classFlexNN_1_1Layers_1_1Layer.html#ae5b64833efcaf890d6cae4b997ff7899">FlexNN::Layers::Layer</a></li>
+<li>asAvgPool1D()&#160;:&#160;<a class="el" href="classFlexNN_1_1Layers_1_1Layer.html#aff2b56df15496063b576540b96105400">FlexNN::Layers::Layer</a></li>
+<li>asBatchNorm1D()&#160;:&#160;<a class="el" href="classFlexNN_1_1Layers_1_1Layer.html#ac8195940e701beb5cc01f8590b2b0922">FlexNN::Layers::Layer</a></li>
 <li>asConv1D()&#160;:&#160;<a class="el" href="classFlexNN_1_1Layers_1_1Layer.html#a5890fafd32f23251339f78dcfa58b9d3">FlexNN::Layers::Layer</a></li>
 <li>asDense()&#160;:&#160;<a class="el" href="classFlexNN_1_1Layers_1_1Layer.html#a9a05fbb06a6f6ecf1c891af0aed2cb0c">FlexNN::Layers::Layer</a></li>
+<li>asMaxPool1D()&#160;:&#160;<a class="el" href="classFlexNN_1_1Layers_1_1Layer.html#a530b7e9c116b029aab99cd9b66a4f2d9">FlexNN::Layers::Layer</a></li>
+<li>aux_cnt&#160;:&#160;<a class="el" href="structFlexNN_1_1LayerHeader.html#ae3621afb142da2f1af8d78aa48ceeb4f">FlexNN::LayerHeader</a></li>
+<li>aux_off&#160;:&#160;<a class="el" href="structFlexNN_1_1LayerHeader.html#a261bfddd193b3c89466df747344b55a1">FlexNN::LayerHeader</a></li>
+<li>AvgPool1D()&#160;:&#160;<a class="el" href="classFlexNN_1_1Layers_1_1AvgPool1D.html#ad4574f8525ead1c2fe20a7212428b0d7">FlexNN::Layers::AvgPool1D</a></li>
 </ul>
 
 
 <h3><a id="index_b" name="index_b"></a>- b -</h3><ul>
-<li>backward()&#160;:&#160;<a class="el" href="classFlexNN_1_1Layer.html#a531b2be03b2995390e2b9a0288a2cdd3">FlexNN::Layer</a>, <a class="el" href="classFlexNN_1_1Layers_1_1Conv1D.html#afc5adc85dfa1de39314735b2c273f665">FlexNN::Layers::Conv1D</a>, <a class="el" href="classFlexNN_1_1Layers_1_1Dense.html#afe09c0bb33b14973458b920858ed24f0">FlexNN::Layers::Dense</a>, <a class="el" href="classFlexNN_1_1Layers_1_1Layer.html#a94d1ad9ccafafeacfd1814d09bf3b6a4">FlexNN::Layers::Layer</a></li>
+<li>b_cnt&#160;:&#160;<a class="el" href="structFlexNN_1_1LayerHeader.html#a2b63b5dcaf3b5fd6f162adaa102ffbe3">FlexNN::LayerHeader</a></li>
+<li>b_off&#160;:&#160;<a class="el" href="structFlexNN_1_1LayerHeader.html#a49bd3bc56f61e6efc3f0cee8ddf5e817">FlexNN::LayerHeader</a></li>
+<li>backward()&#160;:&#160;<a class="el" href="classFlexNN_1_1Layer.html#a531b2be03b2995390e2b9a0288a2cdd3">FlexNN::Layer</a>, <a class="el" href="classFlexNN_1_1Layers_1_1AvgPool1D.html#a4782be89f83e2bbd043d39d94fa71425">FlexNN::Layers::AvgPool1D</a>, <a class="el" href="classFlexNN_1_1Layers_1_1BatchNorm1D.html#a19e8803e536ce48c033d0a67ef6e95f2">FlexNN::Layers::BatchNorm1D</a>, <a class="el" href="classFlexNN_1_1Layers_1_1Conv1D.html#afc5adc85dfa1de39314735b2c273f665">FlexNN::Layers::Conv1D</a>, <a class="el" href="classFlexNN_1_1Layers_1_1Dense.html#afe09c0bb33b14973458b920858ed24f0">FlexNN::Layers::Dense</a>, <a class="el" href="classFlexNN_1_1Layers_1_1Layer.html#a7a61d15adf7645dd2736ae9c86536633">FlexNN::Layers::Layer</a>, <a class="el" href="classFlexNN_1_1Layers_1_1MaxPool1D.html#a25fb8884eb2c114fa0e7c81c1be74800">FlexNN::Layers::MaxPool1D</a></li>
+<li>BatchNorm1D()&#160;:&#160;<a class="el" href="classFlexNN_1_1Layers_1_1BatchNorm1D.html#a0281f0f1f0f437e560795d579e465cff">FlexNN::Layers::BatchNorm1D</a></li>
+<li>beta()&#160;:&#160;<a class="el" href="classFlexNN_1_1Layers_1_1BatchNorm1D.html#a23f5aeb312856f0ee6075dcdfae2dda6">FlexNN::Layers::BatchNorm1D</a></li>
 <li>biases()&#160;:&#160;<a class="el" href="classFlexNN_1_1Layers_1_1Conv1D.html#ae9368ad20e63514b2c8d6a919d6fae6b">FlexNN::Layers::Conv1D</a>, <a class="el" href="classFlexNN_1_1Layers_1_1Dense.html#a5d127c61b4d2d51117ccf901a62db259">FlexNN::Layers::Dense</a></li>
 </ul>
 
 
 <h3><a id="index_c" name="index_c"></a>- c -</h3><ul>
+<li>c_in&#160;:&#160;<a class="el" href="structFlexNN_1_1LayerHeader.html#a11673fe600f0e8c4a851a5a528a6d631">FlexNN::LayerHeader</a></li>
+<li>c_out&#160;:&#160;<a class="el" href="structFlexNN_1_1LayerHeader.html#ad4e6069706b39ad5600e6c2085d8ad89">FlexNN::LayerHeader</a></li>
 <li>channels&#160;:&#160;<a class="el" href="structFlexNN_1_1Layers_1_1Pool1DParams.html#af343251823755291e92db385c8a300bf">FlexNN::Layers::Pool1DParams</a></li>
 <li>Conv1D()&#160;:&#160;<a class="el" href="classFlexNN_1_1Layers_1_1Conv1D.html#ae5bacc3987ba19bdb30dcec4bf5bade7">FlexNN::Layers::Conv1D</a></li>
 </ul>
@@ -117,47 +130,64 @@ $(document).ready(function(){initNavTree('functions.html',''); initResizable(); 
 
 <h3><a id="index_d" name="index_d"></a>- d -</h3><ul>
 <li>Dense()&#160;:&#160;<a class="el" href="classFlexNN_1_1Layers_1_1Dense.html#a7c4f91d0ebfeba0f6319abb0808b36d2">FlexNN::Layers::Dense</a></li>
-<li>dilation&#160;:&#160;<a class="el" href="structFlexNN_1_1Layers_1_1Conv1DParams.html#a89c26650c4e570ca511ea3ea9fa8d314">FlexNN::Layers::Conv1DParams</a></li>
+<li>dilation&#160;:&#160;<a class="el" href="structFlexNN_1_1LayerHeader.html#a408ae7a89b8fccffdc9223d768d9fcea">FlexNN::LayerHeader</a>, <a class="el" href="structFlexNN_1_1Layers_1_1Conv1DParams.html#a89c26650c4e570ca511ea3ea9fa8d314">FlexNN::Layers::Conv1DParams</a></li>
+<li>dtype&#160;:&#160;<a class="el" href="structFlexNN_1_1LayerHeader.html#a31968f0150d33904be7cc0b4febf6763">FlexNN::LayerHeader</a></li>
 </ul>
 
 
 <h3><a id="index_e" name="index_e"></a>- e -</h3><ul>
 <li>epsilon&#160;:&#160;<a class="el" href="structFlexNN_1_1Layers_1_1BatchNormParams.html#ab41fc779fef209f0ee57443d6ce0126d">FlexNN::Layers::BatchNormParams</a></li>
+<li>Err()&#160;:&#160;<a class="el" href="structFlexNN_1_1Status.html#a523c5af189dadffa3f3c3e2430b9d128">FlexNN::Status</a></li>
+<li>error&#160;:&#160;<a class="el" href="structFlexNN_1_1Status.html#aedf1b34f729ef87bfdfe85b2352e9ccc">FlexNN::Status</a></li>
 </ul>
 
 
 <h3><a id="index_f" name="index_f"></a>- f -</h3><ul>
-<li>forward()&#160;:&#160;<a class="el" href="classFlexNN_1_1Layer.html#a0837c21dffec4cb2df94a48b5932630b">FlexNN::Layer</a>, <a class="el" href="classFlexNN_1_1Layers_1_1Conv1D.html#ad9598d0bf318cdeceffdd5a2f7c0fde4">FlexNN::Layers::Conv1D</a>, <a class="el" href="classFlexNN_1_1Layers_1_1Dense.html#ac72137c7d56598c0d3edccc4ea1e60b5">FlexNN::Layers::Dense</a>, <a class="el" href="classFlexNN_1_1Layers_1_1Layer.html#aa64c197d720ba01dd0116cf035671960">FlexNN::Layers::Layer</a></li>
+<li>flags&#160;:&#160;<a class="el" href="structFlexNN_1_1MainHeader.html#afbc390293ca09ed4d1adb491daaf4573">FlexNN::MainHeader</a></li>
+<li>formatVersion&#160;:&#160;<a class="el" href="structFlexNN_1_1ExportOptions.html#a5ef647a10b57222a72d242e3aa6b8c8e">FlexNN::ExportOptions</a></li>
+<li>forward()&#160;:&#160;<a class="el" href="classFlexNN_1_1Layer.html#a0837c21dffec4cb2df94a48b5932630b">FlexNN::Layer</a>, <a class="el" href="classFlexNN_1_1Layers_1_1AvgPool1D.html#ab613f2b1d09e58abbe21576dd124a480">FlexNN::Layers::AvgPool1D</a>, <a class="el" href="classFlexNN_1_1Layers_1_1BatchNorm1D.html#a56bd1276dc023b76a92d0a7118090052">FlexNN::Layers::BatchNorm1D</a>, <a class="el" href="classFlexNN_1_1Layers_1_1Conv1D.html#ad9598d0bf318cdeceffdd5a2f7c0fde4">FlexNN::Layers::Conv1D</a>, <a class="el" href="classFlexNN_1_1Layers_1_1Dense.html#ac72137c7d56598c0d3edccc4ea1e60b5">FlexNN::Layers::Dense</a>, <a class="el" href="classFlexNN_1_1Layers_1_1Layer.html#aa64c197d720ba01dd0116cf035671960">FlexNN::Layers::Layer</a>, <a class="el" href="classFlexNN_1_1Layers_1_1MaxPool1D.html#a436b6f7feabbf589ae57762213464a47">FlexNN::Layers::MaxPool1D</a></li>
 </ul>
 
 
 <h3><a id="index_g" name="index_g"></a>- g -</h3><ul>
+<li>gamma()&#160;:&#160;<a class="el" href="classFlexNN_1_1Layers_1_1BatchNorm1D.html#a87e7ba2c78625a356817b77cc4f5bb7c">FlexNN::Layers::BatchNorm1D</a></li>
 <li>getActivationFunction()&#160;:&#160;<a class="el" href="classFlexNN_1_1Layer.html#a603e2b41f3e1de37e65b8cc6e8f1b5a6">FlexNN::Layer</a></li>
 <li>getBiases()&#160;:&#160;<a class="el" href="classFlexNN_1_1Layer.html#af486a1cfedf6288ab8afa2c163589f96">FlexNN::Layer</a></li>
 <li>getWeights()&#160;:&#160;<a class="el" href="classFlexNN_1_1Layer.html#a79373920227625f5e225ce49df533e14">FlexNN::Layer</a></li>
-<li>grad()&#160;:&#160;<a class="el" href="classFlexNN_1_1Layers_1_1Conv1D.html#a090e310190431c7975ad0a5b804a9272">FlexNN::Layers::Conv1D</a>, <a class="el" href="classFlexNN_1_1Layers_1_1Layer.html#a9974ec6c26976f1ee17660f92f41771d">FlexNN::Layers::Layer</a></li>
+<li>grad()&#160;:&#160;<a class="el" href="classFlexNN_1_1Layers_1_1AvgPool1D.html#a5a643ed9b0dddb58403165412d1e00c0">FlexNN::Layers::AvgPool1D</a>, <a class="el" href="classFlexNN_1_1Layers_1_1BatchNorm1D.html#a1612bf318b7ad35bb0fc021d5f42acb4">FlexNN::Layers::BatchNorm1D</a>, <a class="el" href="classFlexNN_1_1Layers_1_1Conv1D.html#a090e310190431c7975ad0a5b804a9272">FlexNN::Layers::Conv1D</a>, <a class="el" href="classFlexNN_1_1Layers_1_1Layer.html#a9974ec6c26976f1ee17660f92f41771d">FlexNN::Layers::Layer</a>, <a class="el" href="classFlexNN_1_1Layers_1_1MaxPool1D.html#afcfd0c392d207f0b0294c8db83b49ffa">FlexNN::Layers::MaxPool1D</a></li>
+</ul>
+
+
+<h3><a id="index_h" name="index_h"></a>- h -</h3><ul>
+<li>header_crc32&#160;:&#160;<a class="el" href="structFlexNN_1_1MainHeader.html#a48475b816695446cb9d705321aab93c7">FlexNN::MainHeader</a></li>
+<li>header_len&#160;:&#160;<a class="el" href="structFlexNN_1_1MainHeader.html#a27d6b4cf6df21919d58dd9620ccc6c10">FlexNN::MainHeader</a></li>
 </ul>
 
 
 <h3><a id="index_i" name="index_i"></a>- i -</h3><ul>
+<li>in_dim&#160;:&#160;<a class="el" href="structFlexNN_1_1LayerHeader.html#a43bbdb519f45dfe6d977700ebb9dd7dd">FlexNN::LayerHeader</a></li>
 <li>inChannels&#160;:&#160;<a class="el" href="structFlexNN_1_1Layers_1_1Conv1DParams.html#aaa076aa447732440376cbe0436d581fe">FlexNN::Layers::Conv1DParams</a></li>
 <li>inputSize&#160;:&#160;<a class="el" href="structFlexNN_1_1Layers_1_1DenseParams.html#afe031f23e7f3798d8f4bdce90cfc3b4c">FlexNN::Layers::DenseParams</a></li>
 </ul>
 
 
 <h3><a id="index_k" name="index_k"></a>- k -</h3><ul>
+<li>k&#160;:&#160;<a class="el" href="structFlexNN_1_1LayerHeader.html#ad9944062da7ed44194e96d187f40c363">FlexNN::LayerHeader</a></li>
 <li>kernelSize&#160;:&#160;<a class="el" href="structFlexNN_1_1Layers_1_1Conv1DParams.html#a44209708c7a271d18db8b6ad31895db5">FlexNN::Layers::Conv1DParams</a>, <a class="el" href="structFlexNN_1_1Layers_1_1Pool1DParams.html#af697f00b53caceeeac85b3bd8ffaece6">FlexNN::Layers::Pool1DParams</a></li>
 </ul>
 
 
 <h3><a id="index_l" name="index_l"></a>- l -</h3><ul>
 <li>Layer()&#160;:&#160;<a class="el" href="classFlexNN_1_1Layer.html#ad47b22581c698822902c361816dc487e">FlexNN::Layer</a>, <a class="el" href="classFlexNN_1_1Layers_1_1Layer.html#aa777cb2e3a254f1e2cd91694360dcc05">FlexNN::Layers::Layer</a></li>
+<li>layer_count&#160;:&#160;<a class="el" href="structFlexNN_1_1MainHeader.html#a97a61921daa8ac2b3c57fcb0a8347eb4">FlexNN::MainHeader</a></li>
 <li>layers()&#160;:&#160;<a class="el" href="classFlexNN_1_1NeuralNetwork.html#a9c13ca590b8a7cfabdc180cdd83a8b88">FlexNN::NeuralNetwork</a></li>
 <li>leakyAlpha&#160;:&#160;<a class="el" href="structFlexNN_1_1Activations_1_1ActivationParameters.html#a89b612d20dad62b30843854a16d765c4">FlexNN::Activations::ActivationParameters</a></li>
 </ul>
 
 
 <h3><a id="index_m" name="index_m"></a>- m -</h3><ul>
+<li>magic&#160;:&#160;<a class="el" href="structFlexNN_1_1MainHeader.html#aef311da76a97ee6db59eea13e724b67e">FlexNN::MainHeader</a></li>
+<li>MaxPool1D()&#160;:&#160;<a class="el" href="classFlexNN_1_1Layers_1_1MaxPool1D.html#ad52563faaea8518455c6dc671cc965d8">FlexNN::Layers::MaxPool1D</a></li>
 <li>momentum&#160;:&#160;<a class="el" href="structFlexNN_1_1Layers_1_1BatchNormParams.html#a9968be98719e7a0e2690d7a0aa5f5c37">FlexNN::Layers::BatchNormParams</a></li>
 </ul>
 
@@ -169,47 +199,65 @@ $(document).ready(function(){initNavTree('functions.html',''); initResizable(); 
 
 
 <h3><a id="index_o" name="index_o"></a>- o -</h3><ul>
+<li>ok&#160;:&#160;<a class="el" href="structFlexNN_1_1Status.html#a4232510caa23d625b80a2be870c5b1c2">FlexNN::Status</a></li>
+<li>Ok()&#160;:&#160;<a class="el" href="structFlexNN_1_1Status.html#a8c8ceb87e7148f5a4a127aa7aa85c3d7">FlexNN::Status</a></li>
 <li>operator!=()&#160;:&#160;<a class="el" href="structFlexNN_1_1Activations_1_1ActivationParameters.html#aee9bc3375a8f14814686dd9261617c54">FlexNN::Activations::ActivationParameters</a></li>
 <li>operator==()&#160;:&#160;<a class="el" href="structFlexNN_1_1Activations_1_1ActivationParameters.html#a902a23de67184340c70300933ae32a64">FlexNN::Activations::ActivationParameters</a></li>
+<li>out_dim&#160;:&#160;<a class="el" href="structFlexNN_1_1LayerHeader.html#a8fb7d002d4fd0a7356391492d7b6523c">FlexNN::LayerHeader</a></li>
 <li>outChannels&#160;:&#160;<a class="el" href="structFlexNN_1_1Layers_1_1Conv1DParams.html#a19c23f6164415eca356dc765312b47be">FlexNN::Layers::Conv1DParams</a></li>
 <li>outputSize&#160;:&#160;<a class="el" href="structFlexNN_1_1Layers_1_1DenseParams.html#a883315b79bb51239fc2b61e25acc7a8c">FlexNN::Layers::DenseParams</a></li>
 </ul>
 
 
 <h3><a id="index_p" name="index_p"></a>- p -</h3><ul>
+<li>pad&#160;:&#160;<a class="el" href="structFlexNN_1_1LayerHeader.html#ab9b6e633aaf8cd88641639ab874137c6">FlexNN::LayerHeader</a></li>
 <li>padding&#160;:&#160;<a class="el" href="structFlexNN_1_1Layers_1_1Conv1DParams.html#afd1346adf335c84c11d1b6188cfdf446">FlexNN::Layers::Conv1DParams</a>, <a class="el" href="structFlexNN_1_1Layers_1_1Pool1DParams.html#a938c7009f2b170a9c7da204a57dbf233">FlexNN::Layers::Pool1DParams</a></li>
-<li>params()&#160;:&#160;<a class="el" href="classFlexNN_1_1Layers_1_1Conv1D.html#aeb97d635cdb2c1a405cc7b3dbe2c77fd">FlexNN::Layers::Conv1D</a>, <a class="el" href="classFlexNN_1_1Layers_1_1Dense.html#a5a633af61da643d9a95a44b6a47ac3f5">FlexNN::Layers::Dense</a></li>
+<li>params()&#160;:&#160;<a class="el" href="classFlexNN_1_1Layers_1_1AvgPool1D.html#a52f53ee5460ad971ce0edd370d0ee513">FlexNN::Layers::AvgPool1D</a>, <a class="el" href="classFlexNN_1_1Layers_1_1BatchNorm1D.html#adc9ec506a2d83463eda27e2d9c175d66">FlexNN::Layers::BatchNorm1D</a>, <a class="el" href="classFlexNN_1_1Layers_1_1Conv1D.html#aeb97d635cdb2c1a405cc7b3dbe2c77fd">FlexNN::Layers::Conv1D</a>, <a class="el" href="classFlexNN_1_1Layers_1_1Dense.html#a5a633af61da643d9a95a44b6a47ac3f5">FlexNN::Layers::Dense</a>, <a class="el" href="classFlexNN_1_1Layers_1_1MaxPool1D.html#a0aa7d9b0e485b8f0451683b9d9705a99">FlexNN::Layers::MaxPool1D</a></li>
 <li>predict()&#160;:&#160;<a class="el" href="classFlexNN_1_1NeuralNetwork.html#afd9ed23b0d67e3bd6a4d1583730d187a">FlexNN::NeuralNetwork</a></li>
-<li>propagate()&#160;:&#160;<a class="el" href="classFlexNN_1_1Layers_1_1Conv1D.html#a0c7effceab008d84e162719df27e5b76">FlexNN::Layers::Conv1D</a>, <a class="el" href="classFlexNN_1_1Layers_1_1Dense.html#aa19216dfe1d5c00946b3a157c862860d">FlexNN::Layers::Dense</a>, <a class="el" href="classFlexNN_1_1Layers_1_1Layer.html#aef67519d4776e4a3a36a721b58061101">FlexNN::Layers::Layer</a></li>
+<li>propagate()&#160;:&#160;<a class="el" href="classFlexNN_1_1Layers_1_1AvgPool1D.html#a7253de9915873d2fd518cf707f4d99cc">FlexNN::Layers::AvgPool1D</a>, <a class="el" href="classFlexNN_1_1Layers_1_1BatchNorm1D.html#a69f3e9c20ab27f7fa4c2e9d4c103d51c">FlexNN::Layers::BatchNorm1D</a>, <a class="el" href="classFlexNN_1_1Layers_1_1Conv1D.html#a0c7effceab008d84e162719df27e5b76">FlexNN::Layers::Conv1D</a>, <a class="el" href="classFlexNN_1_1Layers_1_1Dense.html#aa19216dfe1d5c00946b3a157c862860d">FlexNN::Layers::Dense</a>, <a class="el" href="classFlexNN_1_1Layers_1_1Layer.html#aef67519d4776e4a3a36a721b58061101">FlexNN::Layers::Layer</a>, <a class="el" href="classFlexNN_1_1Layers_1_1MaxPool1D.html#a2459e3c4e2b428c8b1cfab0eddd36475">FlexNN::Layers::MaxPool1D</a></li>
+</ul>
+
+
+<h3><a id="index_r" name="index_r"></a>- r -</h3><ul>
+<li>reserved&#160;:&#160;<a class="el" href="structFlexNN_1_1LayerHeader.html#af809d714c0ad7f8de01f2d2c1a295431">FlexNN::LayerHeader</a></li>
+<li>runningMean()&#160;:&#160;<a class="el" href="classFlexNN_1_1Layers_1_1BatchNorm1D.html#af2386d3559f35f2da277f5d1bfe87b64">FlexNN::Layers::BatchNorm1D</a></li>
+<li>runningVar()&#160;:&#160;<a class="el" href="classFlexNN_1_1Layers_1_1BatchNorm1D.html#a0cbdef7bed09f9a6538ddbc1942ed9e3">FlexNN::Layers::BatchNorm1D</a></li>
 </ul>
 
 
 <h3><a id="index_s" name="index_s"></a>- s -</h3><ul>
 <li>setActivationParameters()&#160;:&#160;<a class="el" href="classFlexNN_1_1Layers_1_1Conv1D.html#ac5d00cc89e0be80fbb2150a55c48c884">FlexNN::Layers::Conv1D</a>, <a class="el" href="classFlexNN_1_1Layers_1_1Dense.html#a53e7fcd723362e32ea41591cea74400a">FlexNN::Layers::Dense</a></li>
+<li>setBeta()&#160;:&#160;<a class="el" href="classFlexNN_1_1Layers_1_1BatchNorm1D.html#addd5e341c901b1a3349dce479f308486">FlexNN::Layers::BatchNorm1D</a></li>
 <li>setBiases()&#160;:&#160;<a class="el" href="classFlexNN_1_1Layers_1_1Conv1D.html#ab46979db23e71bcab736bdeba9b2d359">FlexNN::Layers::Conv1D</a>, <a class="el" href="classFlexNN_1_1Layers_1_1Dense.html#a6b57c2ba877b54d0275ed7a2f3158985">FlexNN::Layers::Dense</a></li>
+<li>setGamma()&#160;:&#160;<a class="el" href="classFlexNN_1_1Layers_1_1BatchNorm1D.html#a1e99764230a253bfeed50cbc0ee11498">FlexNN::Layers::BatchNorm1D</a></li>
+<li>setRunningMean()&#160;:&#160;<a class="el" href="classFlexNN_1_1Layers_1_1BatchNorm1D.html#a7aebfef5db536467319b6ee13782bec0">FlexNN::Layers::BatchNorm1D</a></li>
+<li>setRunningVar()&#160;:&#160;<a class="el" href="classFlexNN_1_1Layers_1_1BatchNorm1D.html#a47a6acc322f54878b105500b1765c343">FlexNN::Layers::BatchNorm1D</a></li>
 <li>setWeights()&#160;:&#160;<a class="el" href="classFlexNN_1_1Layers_1_1Conv1D.html#a83e88ddbcf3684992b424b7b217e3d53">FlexNN::Layers::Conv1D</a>, <a class="el" href="classFlexNN_1_1Layers_1_1Dense.html#ad643baf3cdb279fec4689ea4b98b34ba">FlexNN::Layers::Dense</a></li>
-<li>stride&#160;:&#160;<a class="el" href="structFlexNN_1_1Layers_1_1Conv1DParams.html#a791e4dbbbf15e6783253c464fe1e8504">FlexNN::Layers::Conv1DParams</a>, <a class="el" href="structFlexNN_1_1Layers_1_1Pool1DParams.html#a6e8985957fdeb17b3b3029135b851aab">FlexNN::Layers::Pool1DParams</a></li>
+<li>stride&#160;:&#160;<a class="el" href="structFlexNN_1_1LayerHeader.html#a456a382fe1f6de5773a10a14cddffff9">FlexNN::LayerHeader</a>, <a class="el" href="structFlexNN_1_1Layers_1_1Conv1DParams.html#a791e4dbbbf15e6783253c464fe1e8504">FlexNN::Layers::Conv1DParams</a>, <a class="el" href="structFlexNN_1_1Layers_1_1Pool1DParams.html#a6e8985957fdeb17b3b3029135b851aab">FlexNN::Layers::Pool1DParams</a></li>
 </ul>
 
 
 <h3><a id="index_t" name="index_t"></a>- t -</h3><ul>
 <li>train()&#160;:&#160;<a class="el" href="classFlexNN_1_1NeuralNetwork.html#a94d30d8ec8371bdd94961a59df6522a8">FlexNN::NeuralNetwork</a></li>
-<li>type()&#160;:&#160;<a class="el" href="classFlexNN_1_1Layers_1_1Conv1D.html#a2fd4b1dd34d3c23457f6b1defbf7d400">FlexNN::Layers::Conv1D</a>, <a class="el" href="classFlexNN_1_1Layers_1_1Dense.html#a0fcdaccd130d28316cc5c3a88924ca8d">FlexNN::Layers::Dense</a>, <a class="el" href="classFlexNN_1_1Layers_1_1Layer.html#af850697fd51b4b20912b5f6997ec6958">FlexNN::Layers::Layer</a></li>
+<li>type&#160;:&#160;<a class="el" href="structFlexNN_1_1LayerHeader.html#a95f97c079f1c40a66fb5a523aa54e4d3">FlexNN::LayerHeader</a>, <a class="el" href="classFlexNN_1_1Layers_1_1AvgPool1D.html#a9aae22287005a0b4f6b9280bf15e6e77">FlexNN::Layers::AvgPool1D</a>, <a class="el" href="classFlexNN_1_1Layers_1_1BatchNorm1D.html#a2f9a33b2a5b6cdf30b555bf5e399dcdb">FlexNN::Layers::BatchNorm1D</a>, <a class="el" href="classFlexNN_1_1Layers_1_1Conv1D.html#a2fd4b1dd34d3c23457f6b1defbf7d400">FlexNN::Layers::Conv1D</a>, <a class="el" href="classFlexNN_1_1Layers_1_1Dense.html#a0fcdaccd130d28316cc5c3a88924ca8d">FlexNN::Layers::Dense</a>, <a class="el" href="classFlexNN_1_1Layers_1_1Layer.html#af850697fd51b4b20912b5f6997ec6958">FlexNN::Layers::Layer</a>, <a class="el" href="classFlexNN_1_1Layers_1_1MaxPool1D.html#a1433eea6ba75d3074618bf970293b8c8">FlexNN::Layers::MaxPool1D</a></li>
 </ul>
 
 
 <h3><a id="index_u" name="index_u"></a>- u -</h3><ul>
-<li>update()&#160;:&#160;<a class="el" href="classFlexNN_1_1Layers_1_1Conv1D.html#af9b5b0ea0b3b41c9462e07de2559691b">FlexNN::Layers::Conv1D</a>, <a class="el" href="classFlexNN_1_1Layers_1_1Dense.html#a91dc760a8753fd505b4a16cf66c3055a">FlexNN::Layers::Dense</a>, <a class="el" href="classFlexNN_1_1Layers_1_1Layer.html#a61470cca44580999989922e32863d61e">FlexNN::Layers::Layer</a></li>
-<li>updateWeights()&#160;:&#160;<a class="el" href="classFlexNN_1_1Layer.html#a5664082dbfb98de7cb3a1233f3795c11">FlexNN::Layer</a>, <a class="el" href="classFlexNN_1_1Layers_1_1Conv1D.html#a23d4d6b5105fb01821ea51f1ca413dad">FlexNN::Layers::Conv1D</a>, <a class="el" href="classFlexNN_1_1Layers_1_1Layer.html#a97c634594d4a5d1aeec484fd2fc3fb0e">FlexNN::Layers::Layer</a></li>
+<li>update()&#160;:&#160;<a class="el" href="classFlexNN_1_1Layers_1_1AvgPool1D.html#a7673d2aa989b13c6b915e34e110d37ff">FlexNN::Layers::AvgPool1D</a>, <a class="el" href="classFlexNN_1_1Layers_1_1BatchNorm1D.html#aa60eeb0399b849e4cff41ca69b363b23">FlexNN::Layers::BatchNorm1D</a>, <a class="el" href="classFlexNN_1_1Layers_1_1Conv1D.html#af9b5b0ea0b3b41c9462e07de2559691b">FlexNN::Layers::Conv1D</a>, <a class="el" href="classFlexNN_1_1Layers_1_1Dense.html#a91dc760a8753fd505b4a16cf66c3055a">FlexNN::Layers::Dense</a>, <a class="el" href="classFlexNN_1_1Layers_1_1Layer.html#a61470cca44580999989922e32863d61e">FlexNN::Layers::Layer</a>, <a class="el" href="classFlexNN_1_1Layers_1_1MaxPool1D.html#a1641d3709aef210ec705f7438d6bd305">FlexNN::Layers::MaxPool1D</a></li>
+<li>updateWeights()&#160;:&#160;<a class="el" href="classFlexNN_1_1Layer.html#a5664082dbfb98de7cb3a1233f3795c11">FlexNN::Layer</a>, <a class="el" href="classFlexNN_1_1Layers_1_1AvgPool1D.html#a88cca4616f2b02dab1f65de7588d0b1f">FlexNN::Layers::AvgPool1D</a>, <a class="el" href="classFlexNN_1_1Layers_1_1BatchNorm1D.html#a75384058489de03c1d7df9e3a8e268a0">FlexNN::Layers::BatchNorm1D</a>, <a class="el" href="classFlexNN_1_1Layers_1_1Conv1D.html#a23d4d6b5105fb01821ea51f1ca413dad">FlexNN::Layers::Conv1D</a>, <a class="el" href="classFlexNN_1_1Layers_1_1Layer.html#a97c634594d4a5d1aeec484fd2fc3fb0e">FlexNN::Layers::Layer</a>, <a class="el" href="classFlexNN_1_1Layers_1_1MaxPool1D.html#affaea28f62b7a8ee77b16fd8bd31dbd7">FlexNN::Layers::MaxPool1D</a></li>
 </ul>
 
 
 <h3><a id="index_v" name="index_v"></a>- v -</h3><ul>
 <li>variant()&#160;:&#160;<a class="el" href="classFlexNN_1_1Layers_1_1Layer.html#a5380977ff1f9e261f723a04bf7b8253b">FlexNN::Layers::Layer</a></li>
+<li>version&#160;:&#160;<a class="el" href="structFlexNN_1_1MainHeader.html#a78b8bdccf8b9e14c056f3aff3644326d">FlexNN::MainHeader</a></li>
 </ul>
 
 
 <h3><a id="index_w" name="index_w"></a>- w -</h3><ul>
+<li>w_cnt&#160;:&#160;<a class="el" href="structFlexNN_1_1LayerHeader.html#a67cfeb8ba49a0b7dae21f2f924372e2a">FlexNN::LayerHeader</a></li>
+<li>w_off&#160;:&#160;<a class="el" href="structFlexNN_1_1LayerHeader.html#aa360007fc8d27e72c1d9d7c2ce8282e2">FlexNN::LayerHeader</a></li>
 <li>weights()&#160;:&#160;<a class="el" href="classFlexNN_1_1Layers_1_1Conv1D.html#a830e37d6aa79963bac2c860835e2764d">FlexNN::Layers::Conv1D</a>, <a class="el" href="classFlexNN_1_1Layers_1_1Dense.html#abb1742ccc11a22efbe665054eaaefe0e">FlexNN::Layers::Dense</a></li>
 <li>weightsMatrix()&#160;:&#160;<a class="el" href="classFlexNN_1_1Layers_1_1Layer.html#ac16199d0be372c070f2e4c9482b14d92">FlexNN::Layers::Layer</a></li>
 </ul>

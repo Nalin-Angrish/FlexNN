@@ -92,30 +92,62 @@ $(document).ready(function(){initNavTree('Utility_8cpp.html',''); initResizable(
 </div>
 
 <div class="header">
+  <div class="summary">
+<a href="#namespaces">Namespaces</a> &#124;
+<a href="#func-members">Functions</a>  </div>
   <div class="headertitle"><div class="title">Utility.cpp File Reference</div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>Utility functions for <a class="el" href="namespaceFlexNN.html" title="Namespace for the FlexNN neural network library.">FlexNN</a> neural network library.  
+<p>Implements <a class="el" href="namespaceFlexNN.html" title="Namespace for the FlexNN neural network library.">FlexNN</a> utilities with deterministic seeding.  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &lt;Eigen/Dense&gt;</code><br />
+<div class="textblock"><code>#include &quot;<a class="el" href="Utility_8h_source.html">Utility.h</a>&quot;</code><br />
+<code>#include &lt;algorithm&gt;</code><br />
+<code>#include &lt;atomic&gt;</code><br />
+<code>#include &lt;cstdint&gt;</code><br />
+<code>#include &lt;fstream&gt;</code><br />
+<code>#include &lt;numeric&gt;</code><br />
+<code>#include &lt;random&gt;</code><br />
+<code>#include &lt;sstream&gt;</code><br />
 <code>#include &lt;string&gt;</code><br />
 <code>#include &lt;vector&gt;</code><br />
-<code>#include &lt;fstream&gt;</code><br />
-<code>#include &lt;sstream&gt;</code><br />
-<code>#include &lt;random&gt;</code><br />
-<code>#include &lt;algorithm&gt;</code><br />
-<code>#include &quot;<a class="el" href="Utility_8h_source.html">Utility.h</a>&quot;</code><br />
+<code>#include &lt;Eigen/Dense&gt;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for Utility.cpp:</div>
 <div class="dyncontent">
 <div class="center"><img src="Utility_8cpp__incl.png" border="0" usemap="#alib_2Utility_8cpp" alt=""/></div>
 </div>
-</div><a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Utility functions for <a class="el" href="namespaceFlexNN.html" title="Namespace for the FlexNN neural network library.">FlexNN</a> neural network library. </p>
-<p>This file contains utility functions for one-hot encoding, reading CSV files, and splitting datasets into training, validation, and test sets.</p>
-<p>Will add more utility functions as needed.</p>
-<dl class="section author"><dt>Author</dt><dd>Nalin Angrish <a href="#" onclick="location.href='mai'+'lto:'+'nal'+'in'+'@na'+'li'+'nan'+'gr'+'ish'+'.m'+'e'; return false;">nalin<span class="obfuscator">.nosp@m.</span>@nal<span class="obfuscator">.nosp@m.</span>inang<span class="obfuscator">.nosp@m.</span>rish<span class="obfuscator">.nosp@m.</span>.me</a> </dd></dl>
+</div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="namespaces" name="namespaces"></a>
+Namespaces</h2></td></tr>
+<tr class="memitem:namespaceFlexNN" id="r_namespaceFlexNN"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceFlexNN.html">FlexNN</a></td></tr>
+<tr class="memdesc:namespaceFlexNN"><td class="mdescLeft">&#160;</td><td class="mdescRight">Namespace for the <a class="el" href="namespaceFlexNN.html" title="Namespace for the FlexNN neural network library.">FlexNN</a> neural network library. <br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:a75bb83ab69de199da0fff0a1d98e5cfc" id="r_a75bb83ab69de199da0fff0a1d98e5cfc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceFlexNN.html#a75bb83ab69de199da0fff0a1d98e5cfc">FlexNN::setRandomSeed</a> (uint32_t seed)</td></tr>
+<tr class="memdesc:a75bb83ab69de199da0fff0a1d98e5cfc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the global RNG seed for <code>splitXY</code> (deterministic splits).  <br /></td></tr>
+<tr class="separator:a75bb83ab69de199da0fff0a1d98e5cfc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acdb2a7cad525ea49d2f8b0ecee1af456" id="r_acdb2a7cad525ea49d2f8b0ecee1af456"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceFlexNN.html#acdb2a7cad525ea49d2f8b0ecee1af456">FlexNN::getRandomSeed</a> () noexcept</td></tr>
+<tr class="memdesc:acdb2a7cad525ea49d2f8b0ecee1af456"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the current global RNG seed.  <br /></td></tr>
+<tr class="separator:acdb2a7cad525ea49d2f8b0ecee1af456"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a875a6d420ac25e491a6016b0e17b0397" id="r_a875a6d420ac25e491a6016b0e17b0397"><td class="memItemLeft" align="right" valign="top">Eigen::MatrixXd&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceFlexNN.html#a875a6d420ac25e491a6016b0e17b0397">FlexNN::oneHotEncode</a> (const Eigen::VectorXd &amp;Y, int num_classes)</td></tr>
+<tr class="memdesc:a875a6d420ac25e491a6016b0e17b0397"><td class="mdescLeft">&#160;</td><td class="mdescRight">One-hot encodes a vector of class labels.  <br /></td></tr>
+<tr class="separator:a875a6d420ac25e491a6016b0e17b0397"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adde282a64978645bc79db0ee56c28d91" id="r_adde282a64978645bc79db0ee56c28d91"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceFlexNN.html#adde282a64978645bc79db0ee56c28d91">FlexNN::readCSV_XY</a> (const std::string &amp;filename, Eigen::MatrixXd &amp;X, Eigen::VectorXd &amp;Y)</td></tr>
+<tr class="memdesc:adde282a64978645bc79db0ee56c28d91"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads a CSV where first column is label, rest are features.  <br /></td></tr>
+<tr class="separator:adde282a64978645bc79db0ee56c28d91"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a62ced14f183da07af191c6ced74c54e7" id="r_a62ced14f183da07af191c6ced74c54e7"><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::pair&lt; Eigen::MatrixXd, Eigen::VectorXd &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceFlexNN.html#a62ced14f183da07af191c6ced74c54e7">FlexNN::splitXY</a> (const Eigen::MatrixXd &amp;X, const Eigen::VectorXd &amp;Y, const std::vector&lt; double &gt; &amp;proportions)</td></tr>
+<tr class="memdesc:a62ced14f183da07af191c6ced74c54e7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Splits dataset into multiple sets by proportions (uses global seed).  <br /></td></tr>
+<tr class="separator:a62ced14f183da07af191c6ced74c54e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7a00c1b2fd0c54540b0fd550108ce88e" id="r_a7a00c1b2fd0c54540b0fd550108ce88e"><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::pair&lt; Eigen::MatrixXd, Eigen::VectorXd &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceFlexNN.html#a7a00c1b2fd0c54540b0fd550108ce88e">FlexNN::splitXY</a> (const Eigen::MatrixXd &amp;X, const Eigen::VectorXd &amp;Y, const std::vector&lt; double &gt; &amp;proportions, uint32_t seed)</td></tr>
+<tr class="memdesc:a7a00c1b2fd0c54540b0fd550108ce88e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Splits dataset with explicit seed (deterministic, no global state).  <br /></td></tr>
+<tr class="separator:a7a00c1b2fd0c54540b0fd550108ce88e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Implements <a class="el" href="namespaceFlexNN.html" title="Namespace for the FlexNN neural network library.">FlexNN</a> utilities with deterministic seeding. </p>
+<p>Why this file: <code>splitXY</code> was nondeterministic (<code>random_device</code> per call) which broke test hermeticity. Now <code>setRandomSeed</code> + <code>thread_local mt19937</code> makes it deterministic when needed, while keeping the old signature for backward compat (see LLD_FLEXNN §8). </p>
 </div></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

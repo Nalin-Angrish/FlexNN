@@ -5,6 +5,6 @@ var searchData=
   ['dense_2ehpp_2',['Dense.hpp',['../Dense_8hpp.html',1,'']]],
   ['denseparams_3',['DenseParams',['../structFlexNN_1_1Layers_1_1DenseParams.html',1,'FlexNN::Layers']]],
   ['detail_2ehpp_4',['detail.hpp',['../detail_8hpp.html',1,'']]],
-  ['dilation_5',['dilation',['../structFlexNN_1_1Layers_1_1Conv1DParams.html#a89c26650c4e570ca511ea3ea9fa8d314',1,'FlexNN::Layers::Conv1DParams']]],
-  ['dtype_6',['DType',['../namespaceFlexNN_1_1Layers.html#a55536871bafe7c11ff9091b5bc7d989c',1,'FlexNN::Layers']]]
+  ['dilation_5',['dilation',['../structFlexNN_1_1Layers_1_1Conv1DParams.html#a89c26650c4e570ca511ea3ea9fa8d314',1,'FlexNN::Layers::Conv1DParams::dilation'],['../structFlexNN_1_1LayerHeader.html#a408ae7a89b8fccffdc9223d768d9fcea',1,'FlexNN::LayerHeader::dilation']]],
+  ['dtype_6',['dtype',['../structFlexNN_1_1LayerHeader.html#a31968f0150d33904be7cc0b4febf6763',1,'FlexNN::LayerHeader::dtype'],['../namespaceFlexNN_1_1Layers.html#a55536871bafe7c11ff9091b5bc7d989c',1,'FlexNN::Layers::DType']]]
 ];

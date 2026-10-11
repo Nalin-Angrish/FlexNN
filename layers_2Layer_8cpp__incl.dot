@@ -41,5 +41,19 @@ digraph "lib/layers/Layer.cpp"
   Node14 -> Node9 [id="edge21_Node000014_Node000009",color="steelblue1",style="solid",tooltip=" "];
   Node14 -> Node11 [id="edge22_Node000014_Node000011",color="steelblue1",style="solid",tooltip=" "];
   Node14 -> Node13 [id="edge23_Node000014_Node000013",color="steelblue1",style="solid",tooltip=" "];
-  Node2 -> Node13 [id="edge24_Node000002_Node000013",color="steelblue1",style="solid",tooltip=" "];
+  Node2 -> Node15 [id="edge24_Node000002_Node000015",color="steelblue1",style="solid",tooltip=" "];
+  Node15 [id="Node000015",label="BatchNorm1D.hpp",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$BatchNorm1D_8hpp.html",tooltip="BatchNorm1D layer for FlexNN::Layers (training stats, aux export)."];
+  Node15 -> Node7 [id="edge25_Node000015_Node000007",color="steelblue1",style="solid",tooltip=" "];
+  Node15 -> Node8 [id="edge26_Node000015_Node000008",color="steelblue1",style="solid",tooltip=" "];
+  Node15 -> Node9 [id="edge27_Node000015_Node000009",color="steelblue1",style="solid",tooltip=" "];
+  Node15 -> Node11 [id="edge28_Node000015_Node000011",color="steelblue1",style="solid",tooltip=" "];
+  Node2 -> Node16 [id="edge29_Node000002_Node000016",color="steelblue1",style="solid",tooltip=" "];
+  Node16 [id="Node000016",label="Pool1D.hpp",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$Pool1D_8hpp.html",tooltip="Pool1D layers — MaxPool1D and AvgPool1D (weightless)."];
+  Node16 -> Node7 [id="edge30_Node000016_Node000007",color="steelblue1",style="solid",tooltip=" "];
+  Node16 -> Node17 [id="edge31_Node000016_Node000017",color="steelblue1",style="solid",tooltip=" "];
+  Node17 [id="Node000017",label="vector",height=0.2,width=0.4,color="grey60", fillcolor="#E0E0E0", style="filled",tooltip=" "];
+  Node16 -> Node8 [id="edge32_Node000016_Node000008",color="steelblue1",style="solid",tooltip=" "];
+  Node16 -> Node9 [id="edge33_Node000016_Node000009",color="steelblue1",style="solid",tooltip=" "];
+  Node16 -> Node11 [id="edge34_Node000016_Node000011",color="steelblue1",style="solid",tooltip=" "];
+  Node2 -> Node13 [id="edge35_Node000002_Node000013",color="steelblue1",style="solid",tooltip=" "];
 }

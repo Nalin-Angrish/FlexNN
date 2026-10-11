@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['dilation_0',['dilation',['../structFlexNN_1_1Layers_1_1Conv1DParams.html#a89c26650c4e570ca511ea3ea9fa8d314',1,'FlexNN::Layers::Conv1DParams']]]
+  ['b_5fcnt_0',['b_cnt',['../structFlexNN_1_1LayerHeader.html#a2b63b5dcaf3b5fd6f162adaa102ffbe3',1,'FlexNN::LayerHeader']]],
+  ['b_5foff_1',['b_off',['../structFlexNN_1_1LayerHeader.html#a49bd3bc56f61e6efc3f0cee8ddf5e817',1,'FlexNN::LayerHeader']]]
 ];

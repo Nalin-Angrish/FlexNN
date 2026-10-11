@@ -1,15 +1,21 @@
 var searchData=
 [
   ['accuracy_0',['accuracy',['../classFlexNN_1_1NeuralNetwork.html#ac9ae07d0e19dc22b47f7bb8babfec611',1,'FlexNN::NeuralNetwork']]],
-  ['activation_1',['activation',['../classFlexNN_1_1Layers_1_1Conv1D.html#a9930a1b6e98b7720790b949dcbed4fe0',1,'FlexNN::Layers::Conv1D::activation()'],['../classFlexNN_1_1Layers_1_1Dense.html#a23982119eff14ff1aede05c36c45cd83',1,'FlexNN::Layers::Dense::activation()'],['../classFlexNN_1_1Layers_1_1Layer.html#a3dd034b3c77ccac4cb96576a8dfea760',1,'FlexNN::Layers::Layer::activation()'],['../namespaceFlexNN_1_1Activations.html#a4f60b76f06f34f079a603f4f6977638b',1,'FlexNN::Activations::Activation']]],
-  ['activation_2ecpp_2',['Activation.cpp',['../Activation_8cpp.html',1,'']]],
-  ['activation_2ehpp_3',['Activation.hpp',['../Activation_8hpp.html',1,'']]],
-  ['activationparameters_4',['ActivationParameters',['../structFlexNN_1_1Activations_1_1ActivationParameters.html',1,'FlexNN::Activations']]],
-  ['activationparameters_2ehpp_5',['ActivationParameters.hpp',['../ActivationParameters_8hpp.html',1,'']]],
-  ['activationparams_6',['activationparams',['../classFlexNN_1_1Layers_1_1Dense.html#a65e7b3f0fb90c052a3ff53b72b9932fd',1,'FlexNN::Layers::Dense::activationParams()'],['../classFlexNN_1_1Layers_1_1Layer.html#ae5b64833efcaf890d6cae4b997ff7899',1,'FlexNN::Layers::Layer::activationParams()'],['../classFlexNN_1_1Layers_1_1Conv1D.html#a29697a568f13e62f3e887b32e783c79f',1,'FlexNN::Layers::Conv1D::activationParams()']]],
-  ['and_20running_20the_20project_7',['Building and Running the Project',['../index.html#autotoc_md3',1,'']]],
-  ['api_20reference_8',['API Reference',['../index.html#autotoc_md4',1,'']]],
-  ['asconv1d_9',['asconv1d',['../classFlexNN_1_1Layers_1_1Layer.html#a5890fafd32f23251339f78dcfa58b9d3',1,'FlexNN::Layers::Layer::asConv1D() const noexcept'],['../classFlexNN_1_1Layers_1_1Layer.html#ac8977a4bed4fa14d257a163987d94aa0',1,'FlexNN::Layers::Layer::asConv1D() noexcept']]],
-  ['asdense_10',['asdense',['../classFlexNN_1_1Layers_1_1Layer.html#a9a05fbb06a6f6ecf1c891af0aed2cb0c',1,'FlexNN::Layers::Layer::asDense() const noexcept'],['../classFlexNN_1_1Layers_1_1Layer.html#a4d6fc47544f62d8bbe1a14adb065ee9e',1,'FlexNN::Layers::Layer::asDense() noexcept']]],
-  ['avgpool1d_11',['AvgPool1D',['../namespaceFlexNN_1_1Layers.html#a87a775003aba48da48c3abba4c8324b9a726e1fcf1d225079dd4646efe7a8e6db',1,'FlexNN::Layers']]]
+  ['act_1',['act',['../structFlexNN_1_1LayerHeader.html#a51c32b39b8276532db5e4fd35e3c4de5',1,'FlexNN::LayerHeader']]],
+  ['activation_2',['activation',['../classFlexNN_1_1Layers_1_1Dense.html#a23982119eff14ff1aede05c36c45cd83',1,'FlexNN::Layers::Dense::activation()'],['../namespaceFlexNN_1_1Activations.html#a4f60b76f06f34f079a603f4f6977638b',1,'FlexNN::Activations::Activation'],['../classFlexNN_1_1Layers_1_1AvgPool1D.html#aaa0e55705c3d61bd7ec7ca13f9f9d028',1,'FlexNN::Layers::AvgPool1D::activation()'],['../classFlexNN_1_1Layers_1_1MaxPool1D.html#adcd57e0eeeeceb42a41605ca0373cb38',1,'FlexNN::Layers::MaxPool1D::activation()'],['../classFlexNN_1_1Layers_1_1Layer.html#a3dd034b3c77ccac4cb96576a8dfea760',1,'FlexNN::Layers::Layer::activation()'],['../classFlexNN_1_1Layers_1_1Conv1D.html#a9930a1b6e98b7720790b949dcbed4fe0',1,'FlexNN::Layers::Conv1D::activation()'],['../classFlexNN_1_1Layers_1_1BatchNorm1D.html#adffc9af32d46d76d580eb1cdfc1de634',1,'FlexNN::Layers::BatchNorm1D::activation()']]],
+  ['activation_2ecpp_3',['Activation.cpp',['../Activation_8cpp.html',1,'']]],
+  ['activation_2ehpp_4',['Activation.hpp',['../Activation_8hpp.html',1,'']]],
+  ['activationparameters_5',['ActivationParameters',['../structFlexNN_1_1Activations_1_1ActivationParameters.html',1,'FlexNN::Activations']]],
+  ['activationparameters_2ehpp_6',['ActivationParameters.hpp',['../ActivationParameters_8hpp.html',1,'']]],
+  ['activationparams_7',['activationparams',['../classFlexNN_1_1Layers_1_1Conv1D.html#a29697a568f13e62f3e887b32e783c79f',1,'FlexNN::Layers::Conv1D::activationParams()'],['../classFlexNN_1_1Layers_1_1Dense.html#a65e7b3f0fb90c052a3ff53b72b9932fd',1,'FlexNN::Layers::Dense::activationParams()'],['../classFlexNN_1_1Layers_1_1Layer.html#ae5b64833efcaf890d6cae4b997ff7899',1,'FlexNN::Layers::Layer::activationParams()']]],
+  ['and_20running_20the_20project_8',['Building and Running the Project',['../index.html#autotoc_md3',1,'']]],
+  ['api_20reference_9',['API Reference',['../index.html#autotoc_md4',1,'']]],
+  ['asavgpool1d_10',['asavgpool1d',['../classFlexNN_1_1Layers_1_1Layer.html#a8e95e04fc032f8dd6b5bcd7db312e7a4',1,'FlexNN::Layers::Layer::asAvgPool1D() const noexcept'],['../classFlexNN_1_1Layers_1_1Layer.html#aff2b56df15496063b576540b96105400',1,'FlexNN::Layers::Layer::asAvgPool1D() noexcept']]],
+  ['asbatchnorm1d_11',['asbatchnorm1d',['../classFlexNN_1_1Layers_1_1Layer.html#a47a578dc999a90c383c5c079134c92c1',1,'FlexNN::Layers::Layer::asBatchNorm1D() noexcept'],['../classFlexNN_1_1Layers_1_1Layer.html#ac8195940e701beb5cc01f8590b2b0922',1,'FlexNN::Layers::Layer::asBatchNorm1D() const noexcept']]],
+  ['asconv1d_12',['asconv1d',['../classFlexNN_1_1Layers_1_1Layer.html#a5890fafd32f23251339f78dcfa58b9d3',1,'FlexNN::Layers::Layer::asConv1D() const noexcept'],['../classFlexNN_1_1Layers_1_1Layer.html#ac8977a4bed4fa14d257a163987d94aa0',1,'FlexNN::Layers::Layer::asConv1D() noexcept']]],
+  ['asdense_13',['asdense',['../classFlexNN_1_1Layers_1_1Layer.html#a9a05fbb06a6f6ecf1c891af0aed2cb0c',1,'FlexNN::Layers::Layer::asDense() const noexcept'],['../classFlexNN_1_1Layers_1_1Layer.html#a4d6fc47544f62d8bbe1a14adb065ee9e',1,'FlexNN::Layers::Layer::asDense() noexcept']]],
+  ['asmaxpool1d_14',['asmaxpool1d',['../classFlexNN_1_1Layers_1_1Layer.html#a530b7e9c116b029aab99cd9b66a4f2d9',1,'FlexNN::Layers::Layer::asMaxPool1D() const noexcept'],['../classFlexNN_1_1Layers_1_1Layer.html#a58584e87de85847b046b17767b44d85e',1,'FlexNN::Layers::Layer::asMaxPool1D() noexcept']]],
+  ['aux_5fcnt_15',['aux_cnt',['../structFlexNN_1_1LayerHeader.html#ae3621afb142da2f1af8d78aa48ceeb4f',1,'FlexNN::LayerHeader']]],
+  ['aux_5foff_16',['aux_off',['../structFlexNN_1_1LayerHeader.html#a261bfddd193b3c89466df747344b55a1',1,'FlexNN::LayerHeader']]],
+  ['avgpool1d_17',['avgpool1d',['../classFlexNN_1_1Layers_1_1AvgPool1D.html#ad4574f8525ead1c2fe20a7212428b0d7',1,'FlexNN::Layers::AvgPool1D::AvgPool1D()'],['../namespaceFlexNN_1_1Layers.html#a87a775003aba48da48c3abba4c8324b9a726e1fcf1d225079dd4646efe7a8e6db',1,'FlexNN::Layers::AvgPool1D'],['../classFlexNN_1_1Layers_1_1AvgPool1D.html',1,'FlexNN::Layers::AvgPool1D']]]
 ];

@@ -1,7 +1,8 @@
 var searchData=
 [
-  ['kdefaultleakyalpha_0',['kDefaultLeakyAlpha',['../namespaceFlexNN_1_1Activations.html#a057e8d7cf33a5d9c93311eb2d5ccfff6',1,'FlexNN::Activations']]],
-  ['kernelsize_1',['kernelsize',['../structFlexNN_1_1Layers_1_1Conv1DParams.html#a44209708c7a271d18db8b6ad31895db5',1,'FlexNN::Layers::Conv1DParams::kernelSize'],['../structFlexNN_1_1Layers_1_1Pool1DParams.html#af697f00b53caceeeac85b3bd8ffaece6',1,'FlexNN::Layers::Pool1DParams::kernelSize']]],
-  ['kleakyalpha_2',['kLeakyAlpha',['../namespaceFlexNN_1_1Activations_1_1detail.html#a286a4a2464e5d0e033f45bddc1955dc0',1,'FlexNN::Activations::detail']]],
-  ['known_20issues_20limitations_3',['Known Issues / Limitations',['../index.html#autotoc_md5',1,'']]]
+  ['importmodel_0',['importModel',['../namespaceFlexNN.html#ae5888d58fc949b7dda07af64ebb47850',1,'FlexNN']]],
+  ['in_5fdim_1',['in_dim',['../structFlexNN_1_1LayerHeader.html#a43bbdb519f45dfe6d977700ebb9dd7dd',1,'FlexNN::LayerHeader']]],
+  ['inchannels_2',['inChannels',['../structFlexNN_1_1Layers_1_1Conv1DParams.html#aaa076aa447732440376cbe0436d581fe',1,'FlexNN::Layers::Conv1DParams']]],
+  ['inputsize_3',['inputSize',['../structFlexNN_1_1Layers_1_1DenseParams.html#afe031f23e7f3798d8f4bdce90cfc3b4c',1,'FlexNN::Layers::DenseParams']]],
+  ['issues_20limitations_4',['Known Issues / Limitations',['../index.html#autotoc_md5',1,'']]]
 ];

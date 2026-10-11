@@ -1,6 +1,7 @@
 var searchData=
 [
-  ['readcsv_5fxy_0',['readCSV_XY',['../namespaceFlexNN.html#adde282a64978645bc79db0ee56c28d91',1,'FlexNN']]],
-  ['relu_5fbackward_1',['relu_backward',['../namespaceFlexNN_1_1Activations_1_1detail.html#a00ec6653cccd2ef54ca73ce18aba1c75',1,'FlexNN::Activations::detail']]],
-  ['relu_5fforward_2',['relu_forward',['../namespaceFlexNN_1_1Activations_1_1detail.html#a738f492dcaa0191b8cc97872cd443a24',1,'FlexNN::Activations::detail']]]
+  ['ok_0',['Ok',['../structFlexNN_1_1Status.html#a8c8ceb87e7148f5a4a127aa7aa85c3d7',1,'FlexNN::Status']]],
+  ['onehotencode_1',['oneHotEncode',['../namespaceFlexNN.html#a875a6d420ac25e491a6016b0e17b0397',1,'FlexNN']]],
+  ['operator_21_3d_2',['operator!=',['../structFlexNN_1_1Activations_1_1ActivationParameters.html#aee9bc3375a8f14814686dd9261617c54',1,'FlexNN::Activations::ActivationParameters']]],
+  ['operator_3d_3d_3',['operator==',['../structFlexNN_1_1Activations_1_1ActivationParameters.html#a902a23de67184340c70300933ae32a64',1,'FlexNN::Activations::ActivationParameters']]]
 ];

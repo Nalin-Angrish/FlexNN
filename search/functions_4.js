@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['forward_0',['forward',['../classFlexNN_1_1Layer.html#a0837c21dffec4cb2df94a48b5932630b',1,'FlexNN::Layer::forward()'],['../classFlexNN_1_1Layers_1_1Conv1D.html#ad9598d0bf318cdeceffdd5a2f7c0fde4',1,'FlexNN::Layers::Conv1D::forward()'],['../classFlexNN_1_1Layers_1_1Dense.html#ac72137c7d56598c0d3edccc4ea1e60b5',1,'FlexNN::Layers::Dense::forward()'],['../classFlexNN_1_1Layers_1_1Layer.html#aa64c197d720ba01dd0116cf035671960',1,'FlexNN::Layers::Layer::forward()'],['../namespaceFlexNN_1_1Activations_1_1detail.html#a40d521cedbaa87782313a19b9d1fb17d',1,'FlexNN::Activations::detail::forward()']]]
+  ['err_0',['Err',['../structFlexNN_1_1Status.html#a523c5af189dadffa3f3c3e2430b9d128',1,'FlexNN::Status']]],
+  ['exportmodel_1',['exportModel',['../namespaceFlexNN.html#a899c61b2b8be06e3699159dd1794e257',1,'FlexNN']]]
 ];

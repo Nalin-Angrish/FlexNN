@@ -4,5 +4,6 @@ var dir_97aefd0d527b934f1d99a682da8fe6a9 =
     [ "layers", "dir_0fba9a2629bccea8502564cfea74a00b.html", "dir_0fba9a2629bccea8502564cfea74a00b" ],
     [ "FlexNN.cpp", "FlexNN_8cpp.html", null ],
     [ "Layer.cpp", "Layer_8cpp.html", null ],
-    [ "Utility.cpp", "Utility_8cpp.html", null ]
+    [ "ModelIO.cpp", "ModelIO_8cpp.html", "ModelIO_8cpp" ],
+    [ "Utility.cpp", "Utility_8cpp.html", "Utility_8cpp" ]
 ];

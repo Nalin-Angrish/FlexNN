@@ -1,11 +1,14 @@
 var namespaceFlexNN_1_1Layers =
 [
+    [ "AvgPool1D", "classFlexNN_1_1Layers_1_1AvgPool1D.html", "classFlexNN_1_1Layers_1_1AvgPool1D" ],
+    [ "BatchNorm1D", "classFlexNN_1_1Layers_1_1BatchNorm1D.html", "classFlexNN_1_1Layers_1_1BatchNorm1D" ],
     [ "BatchNormParams", "structFlexNN_1_1Layers_1_1BatchNormParams.html", "structFlexNN_1_1Layers_1_1BatchNormParams" ],
     [ "Conv1D", "classFlexNN_1_1Layers_1_1Conv1D.html", "classFlexNN_1_1Layers_1_1Conv1D" ],
     [ "Conv1DParams", "structFlexNN_1_1Layers_1_1Conv1DParams.html", "structFlexNN_1_1Layers_1_1Conv1DParams" ],
     [ "Dense", "classFlexNN_1_1Layers_1_1Dense.html", "classFlexNN_1_1Layers_1_1Dense" ],
     [ "DenseParams", "structFlexNN_1_1Layers_1_1DenseParams.html", "structFlexNN_1_1Layers_1_1DenseParams" ],
     [ "Layer", "classFlexNN_1_1Layers_1_1Layer.html", "classFlexNN_1_1Layers_1_1Layer" ],
+    [ "MaxPool1D", "classFlexNN_1_1Layers_1_1MaxPool1D.html", "classFlexNN_1_1Layers_1_1MaxPool1D" ],
     [ "Pool1DParams", "structFlexNN_1_1Layers_1_1Pool1DParams.html", "structFlexNN_1_1Layers_1_1Pool1DParams" ],
     [ "DType", "namespaceFlexNN_1_1Layers.html#a55536871bafe7c11ff9091b5bc7d989c", [
       [ "F32", "namespaceFlexNN_1_1Layers.html#a55536871bafe7c11ff9091b5bc7d989ca44ad4ef5a76e6aa6fb3e3fa079a54fda", null ]
