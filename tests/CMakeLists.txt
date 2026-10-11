@@ -51,3 +51,8 @@ gtest_discover_tests(conv1d_test)
 add_executable(export_import_test export_import_test.cpp)
 target_link_libraries(export_import_test PRIVATE FlexNN GTest::gtest_main)
 gtest_discover_tests(export_import_test)
+
+# PR-07: BatchNorm1D
+add_executable(batchnorm_test batchnorm_test.cpp)
+target_link_libraries(batchnorm_test PRIVATE FlexNN GTest::gtest_main)
+gtest_discover_tests(batchnorm_test)
