@@ -46,3 +46,8 @@ gtest_discover_tests(layer_variant_test)
 add_executable(conv1d_test conv1d_test.cpp)
 target_link_libraries(conv1d_test PRIVATE FlexNN GTest::gtest_main)
 gtest_discover_tests(conv1d_test)
+
+# PR-06: ModelIO
+add_executable(export_import_test export_import_test.cpp)
+target_link_libraries(export_import_test PRIVATE FlexNN GTest::gtest_main)
+gtest_discover_tests(export_import_test)
